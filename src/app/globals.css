@@ -1,26 +1,115 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0c;
+  --foreground: #ffffff;
+  --accent: #d32f2f;
+  --accent-yellow: #ffea00;
+  --border-color: #ffffff;
+  --card-bg: #121216;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-accent: var(--accent);
+  --color-border: var(--border-color);
+  --color-card: var(--card-bg);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+* { border-radius: 0 !important; }
+::selection { background: var(--accent); color: #fff; }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
+  /* Subtle Halftone Overlay */
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
+  background-size: 20px 20px;
+  overflow-x: hidden;
 }
+
+/* Refined P5R UI Components */
+
+.p5-panel {
+  background: #111115;
+  border: 2px solid #fff;
+  position: relative;
+  clip-path: polygon(0 15px, 15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.p5-panel-red {
+  background: var(--accent);
+  border: 3px solid #000;
+  clip-path: polygon(2% 0%, 100% 5%, 98% 100%, 0% 95%);
+}
+
+.p5-btn {
+  background: #fff;
+  color: #000;
+  font-weight: 900;
+  padding: 10px 24px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 3px solid #000;
+  box-shadow: 4px 4px 0px var(--accent);
+  transform: rotate(-1deg);
+  transition: all 0.2s ease;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.p5-btn:hover {
+  background: var(--accent-yellow);
+  box-shadow: 6px 6px 0px #000;
+  transform: rotate(0deg) scale(1.05);
+}
+
+.p5-label {
+  background: #000;
+  color: #fff;
+  padding: 4px 12px;
+  font-weight: 900;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  display: inline-block;
+  transform: skewX(-15deg);
+  border: 1px solid var(--accent);
+}
+
+.p5-label-yellow {
+  background: var(--accent-yellow);
+  color: #000;
+  padding: 4px 12px;
+  font-weight: 900;
+  transform: skewX(10deg);
+}
+
+/* Section Header Style */
+.p5-section-title {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+}
+
+.p5-section-title::before {
+  content: attr(data-text);
+  position: absolute;
+  left: 6px; top: 6px;
+  color: var(--accent);
+  z-index: -1;
+  opacity: 0.8;
+}
+
+.marquee { display: flex; overflow: hidden; white-space: nowrap; }
+.marquee-content { display: flex; animation: marquee 30s linear infinite; }
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+html { scroll-behavior: smooth; }
