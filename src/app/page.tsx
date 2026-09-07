@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_ITEMS = [
@@ -141,128 +141,153 @@ const EXPERIENCES = [
   },
 ];
 
-function smoothScrollTo(targetY: number, duration = 700) {
+const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+const easeOutQuart = (t: number) => 1 - Math.pow(1 - t, 4);
+
+function smoothScrollTo(targetY: number, duration = 900) {
   const startY = window.scrollY;
   const diff = targetY - startY;
   let start: number | null = null;
   function step(ts: number) {
     if (start === null) start = ts;
     const p = Math.min((ts - start) / duration, 1);
-    window.scrollTo(0, startY + diff * p);
+    window.scrollTo(0, startY + diff * easeOutCubic(p));
     if (p < 1) requestAnimationFrame(step);
   }
   requestAnimationFrame(step);
 }
 
+function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  return (
+    <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}>
+      {children}
+    </motion.div>
+  );
+}
+
+const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.12 } } };
+const staggerPop = {
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } },
+};
+
+function ScrollProgress() {
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    const onScroll = () => {
+      const h = document.documentElement;
+      setProgress((h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100);
+    };
+    window.addEventListener("scroll", onScroll);
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return <div className="fixed top-0 left-0 h-[3px] bg-[var(--red)] z-[80]" style={{ width: `${progress}%`, transition: "width 120ms linear" }} />;
+}
+
 function RegisterHeader() {
   return (
-    <header className="register">
-      <span className="brandmark">DIONISIUS['SURYA_JAYA]</span>
-      <div className="marquee mono">
-        <span>ISSUE 2026</span>
-        <span className="st">VOL. 01 / N° 04</span>
-        <span className="tag">&gt;&gt;&gt; PUBLIC PORTFOLIO</span>
-        <span>COORD 7.9666° S / 112.6326° E (MALANG)</span>
-        <span className="st">BACHELOR INFORMATICS · GPA 3.58</span>
-        <span className="tag">/// SWISS INDUSTRIAL SPECIFICATION</span>
-        <span>UNIVERSITAS BRAWIJAYA</span>
+    <motion.header initial={{ y: -30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }} className="register sticky top-0 z-40">
+      <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="brandmark">DIONISIUS['SURYA_JAYA]</motion.span>
+      <div className="marquee-wrapper flex-1">
+        <div className="marquee-inner mono">
+          {[...Array(2)].map((_, i) => (
+            <span key={i} className="flex gap-7 items-center">
+              <span>ISSUE 2026</span>
+              <span className="st">VOL. 01 / N° 04</span>
+              <span className="tag">&gt;&gt;&gt; PUBLIC PORTFOLIO</span>
+              <span>COORD 7.9666° S / 112.6326° E (MALANG)</span>
+              <span className="st">BACHELOR INFORMATICS · GPA 3.58</span>
+              <span className="tag">/// SWISS INDUSTRIAL SPECIFICATION</span>
+              <span>UNIVERSITAS BRAWIJAYA</span>
+            </span>
+          ))}
+        </div>
       </div>
-      <nav className="flex gap-4">
-        {NAV_ITEMS.map((item) => (
-          <a
+      <motion.nav initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="flex gap-4">
+        {NAV_ITEMS.map((item, i) => (
+          <motion.a
             key={item.href}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15 + i * 0.08 }}
             href={item.href}
             onClick={(e) => {
               e.preventDefault();
               const el = document.querySelector(item.href) as HTMLElement | null;
-              if (el) smoothScrollTo(el.offsetTop, 700);
+              if (el) smoothScrollTo(el.offsetTop - 80, 900);
             }}
             className="link mono"
           >
             [{item.label}]
-          </a>
+          </motion.a>
         ))}
-      </nav>
-    </header>
+      </motion.nav>
+    </motion.header>
   );
 }
 
 function Hero() {
+  const tick = { hidden: { opacity: 0, x: -8 }, show: { opacity: 1, x: 0, transition: { duration: 0.4 } } };
   return (
     <section className="hero">
-      <div className="wrap hero-grid">
-        <div>
-          <div className="kicker mono">
-            <span className="tick"></span>
+      <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-40px" }} className="wrap hero-grid">
+        <motion.div>
+          <motion.div variants={staggerPop} className="kicker mono">
+            <motion.span variants={tick} className="tick"></motion.span>
             <span>SYSTEM REGISTER /// FULLSTACK &amp; MACHINE LEARNING ENGINEER</span>
-          </div>
-          <h1 className="display hero-num">
+          </motion.div>
+          <motion.h1 variants={staggerPop} className="display hero-num">
             DIONISIUS<span className="sup">®</span>
-          </h1>
-          <div className="display" style={{ color: "var(--red)" }}>
+          </motion.h1>
+          <motion.div variants={staggerPop} className="display" style={{ color: "var(--red)" }}>
             SURYA JAYA
-          </div>
-          <div className="display">ENGINEER</div>
-          <p style={{ maxWidth: "60ch", marginTop: "32px", fontSize: "18px", lineHeight: 1.6 }}>
+          </motion.div>
+          <motion.div variants={staggerPop} className="display">ENGINEER</motion.div>
+          <motion.p variants={staggerPop} style={{ maxWidth: "60ch", marginTop: "32px", fontSize: "18px", lineHeight: 1.6 }}>
             /// Computer Science undergraduate at <strong>Universitas Brawijaya</strong> (2022—2026) with a <strong>3.58 / 4.00 GPA</strong>. Specialized in production full-stack Web engineering, data analytics, and machine learning pipelines.
-          </p>
-          <div className="flex gap-4 flex-wrap mt-8">
-            <a
-              href="#projects"
-              onClick={(e) => {
-                e.preventDefault();
-                const el = document.querySelector("#projects") as HTMLElement | null;
-                if (el) smoothScrollTo(el.offsetTop, 700);
-              }}
-              className="btn"
-            >
+          </motion.p>
+          <motion.div variants={staggerPop} className="flex gap-4 flex-wrap mt-8">
+            <motion.a whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} href="#projects" onClick={(e) => { e.preventDefault(); const el = document.querySelector("#projects") as HTMLElement | null; if (el) smoothScrollTo(el.offsetTop - 80, 900); }} className="btn">
               VIEW PROJECTS [ 07 ]
-            </a>
-            <a
-              href="#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                const el = document.querySelector("#contact") as HTMLElement | null;
-                if (el) smoothScrollTo(el.offsetTop, 700);
-              }}
-              className="btn-outline"
-            >
+            </motion.a>
+            <motion.a whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} href="#contact" onClick={(e) => { e.preventDefault(); const el = document.querySelector("#contact") as HTMLElement | null; if (el) smoothScrollTo(el.offsetTop - 80, 900); }} className="btn-outline">
               GET IN TOUCH
-            </a>
-          </div>
-        </div>
+            </motion.a>
+          </motion.div>
+        </motion.div>
 
-        <div className="hero-meta mono">
-          <div className="meta-row">
+        <motion.div variants={staggerPop} className="hero-meta mono">
+          <motion.div variants={staggerPop} className="meta-row">
             <span className="lbl">INSTITUTION</span>
             <span className="val">UNIV. BRAWIJAYA</span>
-          </div>
-          <div className="meta-row">
+          </motion.div>
+          <motion.div variants={staggerPop} className="meta-row">
             <span className="lbl">MAJOR</span>
             <span className="val">TEKNIK INFORMATIKA</span>
-          </div>
-          <div className="meta-row">
-            <span className="lbl">CUMULATIVE GPA</span>
+          </motion.div>
+          <motion.div variants={staggerPop} className="meta-row">
+            <span className="lbl">CUM. GPA</span>
             <span className="val" style={{ color: "var(--red)" }}>3.58 / 4.00</span>
-          </div>
-          <div className="meta-row">
+          </motion.div>
+          <motion.div variants={staggerPop} className="meta-row">
             <span className="lbl">LOCATION</span>
-            <span className="val">MALANG, INDONESIA</span>
-          </div>
-          <div className="meta-row">
-            <span className="lbl">CERTIFICATIONS</span>
+            <span className="val">MALANG, ID</span>
+          </motion.div>
+          <motion.div variants={staggerPop} className="meta-row">
+            <span className="lbl">CERTS</span>
             <span className="val">10 DICODING SPECS</span>
-          </div>
-          <div className="meta-row">
-            <span className="lbl">PRIMARY STACK</span>
+          </motion.div>
+          <motion.div variants={staggerPop} className="meta-row">
+            <span className="lbl">STACK</span>
             <span className="val">REACT / PYTHON / LARAVEL</span>
-          </div>
-          <div className="meta-row">
+          </motion.div>
+          <motion.div variants={staggerPop} className="meta-row">
             <span className="lbl">AVAILABILITY</span>
             <span className="val" style={{ color: "var(--red)" }}>&gt;&gt;&gt; OPEN FOR ROLES</span>
-          </div>
-        </div>
-      </div>
+          </motion.div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
@@ -271,85 +296,58 @@ function DataCluster() {
   return (
     <section>
       <div className="wrap">
-        <div className="kicker mono">
-          <span className="tick"></span>
-          <span>[ DATA CLUSTER ] /// PERFORMANCE METRICS</span>
-        </div>
-        <div className="divider-module">
-          <div className="cell">
-            <span className="idx mono">01</span>
-            <span className="amt">3.58</span>
-            <span className="sub">CUMULATIVE GPA<br />ACADEMIC RIGOR</span>
+        <Reveal>
+          <div className="kicker mono">
+            <span className="tick"></span>
+            <span>[ DATA CLUSTER ] /// PERFORMANCE METRICS</span>
           </div>
-          <div className="cell">
-            <span className="idx mono">02</span>
-            <span className="amt">10</span>
-            <span className="sub">DICODING SPECS<br />VERIFIED CREDENTIALS</span>
-          </div>
-          <div className="cell">
-            <span className="idx mono">03</span>
-            <span className="amt">07</span>
-            <span className="sub">SHIPPED SYSTEMS<br />ML, GIS &amp; WEB APPS</span>
-          </div>
-          <div className="cell">
-            <span className="idx mono">04</span>
-            <span className="amt">2026</span>
-            <span className="sub">BACHELOR DEGREE<br />COMPUTER SCIENCE</span>
-          </div>
-        </div>
+        </Reveal>
+        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }} className="divider-module">
+          {[
+            { idx: "01", amt: "3.58", sub: ["CUMULATIVE GPA", "ACADEMIC RIGOR"] },
+            { idx: "02", amt: "10", sub: ["DICODING SPECS", "VERIFIED CREDENTIALS"] },
+            { idx: "03", amt: "07", sub: ["SHIPPED SYSTEMS", "ML, GIS & WEB APPS"] },
+            { idx: "04", amt: "2026", sub: ["BACHELOR DEGREE", "COMPUTER SCIENCE"] },
+          ].map((c) => (
+            <motion.div key={c.idx} variants={staggerPop} whileHover={{ y: -3 }} className="cell">
+              <span className="idx mono">{c.idx}</span>
+              <span className="amt">{c.amt}</span>
+              <span className="sub">{c.sub[0]}<br />{c.sub[1]}</span>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
 }
 
 function About() {
+  const theses = [
+    { num: "01.", title: "Computer Science Rigor", p: "Undergraduate in Teknik Informatika (Computer Science) at Universitas Brawijaya (2022—2026) maintaining a 3.58 GPA. Dedicated to algorithms, data structures, software architecture, and computational efficiency." },
+    { num: "02.", title: "End-to-End Machine Learning", p: "Engineered clinical risk stratification for Medeva PROLANIS BPJS combining Logistic Regression NLP for Hypertension with K-Means K=4 for Diabetes Mellitus. Stateless inference pipelines with automated data-drift checks." },
+    { num: "03.", title: "Geospatial & Fullstack Engineering", p: "Developed Web GIS portals using ArcGIS, QGIS, and Leaflet.js during MMD FILKOM UB 2024 at Ngasem. Full-stack: React/Next.js frontend, Node.js + Laravel backend, Docker deployments." },
+    { num: "04.", title: "Continuous Advancement", p: "Completed Web Developer Cohort at Coding Camp powered by DBS Foundation (2025) plus 10 professional Dicoding certifications spanning JavaScript, Front-End, Back-End, and Git workflows." },
+  ];
   return (
     <section id="about">
       <div className="wrap">
-        <div className="kicker mono">
-          <span className="tick"></span>
-          <span>[ MANIFEST ] &gt;&gt;&gt; BIOGRAPHY &amp; ENGINEERING THESES</span>
-        </div>
-
-        <article className="thesis">
-          <div className="thesis-head">
-            <span className="thesis-num">01.</span>
-            <h3>Computer Science Rigor</h3>
+        <Reveal>
+          <div className="kicker mono">
+            <span className="tick"></span>
+            <span>[ MANIFEST ] &gt;&gt;&gt; BIOGRAPHY &amp; ENGINEERING THESES</span>
           </div>
-          <p>
-            Undergraduate student in <strong>Teknik Informatika (Computer Science)</strong> at <strong>Universitas Brawijaya</strong> (2022—2026) maintaining a <strong>3.58 GPA</strong>. Dedicated to algorithms, data structures, software architecture, and computational efficiency.
-          </p>
-        </article>
-
-        <article className="thesis">
-          <div className="thesis-head">
-            <span className="thesis-num">02.</span>
-            <h3>End-to-End Machine Learning</h3>
-          </div>
-          <p>
-            Engineered clinical risk stratification systems for Medeva PROLANIS BPJS combining Logistic Regression NLP for Hypertension feature injection with K-Means clustering (K=4) for Diabetes Mellitus. Delivered stateless inference pipelines with automated data-drift checks.
-          </p>
-        </article>
-
-        <article className="thesis">
-          <div className="thesis-head">
-            <span className="thesis-num">03.</span>
-            <h3>Geospatial &amp; Fullstack Engineering</h3>
-          </div>
-          <p>
-            Developed Web GIS spatial portals using ArcGIS, QGIS, and Leaflet.js during MMD FILKOM UB 2024 at Ngasem Village. Proficient across the full stack: React/Next.js frontend dashboards, Node.js and Laravel backends, and containerized Docker deployments.
-          </p>
-        </article>
-
-        <article className="thesis">
-          <div className="thesis-head">
-            <span className="thesis-num">04.</span>
-            <h3>Continuous Professional Advancement</h3>
-          </div>
-          <p>
-            Completed Web Developer Cohort at Coding Camp powered by DBS Foundation (2025) alongside 10 professional Dicoding certifications spanning JavaScript, Front-End, Back-End, and Git workflows.
-          </p>
-        </article>
+        </Reveal>
+        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+          {theses.map((t) => (
+            <motion.article key={t.num} variants={staggerPop} className="thesis">
+              <div className="thesis-head">
+                <span className="thesis-num">{t.num}</span>
+                <h3>{t.title}</h3>
+              </div>
+              <p>{t.p}</p>
+            </motion.article>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
@@ -359,25 +357,25 @@ function Skills() {
   return (
     <section id="skills">
       <div className="wrap">
-        <div className="kicker mono">
-          <span className="tick"></span>
-          <span>[ TYPOGRAPHIC SPECIMEN ] &gt;&gt;&gt; TECH STACK &amp; TOOLING SPECIFICATION</span>
-        </div>
-        <div className="spec-grid">
+        <Reveal>
+          <div className="kicker mono">
+            <span className="tick"></span>
+            <span>[ TYPOGRAPHIC SPECIMEN ] &gt;&gt;&gt; TECH STACK &amp; TOOLING</span>
+          </div>
+        </Reveal>
+        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }} className="spec-grid">
           {Object.entries(SKILLS).map(([key, cat]) => (
-            <div key={key} className="spec">
+            <motion.div key={key} variants={staggerPop} whileHover={{ y: -4 }} className="spec">
               <span className="scale-1">{cat.title}</span>
               <div className="flex flex-wrap gap-2 my-4">
                 {cat.items.map((item) => (
-                  <span key={item} className="mono" style={{ background: "var(--ink)", color: "var(--paper)", padding: "4px 8px" }}>
-                    {item}
-                  </span>
+                  <span key={item} className="mono" style={{ background: "var(--ink)", color: "var(--paper)", padding: "4px 8px" }}>{item}</span>
                 ))}
               </div>
               <div className="mono meta">MODULE ID: {key} /// VERIFIED</div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -609,6 +607,7 @@ function Footer() {
 export default function Home() {
   return (
     <>
+      <ScrollProgress />
       <RegisterHeader />
       <main>
         <Hero />
@@ -617,7 +616,7 @@ export default function Home() {
         <Skills />
         <Projects />
         <Experience />
-        <AsciiSchematic />
+        <Reveal><AsciiSchematic /></Reveal>
         <ContactColophon />
       </main>
       <Footer />
