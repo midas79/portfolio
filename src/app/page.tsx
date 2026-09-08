@@ -350,9 +350,9 @@ export default function SteamProfile() {
       {/* Main Steam Profile Container */}
       <main
         style={{
-          width: "950px",
+          width: "min(960px, calc(100% - 32px))",
           margin: "0 auto",
-          paddingTop: "24px",
+          paddingTop: "32px",
           paddingBottom: "60px",
           position: "relative",
         }}
@@ -362,12 +362,12 @@ export default function SteamProfile() {
           style={{
             background: "rgba(23, 26, 33, 0.88)",
             backdropFilter: "blur(12px)",
-            borderRadius: "4px",
-            padding: "24px",
+            borderRadius: "6px",
+            padding: "28px",
             display: "flex",
-            gap: "24px",
+            gap: "32px",
             alignItems: "flex-start",
-            marginBottom: "16px",
+            marginBottom: "20px",
             border: "1px solid rgba(255, 255, 255, 0.08)",
             boxShadow: "0 8px 30px rgba(0,0,0,0.5)",
           }}
@@ -407,14 +407,15 @@ export default function SteamProfile() {
           </div>
 
           {/* Profile Main Information */}
-          <div style={{ flexGrow: 1 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "4px" }}>
+          <div style={{ flexGrow: 1, minWidth: 0 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px", flexWrap: "wrap" }}>
               <h1
                 style={{
                   fontSize: "26px",
                   color: "#ffffff",
-                  fontWeight: 300,
-                  letterSpacing: "0.5px",
+                  fontWeight: 400,
+                  letterSpacing: "0.3px",
+                  lineHeight: 1.2,
                 }}
               >
                 {PROFILE.name}
@@ -424,8 +425,9 @@ export default function SteamProfile() {
                   fontSize: "11px",
                   color: "#66c0f4",
                   background: "rgba(102, 192, 244, 0.15)",
-                  padding: "2px 6px",
+                  padding: "3px 8px",
                   borderRadius: "2px",
+                  fontWeight: 500,
                 }}
               >
                 /{PROFILE.alias}
@@ -437,40 +439,55 @@ export default function SteamProfile() {
               style={{
                 color: "#90ba3c",
                 fontSize: "12px",
-                fontWeight: 600,
+                fontWeight: 500,
                 display: "flex",
                 alignItems: "center",
-                gap: "6px",
-                marginBottom: "8px",
+                gap: "8px",
+                marginBottom: "10px",
+                lineHeight: 1.4,
               }}
             >
               <span
                 style={{
-                  width: "7px",
-                  height: "7px",
+                  width: "8px",
+                  height: "8px",
                   borderRadius: "50%",
                   backgroundColor: "#90ba3c",
                   display: "inline-block",
+                  flexShrink: 0,
+                  boxShadow: "0 0 6px #90ba3c",
                 }}
               ></span>
-              {PROFILE.headline}
+              <span>{PROFILE.headline}</span>
             </div>
 
-            <div style={{ color: "#8f98a0", fontSize: "12px", marginBottom: "10px" }}>
-              📍 {PROFILE.location} &nbsp;•&nbsp; 🎓 Universitas Brawijaya (Informatics) &nbsp;•&nbsp; GPA 3.58 / 4.00
+            <div style={{ color: "#8f98a0", fontSize: "12px", marginBottom: "16px", lineHeight: 1.6 }}>
+              <div>📍 {PROFILE.location}</div>
+              <div>🎓 Universitas Brawijaya (Informatics) — GPA 3.58 / 4.00</div>
             </div>
 
-            <p
+            <div
               style={{
-                color: "#acb2b8",
-                fontSize: "13px",
-                marginBottom: "14px",
-                maxWidth: "500px",
-                lineHeight: "1.5",
+                background: "rgba(0, 0, 0, 0.35)",
+                border: "1px solid rgba(255, 255, 255, 0.04)",
+                borderLeft: "3px solid #66c0f4",
+                borderRadius: "3px",
+                padding: "12px 16px",
+                marginBottom: "16px",
               }}
             >
-              {PROFILE.summary}
-            </p>
+              <p
+                style={{
+                  color: "#c6d4df",
+                  fontSize: "13px",
+                  lineHeight: 1.65,
+                  margin: 0,
+                  letterSpacing: "0.01em",
+                }}
+              >
+                {PROFILE.summary}
+              </p>
+            </div>
 
             {/* Specialization Tags */}
             <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
@@ -479,11 +496,12 @@ export default function SteamProfile() {
                   key={sk}
                   style={{
                     fontSize: "11px",
-                    background: "rgba(0, 0, 0, 0.4)",
-                    color: "#66c0f4",
-                    padding: "3px 8px",
+                    background: "rgba(102, 192, 244, 0.12)",
+                    color: "#a8d8f8",
+                    padding: "4px 10px",
                     borderRadius: "2px",
-                    border: "1px solid rgba(102, 192, 244, 0.25)",
+                    border: "1px solid rgba(102, 192, 244, 0.3)",
+                    fontWeight: 500,
                   }}
                 >
                   {sk}
