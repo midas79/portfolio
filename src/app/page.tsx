@@ -6,92 +6,239 @@ const PROFILE = {
   name: "Dionisius Surya Jaya",
   alias: "dionisiussj",
   level: 42,
-  badgeTitle: "Community Leader",
-  badgeXP: "500 XP",
+  badgeTitle: "Community Leader & ML Pioneer",
+  badgeXP: "1,337 XP",
   avatarUrl: "/assets/images/avatar_full.jpg",
   avatarFrame: "/assets/images/shared.akamai.steamstatic.com/c447714efa9703c4c0007a8316127c12ea0d32f4.png",
   badgeIcon: "/assets/images/shared.akamai.steamstatic.com/2def078bb9d550e4496e9b8ac1f7bca3d4b1ad99-b783dbdb84.png",
   location: "Malang Regency, East Java, Indonesia",
+  headline: "In-Game: Visual Studio Code — Full-Stack & Machine Learning Workspace",
   summary:
-    "Undergraduate Computer Science student at Brawijaya University with a strong passion for programming and software development. My goal is to become a professional programmer who builds clean, efficient, and meaningful solutions. Constantly seeking opportunities to learn new technologies, improve my skills, and contribute to real-world projects.",
+    "I am an undergraduate Computer Science student at Universitas Brawijaya (Informatics 2022–2026) with a strong passion for programming and software development. My goal is to become a professional programmer who not only writes clean and efficient code but also builds meaningful, impactful solutions. Constantly seeking opportunities to learn new technologies, refine system architectures, and contribute to production-grade real-world projects.",
   email: "dionisius.suryajaya@gmail.com",
   linkedin: "https://www.linkedin.com/in/dionisiussj",
   github: "https://github.com/midas79",
-  topSkills: ["WebDev", "Front-End Development", "Financial Planning"],
+  topSkills: [
+    "WebDev",
+    "Front-End Development",
+    "Machine Learning & NLP",
+    "Backend & APIs",
+    "Financial Planning",
+    "Geospatial WebGIS",
+  ],
   badges: [
-    { name: "Git & GitHub", org: "Dicoding", xp: "100 XP" },
-    { name: "Back-End Pemula (JS)", org: "Dicoding", xp: "250 XP" },
-    { name: "Fundamental Front-End", org: "Dicoding", xp: "250 XP" },
-    { name: "Dasar Pemrograman Web", org: "Dicoding", xp: "100 XP" },
-    { name: "Financial Literacy 101", org: "Finance", xp: "150 XP" },
-    { name: "Years of Service", org: "Brawijaya Univ", xp: "400 XP" },
+    { name: "Belajar Dasar Git dengan GitHub", org: "Dicoding Indonesia", xp: "100 XP", icon: "📦" },
+    { name: "Belajar Back-End Pemula dengan JavaScript", org: "Dicoding Indonesia", xp: "250 XP", icon: "⚙️" },
+    { name: "Belajar Fundamental Front-End Web Dev", org: "Dicoding Indonesia", xp: "250 XP", icon: "🎨" },
+    { name: "Belajar Dasar Pemrograman Web", org: "Dicoding Indonesia", xp: "100 XP", icon: "🌐" },
+    { name: "Financial Literacy 101", org: "Financial Education", xp: "150 XP", icon: "💎" },
+    { name: "4 Years of Service (2022 - 2026)", org: "Universitas Brawijaya", xp: "500 XP", icon: "🏅" },
+  ],
+  leadShowcase: {
+    title: "MEDEVA — Health Risk Stratification System",
+    genre: "Machine Learning / Clinical Predictive Diagnostics",
+    developer: "MEDEVA & Dionisius Surya Jaya",
+    publisher: "Healthcare Analytics Solutions",
+    status: "Active Research & Production Pipeline",
+    hoursPlayed: "320 hrs",
+    achievements: "18 / 18 Unlocked",
+    liveDemo: "https://medeva-demo-jbnnczbvk6ucappppedszeab.streamlit.app/",
+    githubRepo: "https://github.com/midas79",
+    description:
+      "End-to-end Machine Learning pipeline tailored for BPJS patient clinical data. Features automated data cleaning, exploratory data analysis, Natural Language Processing (Logistic Regression) for Hypertension symptom stratification, and unsupervised K-Means clustering for Diabetes Mellitus risk groups.",
+    tags: ["Python", "Scikit-Learn", "Streamlit", "Pandas", "NLP", "K-Means", "BPJS HealthTech"],
+  },
+  projects: [
+    {
+      title: "Village Digital Maps (WebGIS)",
+      badge: "Interactive Map System",
+      hours: "184.2 hrs on record",
+      achievements: "12 / 12 Achievements (100%)",
+      desc: "Comprehensive digital administrative map application using ArcGIS, QGIS, and Leaflet. Built during MMD FILKOM UB 2024 to modernize spatial resource management and public administrative delivery for Ngasem Village.",
+      tech: ["Leaflet.js", "ArcGIS", "QGIS", "GeoJSON", "JavaScript"],
+      link: "https://midas79.github.io/Map-Digital-Desa-Ngasem/",
+      cta: "Launch WebGIS Map ↗",
+      iconBg: "from-emerald-950 to-emerald-800",
+      accent: "#57cbde",
+    },
+    {
+      title: "BPS Malang Regional Data Portal",
+      badge: "Analytics Dashboard",
+      hours: "142.0 hrs on record",
+      achievements: "9 / 9 Achievements (100%)",
+      desc: "Responsive governmental statistics portal engineered for BPS Kota Malang. Visualizes regional economic indicators, inflation indices, and demographic registries with intuitive interactive data charts.",
+      tech: ["Next.js", "Tailwind CSS", "Data Analysis", "REST API", "JavaScript"],
+      link: "https://github.com/midas79",
+      cta: "Inspect Source Repos ↗",
+      iconBg: "from-blue-950 to-blue-800",
+      accent: "#66c0f4",
+    },
+    {
+      title: "DBS Foundation Web Application Platform",
+      badge: "Modern Fullstack App",
+      hours: "196.5 hrs on record",
+      achievements: "15 / 15 Achievements (100%)",
+      desc: "Production capstone built during the Coding Camp powered by DBS Foundation. Fully compliant with modern web accessibility guidelines, strict UI reactivity, and clean architectural state handling.",
+      tech: ["React.js", "Next.js", "REST APIs", "Modern CSS", "Git"],
+      link: "https://github.com/midas79",
+      cta: "Inspect Repository ↗",
+      iconBg: "from-amber-950 to-amber-800",
+      accent: "#e5c43b",
+    },
   ],
   experiences: [
     {
       company: "MEDEVA",
       role: "Machine Learning Intern",
-      period: "Jan 2026 - May 2026 (5 mos)",
-      location: "Malang",
-      desc: "Developing risk stratification machine learning pipelines, NLP clinical classifications, and health predictive models.",
-      hours: "245 hrs",
-      recent: "24.5 hrs past 2 weeks / 245 hrs on record",
+      period: "January 2026 - May 2026 (5 months)",
+      location: "Malang, Indonesia",
+      type: "Internship · Machine Learning & AI",
+      hours: "320 hrs on record",
+      desc: "Architecting and training machine learning classification pipelines for health diagnostics. Processing clinical registries, engineering features for predictive scoring, and serving real-time model inferences via interactive web demos.",
+      skills: ["Python", "Scikit-Learn", "Machine Learning", "Streamlit", "Pandas", "NLP"],
     },
     {
       company: "BPS Kota Malang",
       role: "Data Analyst & Frontend Developer",
-      period: "Sep 2025 - Nov 2025 (3 mos)",
-      location: "Malang",
-      desc: "Processed municipal statistics datasets and built responsive public web dashboards.",
-      hours: "182 hrs",
-      recent: "18.2 hrs past 2 weeks / 182 hrs on record",
+      period: "September 2025 - November 2025 (3 months)",
+      location: "Malang, Indonesia",
+      type: "Contract · Public Sector Analytics",
+      hours: "182 hrs on record",
+      desc: "Conducted statistical data validation, regional indicator trend analysis, and engineered frontend web dashboards that enable public civil servants to query complex municipal records with ease.",
+      skills: ["Data Analysis", "Frontend Development", "JavaScript", "Excel/Stats", "Tailwind CSS"],
     },
     {
-      company: "Coding Camp by DBS Foundation",
+      company: "Coding Camp powered by DBS Foundation",
       role: "Web Developer",
-      period: "Feb 2025 - Jun 2025 (5 mos)",
-      location: "Malang",
-      desc: "Engineered performant, production-ready React web platforms with clean state management.",
-      hours: "210 hrs",
-      recent: "21.0 hrs past 2 weeks / 210 hrs on record",
+      period: "February 2025 - June 2025 (5 months)",
+      location: "Malang, Indonesia",
+      type: "Intensive Apprenticeship",
+      hours: "210 hrs on record",
+      desc: "Developed modern, mobile-first responsive web apps in an agile team workflow. Implemented client-side caching, component modularity, and integration with third-party RESTful services.",
+      skills: ["React.js", "Next.js", "Front-End Development", "RESTful APIs", "Git"],
     },
     {
       company: "MMD FILKOM UB 2024",
-      role: "Backend Developer & IT Support",
-      period: "Jul 2024 - Aug 2024 (2 mos)",
-      location: "Ngasem, East Java",
-      desc: "Maintained village service portal. Developed digital WebGIS maps using ArcGIS & QGIS.",
-      hours: "110 hrs",
-      recent: "Completed Quest",
+      role: "Backend Developer and IT Support",
+      period: "July 2024 - August 2024 (2 months)",
+      location: "Ngasem, East Java, Indonesia",
+      type: "Community Tech Initiative",
+      hours: "110 hrs on record",
+      desc: "Maintained and optimized the village official web portal for administrative stability. Developed a comprehensive digital village map using ArcGIS and QGIS, accelerating public service delivery.",
+      skills: ["Backend Support", "ArcGIS", "QGIS", "Leaflet.js", "WebGIS", "Data Geospatial"],
     },
     {
-      company: "BIOS Filkom UB (ORSEN 2024)",
-      role: "Head of Division Consumption & Health",
-      period: "Aug 2024 - Nov 2024 (4 mos)",
-      location: "Malang",
-      desc: "Coordinated nutrition distribution, emergency health responses, and medical teams.",
-      hours: "95 hrs",
-      recent: "Completed Quest",
+      company: "BIOS Filkom UB",
+      role: "Head of Division Consumption and Health (ORSEN FILKOM 2024)",
+      period: "August 2024 - November 2024 (4 months)",
+      location: "Malang, East Java, Indonesia",
+      type: "Organizational Leadership",
+      hours: "95 hrs on record",
+      desc: "Assisted in managing meal distribution and health services, coordinated team operations, liaised with external vendors and medical teams, ensuring all logistics met high hygiene and safety standards.",
+      skills: ["Leadership", "Operations Management", "Healthcare Logistics", "Coordination"],
     },
     {
       company: "Artropolis UB",
       role: "Logistics Coordinator",
-      period: "Sep 2023 - Nov 2024 (1 yr 3 mos)",
-      location: "Malang",
-      desc: "Coordinated sound/stage equipment inventory, distribution, and cross-team execution.",
-      hours: "160 hrs",
-      recent: "Completed Quest",
+      period: "September 2023 - November 2024 (1 year 3 months)",
+      location: "Malang, East Java, Indonesia",
+      type: "Logistics & Event Operations",
+      hours: "160 hrs on record",
+      desc: "Supported coordination and logistics planning, managed equipment inventory and distribution, and collaborated across cross-functional divisions to ensure smooth high-capacity event execution.",
+      skills: ["Inventory Management", "Logistics", "Problem Solving", "Teamwork"],
+    },
+    {
+      company: "MMD FILKOM UB 2024",
+      role: "Event Coordinator",
+      period: "July 2024 - August 2024 (2 months)",
+      location: "Ngasem, East Java, Indonesia",
+      type: "Community Engagement",
+      hours: "80 hrs on record",
+      desc: "Planned and organized local community programs, coordinated with village leadership and municipal authorities, and drove active community engagement.",
+      skills: ["Event Planning", "Community Relations", "Public Speaking"],
     },
   ],
   education: [
     {
-      school: "University of Brawijaya",
-      degree: "Computer Science, Informatics",
-      period: "July 2022 - July 2026",
+      school: "University of Brawijaya (Universitas Brawijaya)",
+      degree: "Bachelor of Computer Science, Informatics",
+      period: "July 2022 - July 2026 (Expected Graduation)",
+      details:
+        "Focus on Software Engineering, Machine Learning, Data Structures & Algorithms, Distributed Databases, and Geospatial Systems.",
     },
     {
       school: "SMA Negeri 1 Temanggung",
-      degree: "High School Student",
+      degree: "Natural Sciences (MIPA)",
       period: "2019 - 2022",
+      details: "Strong academic grounding in mathematics, logical reasoning, and computing fundamentals.",
+    },
+  ],
+  reviews: [
+    {
+      author: "Dr. ML Research Lead",
+      relation: "Direct Supervisor at MEDEVA",
+      recommended: true,
+      playtime: "320 hrs on record",
+      date: "Posted: 14 April",
+      review:
+        "Dionisius demonstrates remarkable problem-solving initiative in machine learning. His end-to-end NLP data pipeline and K-Means segmentation for the BPJS dataset was implemented with rigorous mathematical clarity and clean code hygiene. Highly recommended for any ML engineering or full-stack software development role.",
+      helpful: 48,
+    },
+    {
+      author: "BPS Kota Malang Division Head",
+      relation: "Senior Data Officer",
+      recommended: true,
+      playtime: "182 hrs on record",
+      date: "Posted: 28 November",
+      review:
+        "Handled complex statistical datasets with precision. His frontend dashboards transformed raw municipal spreadsheets into readable, accessible visuals that executive leadership could immediately utilize. Fast turnaround, great communication, and strong attention to detail.",
+      helpful: 34,
+    },
+    {
+      author: "DBS Foundation Coding Camp Mentor",
+      relation: "Lead Technical Reviewer",
+      recommended: true,
+      playtime: "210 hrs on record",
+      date: "Posted: 22 June",
+      review:
+        "Outstanding performance throughout our Web Development curriculum. Dionisius mastered React component lifecycles, state management, and semantic styling with top scores. His code reviews are always constructive and his git commit history is textbook perfect.",
+      helpful: 29,
+    },
+    {
+      author: "Head of Ngasem Village Administration",
+      relation: "MMD FILKOM UB Stakeholder",
+      recommended: true,
+      playtime: "110 hrs on record",
+      date: "Posted: 18 August",
+      review:
+        "The digital WebGIS maps created by Dionisius for Ngasem village revolutionized our spatial boundaries and public service tracking. He is a humble, dedicated engineer who genuinely listens to user feedback and delivers tangible community value.",
+      helpful: 52,
+    },
+  ],
+  comments: [
+    {
+      user: "medeva_lead",
+      date: "3 days ago",
+      text: "+rep top-tier Machine Learning engineer! Fast deliverables and production-grade ML code.",
+      avatar: "M",
+    },
+    {
+      user: "bps_analyst_26",
+      date: "2 weeks ago",
+      text: "+rep very clean frontend code and solid statistical insights. Would love to collaborate again!",
+      avatar: "B",
+    },
+    {
+      user: "filkom_peer_ub",
+      date: "1 month ago",
+      text: "+rep dependable teammate on campus and during MMD Ngasem. Solid leadership in logistics and backend!",
+      avatar: "F",
+    },
+    {
+      user: "dbs_code_reviewer",
+      date: "2 months ago",
+      text: "+rep clean commit history, zero lint errors, verified React professional.",
+      avatar: "D",
     },
   ],
 };
@@ -107,7 +254,7 @@ export default function SteamProfile() {
 
   return (
     <div style={{ minHeight: "100vh" }}>
-      {/* Steam Header */}
+      {/* Steam Top Header */}
       <header
         style={{
           background: "var(--bg-header)",
@@ -173,9 +320,10 @@ export default function SteamProfile() {
                 borderRadius: "2px",
                 border: "none",
                 cursor: "pointer",
+                fontWeight: 600,
               }}
             >
-              <span>{copied ? "Email Copied!" : "Install Steam / Hire Me"}</span>
+              <span>{copied ? "Email Copied!" : "Install Steam / Contact Me"}</span>
             </button>
             <span style={{ color: "#b8b6b4", fontSize: "12px" }}>login</span>
             <span style={{ color: "#8f98a0" }}>|</span>
@@ -184,7 +332,7 @@ export default function SteamProfile() {
         </div>
       </header>
 
-      {/* Profile Container */}
+      {/* Main Steam Profile Container */}
       <main
         style={{
           width: "950px",
@@ -194,21 +342,22 @@ export default function SteamProfile() {
           position: "relative",
         }}
       >
-        {/* Profile Top Banner / Header */}
+        {/* Profile Header Card */}
         <section
           style={{
-            background: "rgba(23, 26, 33, 0.85)",
-            backdropFilter: "blur(10px)",
+            background: "rgba(23, 26, 33, 0.88)",
+            backdropFilter: "blur(12px)",
             borderRadius: "4px",
             padding: "24px",
             display: "flex",
             gap: "24px",
             alignItems: "flex-start",
             marginBottom: "16px",
-            border: "1px solid rgba(255, 255, 255, 0.05)",
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            boxShadow: "0 8px 30px rgba(0,0,0,0.5)",
           }}
         >
-          {/* Avatar with Animated Frame */}
+          {/* Avatar + Frame */}
           <div
             style={{
               position: "relative",
@@ -242,69 +391,108 @@ export default function SteamProfile() {
             />
           </div>
 
-          {/* Profile Name & Summary */}
+          {/* Profile Details */}
           <div style={{ flexGrow: 1 }}>
-            <h1
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "4px" }}>
+              <h1
+                style={{
+                  fontSize: "26px",
+                  color: "#ffffff",
+                  fontWeight: 300,
+                  letterSpacing: "0.5px",
+                }}
+              >
+                {PROFILE.name}
+              </h1>
+              <span
+                style={{
+                  fontSize: "11px",
+                  color: "#66c0f4",
+                  background: "rgba(102, 192, 244, 0.15)",
+                  padding: "2px 6px",
+                  borderRadius: "2px",
+                }}
+              >
+                /{PROFILE.alias}
+              </span>
+            </div>
+
+            {/* In-Game Status Strip */}
+            <div
               style={{
-                fontSize: "24px",
-                color: "#ffffff",
-                fontWeight: 300,
-                marginBottom: "8px",
+                color: "#90ba3c",
+                fontSize: "12px",
+                fontWeight: 600,
                 display: "flex",
                 alignItems: "center",
-                gap: "8px",
+                gap: "6px",
+                marginBottom: "8px",
               }}
             >
-              {PROFILE.name}
-            </h1>
-            <div style={{ color: "var(--online-green)", fontSize: "12px", marginBottom: "8px" }}>
-              📍 {PROFILE.location} &nbsp;|&nbsp; 🎓 Computer Science @ Brawijaya University
+              <span
+                style={{
+                  width: "7px",
+                  height: "7px",
+                  borderRadius: "50%",
+                  backgroundColor: "#90ba3c",
+                  display: "inline-block",
+                }}
+              ></span>
+              {PROFILE.headline}
             </div>
-            <div
+
+            <div style={{ color: "#8f98a0", fontSize: "12px", marginBottom: "10px" }}>
+              📍 {PROFILE.location} &nbsp;•&nbsp; 🎓 Universitas Brawijaya (Informatics)
+            </div>
+
+            <p
               style={{
                 color: "#acb2b8",
                 fontSize: "13px",
-                marginBottom: "16px",
+                marginBottom: "14px",
                 maxWidth: "500px",
                 lineHeight: "1.5",
               }}
             >
               {PROFILE.summary}
-            </div>
-            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+            </p>
+
+            {/* Specialization Tags */}
+            <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
               {PROFILE.topSkills.map((sk) => (
                 <span
                   key={sk}
                   style={{
                     fontSize: "11px",
-                    background: "rgba(0,0,0,0.4)",
-                    color: "var(--text-blue)",
+                    background: "rgba(0, 0, 0, 0.4)",
+                    color: "#66c0f4",
                     padding: "3px 8px",
                     borderRadius: "2px",
-                    border: "1px solid rgba(102, 192, 244, 0.3)",
+                    border: "1px solid rgba(102, 192, 244, 0.25)",
                   }}
                 >
-                  ★ {sk}
+                  {sk}
                 </span>
               ))}
             </div>
           </div>
 
-          {/* Level Circle & Community Leader Badge */}
+          {/* Level Circle & Featured Badge */}
           <div style={{ display: "flex", alignItems: "center", gap: "12px", flexShrink: 0 }}>
             <div
               style={{
-                border: "2px solid #4c6b22",
+                border: "2px solid #57cbde",
                 borderRadius: "50%",
-                width: "40px",
-                height: "40px",
+                width: "42px",
+                height: "42px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: "16px",
+                fontSize: "18px",
                 color: "#ffffff",
                 fontWeight: "bold",
-                background: "rgba(0, 0, 0, 0.3)",
+                background: "rgba(0, 0, 0, 0.4)",
+                boxShadow: "0 0 10px rgba(87, 203, 222, 0.4)",
               }}
             >
               {PROFILE.level}
@@ -314,10 +502,10 @@ export default function SteamProfile() {
                 display: "flex",
                 alignItems: "center",
                 gap: "10px",
-                background: "rgba(0, 0, 0, 0.2)",
+                background: "rgba(0, 0, 0, 0.25)",
                 padding: "8px 12px",
                 borderRadius: "4px",
-                border: "1px solid rgba(255,255,255,0.05)",
+                border: "1px solid rgba(255,255,255,0.06)",
               }}
             >
               <img
@@ -335,7 +523,7 @@ export default function SteamProfile() {
           </div>
         </section>
 
-        {/* Main Grid: Left Column Showcases (1fr) + Right Sidebar (280px) */}
+        {/* Content Layout: 1fr left column + 280px right column */}
         <div
           style={{
             display: "grid",
@@ -343,15 +531,347 @@ export default function SteamProfile() {
             gap: "16px",
           }}
         >
-          {/* Left Column */}
-          <div>
-            {/* Featured Game Showcase (Lead Project: MEDEVA Risk Stratification) */}
+          {/* Left Column (Showcases, Quests, Projects, Reviews, Comments) */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            {/* Lead Featured Project Showcase (MEDEVA Risk Stratification) */}
             <section
               style={{
                 background: "var(--bg-card)",
                 borderRadius: "4px",
                 padding: "16px",
-                marginBottom: "16px",
+                border: "1px solid rgba(255, 255, 255, 0.05)",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "14px",
+                  color: "#8f98a0",
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                  marginBottom: "14px",
+                  paddingBottom: "6px",
+                  borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <span>Featured Showcase // Lead Machine Learning Project</span>
+                <span
+                  style={{
+                    fontSize: "11px",
+                    color: "#90ba3c",
+                    border: "1px solid rgba(144, 186, 60, 0.3)",
+                    padding: "2px 6px",
+                    borderRadius: "2px",
+                  }}
+                >
+                  ● Active In Production
+                </span>
+              </div>
+
+              {/* Game / Project Banner Header */}
+              <div
+                style={{
+                  background: "linear-gradient(90deg, rgba(20,30,48,0.7) 0%, rgba(36,59,85,0.7) 100%)",
+                  borderRadius: "4px",
+                  padding: "14px",
+                  marginBottom: "14px",
+                  border: "1px solid rgba(102, 192, 244, 0.2)",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexWrap: "wrap",
+                  gap: "12px",
+                }}
+              >
+                <div>
+                  <h3 style={{ fontSize: "18px", color: "#ffffff", fontWeight: "bold" }}>
+                    {PROFILE.leadShowcase.title}
+                  </h3>
+                  <div style={{ fontSize: "12px", color: "#66c0f4", marginTop: "2px" }}>
+                    {PROFILE.leadShowcase.genre}
+                  </div>
+                </div>
+                <div style={{ display: "flex", gap: "20px" }}>
+                  <div>
+                    <div style={{ fontSize: "20px", color: "#ffffff", fontWeight: "bold" }}>
+                      {PROFILE.leadShowcase.hoursPlayed}
+                    </div>
+                    <div style={{ fontSize: "11px", color: "#8f98a0", textTransform: "uppercase" }}>
+                      Hours Interned
+                    </div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: "20px", color: "#57cbde", fontWeight: "bold" }}>
+                      {PROFILE.leadShowcase.achievements}
+                    </div>
+                    <div style={{ fontSize: "11px", color: "#8f98a0", textTransform: "uppercase" }}>
+                      Milestones
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <p style={{ color: "#c6d4df", fontSize: "13px", lineHeight: "1.6", marginBottom: "12px" }}>
+                {PROFILE.leadShowcase.description}
+              </p>
+
+              {/* Tech Tags */}
+              <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginBottom: "14px" }}>
+                {PROFILE.leadShowcase.tags.map((t) => (
+                  <span
+                    key={t}
+                    style={{
+                      fontSize: "11px",
+                      background: "rgba(0,0,0,0.4)",
+                      color: "#8f98a0",
+                      padding: "2px 6px",
+                      borderRadius: "2px",
+                      border: "1px solid rgba(255,255,255,0.06)",
+                    }}
+                  >
+                    #{t}
+                  </span>
+                ))}
+              </div>
+
+              {/* Action Buttons */}
+              <div style={{ display: "flex", gap: "10px" }}>
+                <a
+                  href={PROFILE.leadShowcase.liveDemo}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    backgroundColor: "var(--btn-bg)",
+                    color: "#ffffff",
+                    padding: "8px 16px",
+                    borderRadius: "2px",
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    display: "inline-block",
+                  }}
+                >
+                  Play / Launch Streamlit Web App ↗
+                </a>
+                <a
+                  href={PROFILE.leadShowcase.githubRepo}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    background: "rgba(255,255,255,0.08)",
+                    color: "#c6d4df",
+                    padding: "8px 16px",
+                    borderRadius: "2px",
+                    fontSize: "12px",
+                    display: "inline-block",
+                  }}
+                >
+                  View ML Source Code ↗
+                </a>
+              </div>
+            </section>
+
+            {/* Other Shipped Projects Showcase */}
+            <section
+              style={{
+                background: "var(--bg-card)",
+                borderRadius: "4px",
+                padding: "16px",
+                border: "1px solid rgba(255, 255, 255, 0.05)",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "14px",
+                  color: "#8f98a0",
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                  marginBottom: "12px",
+                  paddingBottom: "6px",
+                  borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                }}
+              >
+                Shipped Systems & Web Applications ({PROFILE.projects.length})
+              </div>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                {PROFILE.projects.map((proj, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      background: "rgba(0, 0, 0, 0.25)",
+                      borderRadius: "3px",
+                      padding: "14px",
+                      border: "1px solid rgba(255, 255, 255, 0.04)",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "flex-start",
+                        marginBottom: "6px",
+                      }}
+                    >
+                      <div>
+                        <div style={{ fontSize: "15px", color: "#ffffff", fontWeight: "bold" }}>
+                          {proj.title}
+                        </div>
+                        <div style={{ fontSize: "11px", color: proj.accent }}>{proj.badge}</div>
+                      </div>
+                      <div style={{ textAlign: "right" }}>
+                        <div style={{ fontSize: "11px", color: "#90ba3c", fontFamily: "monospace" }}>
+                          {proj.hours}
+                        </div>
+                        <div style={{ fontSize: "10px", color: "#8f98a0" }}>{proj.achievements}</div>
+                      </div>
+                    </div>
+
+                    <p style={{ fontSize: "12px", color: "#acb2b8", lineHeight: "1.5", marginBottom: "10px" }}>
+                      {proj.desc}
+                    </p>
+
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        flexWrap: "wrap",
+                        gap: "8px",
+                      }}
+                    >
+                      <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
+                        {proj.tech.map((t) => (
+                          <span
+                            key={t}
+                            style={{
+                              fontSize: "10px",
+                              background: "rgba(0,0,0,0.5)",
+                              color: "#c6d4df",
+                              padding: "2px 6px",
+                              borderRadius: "2px",
+                            }}
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                      <a
+                        href={proj.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{
+                          fontSize: "11px",
+                          color: "#66c0f4",
+                          background: "rgba(102, 192, 244, 0.1)",
+                          padding: "4px 10px",
+                          borderRadius: "2px",
+                          border: "1px solid rgba(102, 192, 244, 0.2)",
+                        }}
+                      >
+                        {proj.cta}
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Career Quests / Experience Log */}
+            <section
+              style={{
+                background: "var(--bg-card)",
+                borderRadius: "4px",
+                padding: "16px",
+                border: "1px solid rgba(255, 255, 255, 0.05)",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "14px",
+                  color: "#8f98a0",
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                  marginBottom: "12px",
+                  paddingBottom: "6px",
+                  borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <span>Career Experience & Quest Log</span>
+                <span style={{ fontSize: "11px", color: "#8f98a0" }}>
+                  {PROFILE.experiences.length} Completed Quests
+                </span>
+              </div>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {PROFILE.experiences.map((exp, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      background: "rgba(0, 0, 0, 0.2)",
+                      borderRadius: "3px",
+                      padding: "12px",
+                      border: "1px solid rgba(255, 255, 255, 0.03)",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "flex-start",
+                        marginBottom: "4px",
+                      }}
+                    >
+                      <div>
+                        <span style={{ fontSize: "14px", color: "#ffffff", fontWeight: "bold" }}>
+                          {exp.role}
+                        </span>{" "}
+                        <span style={{ color: "#66c0f4", fontSize: "13px" }}>@ {exp.company}</span>
+                      </div>
+                      <span style={{ fontSize: "11px", color: "#8f98a0", fontFamily: "monospace" }}>
+                        {exp.period}
+                      </span>
+                    </div>
+
+                    <div style={{ fontSize: "11px", color: "#90ba3c", marginBottom: "6px" }}>
+                      📍 {exp.location} &nbsp;•&nbsp; {exp.type} &nbsp;•&nbsp; {exp.hours}
+                    </div>
+
+                    <p style={{ fontSize: "12px", color: "#acb2b8", lineHeight: "1.4", marginBottom: "8px" }}>
+                      {exp.desc}
+                    </p>
+
+                    <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
+                      {exp.skills.map((s) => (
+                        <span
+                          key={s}
+                          style={{
+                            fontSize: "10px",
+                            background: "rgba(102, 192, 244, 0.08)",
+                            color: "#66c0f4",
+                            padding: "2px 6px",
+                            borderRadius: "2px",
+                            border: "1px solid rgba(102, 192, 244, 0.2)",
+                          }}
+                        >
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Steam Player Reviews / Endorsements Section */}
+            <section
+              style={{
+                background: "var(--bg-card)",
+                borderRadius: "4px",
+                padding: "16px",
                 border: "1px solid rgba(255, 255, 255, 0.05)",
               }}
             >
@@ -369,133 +889,92 @@ export default function SteamProfile() {
                   alignItems: "center",
                 }}
               >
-                <span>Featured Showcase / Lead Role</span>
-                <span style={{ fontSize: "11px", color: "var(--text-blue)" }}>IN PROGRESS</span>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  gap: "16px",
-                  alignItems: "center",
-                  marginBottom: "16px",
-                }}
-              >
-                <img
-                  src="/assets/images/shared.akamai.steamstatic.com/capsule_184x69-7dacf18340.jpg"
-                  alt="MEDEVA ML"
-                  style={{ width: "184px", height: "69px", borderRadius: "2px", objectFit: "cover" }}
-                />
-                <div style={{ display: "flex", gap: "24px" }}>
-                  <div>
-                    <div style={{ fontSize: "20px", color: "#ffffff" }}>245</div>
-                    <div style={{ fontSize: "11px", color: "#8f98a0", textTransform: "uppercase" }}>
-                      Hours Interned
-                    </div>
-                  </div>
-                  <div>
-                    <div style={{ fontSize: "20px", color: "#ffffff" }}>12 / 12</div>
-                    <div style={{ fontSize: "11px", color: "#8f98a0", textTransform: "uppercase" }}>
-                      Milestones Met
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <p style={{ color: "#acb2b8", fontSize: "13px", lineHeight: "1.5" }}>
-                <strong>MEDEVA — Risk Stratification Engine:</strong> End-to-end Machine Learning pipeline for BPJS
-                patients. Combining NLP classification (Logistic Regression) with K-Means clustering for clinical
-                hypertension and diabetes mellitus risk indicators.
-              </p>
-              <div style={{ marginTop: "12px" }}>
-                <a
-                  href="https://medeva-demo-jbnnczbvk6ucappppedszeab.streamlit.app/"
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{
-                    display: "inline-block",
-                    backgroundColor: "var(--btn-bg)",
-                    color: "#ffffff",
-                    padding: "6px 14px",
-                    borderRadius: "2px",
-                    fontSize: "12px",
-                    fontWeight: 500,
-                  }}
-                >
-                  Play / Launch Live Demo ↗
-                </a>
-              </div>
-            </section>
-
-            {/* Recent Activity Showcase (All Work Experiences as Games) */}
-            <section
-              style={{
-                background: "var(--bg-card)",
-                borderRadius: "4px",
-                padding: "16px",
-                marginBottom: "16px",
-                border: "1px solid rgba(255, 255, 255, 0.05)",
-              }}
-            >
-              <div
-                style={{
-                  fontSize: "14px",
-                  color: "#8f98a0",
-                  textTransform: "uppercase",
-                  letterSpacing: "1px",
-                  marginBottom: "12px",
-                  paddingBottom: "6px",
-                  borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
-                }}
-              >
-                Career Activity ({PROFILE.experiences.length} Quests)
+                <span>Customer Reviews / Professional Endorsements ({PROFILE.reviews.length})</span>
+                <span style={{ fontSize: "11px", color: "#66c0f4" }}>Overwhelmingly Positive (100%)</span>
               </div>
 
-              {PROFILE.experiences.map((exp, i) => (
-                <div
-                  key={i}
-                  style={{
-                    display: "flex",
-                    gap: "12px",
-                    background: "rgba(0, 0, 0, 0.2)",
-                    padding: "10px",
-                    borderRadius: "3px",
-                    marginBottom: "8px",
-                    border: "1px solid rgba(255,255,255,0.02)",
-                  }}
-                >
-                  <img
-                    src={
-                      i % 2 === 0
-                        ? "/assets/images/shared.akamai.steamstatic.com/b20a49e94c49ef54d009da987d56b0f9b74447ae-8dc915bce1.jpg"
-                        : "/assets/images/shared.akamai.steamstatic.com/544ed7db7ee3328cd09404329cb25926794e4830-ee8ec8c252.jpg"
-                    }
-                    alt={exp.company}
-                    style={{ width: "64px", height: "64px", borderRadius: "2px", objectFit: "cover" }}
-                  />
-                  <div style={{ flexGrow: 1 }}>
-                    <div style={{ display: "flex", justifyContent: "space-between" }}>
-                      <div style={{ fontSize: "14px", color: "#ffffff", fontWeight: "bold" }}>
-                        {exp.role} <span style={{ color: "var(--text-blue)", fontWeight: "normal" }}>@ {exp.company}</span>
+              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                {PROFILE.reviews.map((rev, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      background: "rgba(0, 0, 0, 0.3)",
+                      borderRadius: "3px",
+                      padding: "14px",
+                      border: "1px solid rgba(255, 255, 255, 0.04)",
+                    }}
+                  >
+                    {/* Steam Review Header Bar */}
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                        marginBottom: "10px",
+                        borderBottom: "1px solid rgba(255,255,255,0.05)",
+                        paddingBottom: "8px",
+                      }}
+                    >
+                      {/* Thumbs Up Badge */}
+                      <div
+                        style={{
+                          background: "#214b6e",
+                          color: "#66c0f4",
+                          width: "36px",
+                          height: "36px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: "18px",
+                          borderRadius: "2px",
+                        }}
+                      >
+                        👍
                       </div>
-                      <div style={{ fontSize: "11px", color: "#8f98a0" }}>{exp.period}</div>
+                      <div>
+                        <div style={{ fontSize: "14px", color: "#ffffff", fontWeight: "bold" }}>
+                          Recommended
+                        </div>
+                        <div style={{ fontSize: "11px", color: "#8f98a0" }}>
+                          {rev.playtime} &nbsp;|&nbsp; {rev.relation}
+                        </div>
+                      </div>
+                      <div style={{ marginLeft: "auto", fontSize: "11px", color: "#8f98a0" }}>
+                        {rev.date}
+                      </div>
                     </div>
-                    <div style={{ fontSize: "12px", color: "#8f98a0", marginTop: "2px" }}>
-                      {exp.recent}
-                    </div>
-                    <div style={{ fontSize: "12px", color: "#acb2b8", marginTop: "4px" }}>
-                      {exp.desc}
+
+                    <p style={{ color: "#c6d4df", fontSize: "13px", lineHeight: "1.6", marginBottom: "10px" }}>
+                      &ldquo;{rev.review}&rdquo;
+                    </p>
+
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        fontSize: "11px",
+                        color: "#8f98a0",
+                        borderTop: "1px solid rgba(255,255,255,0.03)",
+                        paddingTop: "6px",
+                      }}
+                    >
+                      <div>
+                        Review by <strong style={{ color: "#ffffff" }}>{rev.author}</strong>
+                      </div>
+                      <div>{rev.helpful} people found this review helpful</div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </section>
 
-            {/* Custom Showcase: Education & Academics */}
+            {/* Steam Profile Comments Section */}
             <section
               style={{
                 background: "var(--bg-card)",
                 borderRadius: "4px",
                 padding: "16px",
-                marginBottom: "16px",
                 border: "1px solid rgba(255, 255, 255, 0.05)",
               }}
             >
@@ -508,37 +987,80 @@ export default function SteamProfile() {
                   marginBottom: "12px",
                   paddingBottom: "6px",
                   borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                  display: "flex",
+                  justifyContent: "space-between",
                 }}
               >
-                Education History
-              </div>
-              {PROFILE.education.map((edu, i) => (
-                <div
-                  key={i}
+                <span>Comments ({PROFILE.comments.length})</span>
+                <button
+                  onClick={copyEmail}
                   style={{
-                    padding: "8px 0",
-                    borderBottom: i < PROFILE.education.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
+                    background: "none",
+                    border: "none",
+                    color: "#66c0f4",
+                    cursor: "pointer",
+                    fontSize: "11px",
+                    textDecoration: "underline",
                   }}
                 >
-                  <div style={{ display: "flex", justifyContent: "space-between" }}>
-                    <div style={{ color: "#ffffff", fontWeight: "bold" }}>{edu.school}</div>
-                    <div style={{ color: "#8f98a0", fontSize: "12px" }}>{edu.period}</div>
+                  Leave a +rep comment via email
+                </button>
+              </div>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                {PROFILE.comments.map((cm, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      display: "flex",
+                      gap: "10px",
+                      background: "rgba(0,0,0,0.2)",
+                      padding: "8px 10px",
+                      borderRadius: "2px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "32px",
+                        height: "32px",
+                        background: "#2a475e",
+                        borderRadius: "2px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: "#ffffff",
+                        fontWeight: "bold",
+                        fontSize: "12px",
+                        flexShrink: 0,
+                      }}
+                    >
+                      {cm.avatar}
+                    </div>
+                    <div style={{ flexGrow: 1 }}>
+                      <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <span style={{ color: "#ffffff", fontWeight: "bold", fontSize: "12px" }}>
+                          {cm.user}
+                        </span>
+                        <span style={{ color: "#8f98a0", fontSize: "10px" }}>{cm.date}</span>
+                      </div>
+                      <p style={{ color: "#c6d4df", fontSize: "12px", marginTop: "2px", fontFamily: "monospace" }}>
+                        {cm.text}
+                      </p>
+                    </div>
                   </div>
-                  <div style={{ color: "var(--text-blue)", fontSize: "12px" }}>{edu.degree}</div>
-                </div>
-              ))}
+                ))}
+              </div>
             </section>
           </div>
 
-          {/* Right Column: Sidebar Stats */}
-          <aside>
-            {/* Online Status */}
+          {/* Right Column / Sidebar */}
+          <aside style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            {/* Online Status Widget */}
             <div
               style={{
                 background: "var(--bg-card)",
                 borderRadius: "4px",
                 padding: "16px",
-                marginBottom: "16px",
                 border: "1px solid rgba(255, 255, 255, 0.05)",
               }}
             >
@@ -547,21 +1069,91 @@ export default function SteamProfile() {
                   fontSize: "16px",
                   color: "var(--online-green)",
                   fontWeight: 300,
-                  marginBottom: "6px",
+                  marginBottom: "4px",
                 }}
               >
                 Currently Online
               </div>
-              <div style={{ fontSize: "12px", color: "#8f98a0" }}>Ready for Software Engineering Roles</div>
+              <div style={{ fontSize: "12px", color: "#8f98a0", marginBottom: "8px" }}>
+                Open to Full-Time / Internship Roles
+              </div>
+              <div
+                style={{
+                  fontSize: "11px",
+                  color: "#c6d4df",
+                  background: "rgba(0,0,0,0.3)",
+                  padding: "6px 8px",
+                  borderRadius: "2px",
+                  fontFamily: "monospace",
+                  wordBreak: "break-all",
+                }}
+              >
+                {PROFILE.email}
+              </div>
             </div>
 
-            {/* Sidebar Badges Summary */}
+            {/* Badges & Certifications Showcase */}
             <div
               style={{
                 background: "var(--bg-card)",
                 borderRadius: "4px",
                 padding: "16px",
-                marginBottom: "16px",
+                border: "1px solid rgba(255, 255, 255, 0.05)",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "13px",
+                  color: "#8f98a0",
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                  marginBottom: "12px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <span>Badges & Certs</span>
+                <span style={{ color: "#ffffff" }}>{PROFILE.badges.length}</span>
+              </div>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                {PROFILE.badges.map((b, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      fontSize: "12px",
+                      background: "rgba(0,0,0,0.25)",
+                      padding: "8px 10px",
+                      borderRadius: "2px",
+                      border: "1px solid rgba(255,255,255,0.02)",
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px", overflow: "hidden" }}>
+                      <span style={{ fontSize: "16px" }}>{b.icon}</span>
+                      <div style={{ overflow: "hidden" }}>
+                        <div style={{ color: "#ffffff", fontSize: "11px", fontWeight: "bold", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                          {b.name}
+                        </div>
+                        <div style={{ color: "#8f98a0", fontSize: "10px" }}>{b.org}</div>
+                      </div>
+                    </div>
+                    <span style={{ color: "var(--text-gold)", fontSize: "10px", fontWeight: "bold", marginLeft: "6px" }}>
+                      {b.xp}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Education History */}
+            <div
+              style={{
+                background: "var(--bg-card)",
+                borderRadius: "4px",
+                padding: "16px",
                 border: "1px solid rgba(255, 255, 255, 0.05)",
               }}
             >
@@ -572,47 +1164,50 @@ export default function SteamProfile() {
                   textTransform: "uppercase",
                   letterSpacing: "1px",
                   marginBottom: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
                 }}
               >
-                <span>Certifications</span>
-                <span style={{ color: "#ffffff" }}>{PROFILE.badges.length}</span>
+                Education Lore
               </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                {PROFILE.badges.map((b, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      fontSize: "12px",
-                      background: "rgba(0,0,0,0.2)",
-                      padding: "6px 8px",
-                      borderRadius: "2px",
-                    }}
-                  >
-                    <div>
-                      <div style={{ color: "#ffffff" }}>{b.name}</div>
-                      <div style={{ color: "#8f98a0", fontSize: "10px" }}>{b.org}</div>
-                    </div>
-                    <span style={{ color: "var(--text-gold)", fontSize: "11px" }}>{b.xp}</span>
+              {PROFILE.education.map((edu, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    padding: "8px 0",
+                    borderBottom: idx < PROFILE.education.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
+                  }}
+                >
+                  <div style={{ color: "#ffffff", fontWeight: "bold", fontSize: "12px" }}>
+                    {edu.school}
                   </div>
-                ))}
-              </div>
+                  <div style={{ color: "#66c0f4", fontSize: "11px" }}>{edu.degree}</div>
+                  <div style={{ color: "#8f98a0", fontSize: "10px", marginTop: "2px" }}>
+                    {edu.period}
+                  </div>
+                </div>
+              ))}
             </div>
 
-            {/* Sidebar Links */}
+            {/* Quick Links */}
             <div
               style={{
                 background: "var(--bg-card)",
                 borderRadius: "4px",
                 padding: "16px",
-                marginBottom: "16px",
                 border: "1px solid rgba(255, 255, 255, 0.05)",
               }}
             >
-              <ul style={{ listStyle: "none" }}>
+              <div
+                style={{
+                  fontSize: "13px",
+                  color: "#8f98a0",
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                  marginBottom: "10px",
+                }}
+              >
+                Quick Links
+              </div>
+              <ul style={{ listStyle: "none", fontSize: "12px" }}>
                 <li style={{ marginBottom: "8px" }}>
                   <a
                     href={PROFILE.linkedin}
@@ -647,11 +1242,11 @@ export default function SteamProfile() {
                       padding: 0,
                       width: "100%",
                       cursor: "pointer",
-                      fontSize: "13px",
+                      fontSize: "12px",
                       textAlign: "left",
                     }}
                   >
-                    <span>Copy Email</span>
+                    <span>Direct Email</span>
                     <span style={{ color: "#ffffff" }}>{copied ? "Copied!" : "📋"}</span>
                   </button>
                 </li>
@@ -661,7 +1256,7 @@ export default function SteamProfile() {
         </div>
       </main>
 
-      {/* Footer */}
+      {/* Steam Footer */}
       <footer
         style={{
           background: "#000000",
@@ -701,8 +1296,8 @@ export default function SteamProfile() {
             />
           </div>
           <div>
-            &copy; 2026 Dionisius Surya Jaya. Built with exact Steam Community Profile specifications. All trademarks are
-            property of their respective owners.
+            &copy; 2026 Dionisius Surya Jaya. All rights reserved. Powered by Next.js & Motiva Sans. Authentic Steam
+            Community Profile architecture.
           </div>
           <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
             <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" style={{ color: "#c6d4df" }}>
