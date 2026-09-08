@@ -49,11 +49,11 @@ const PROJECTS = [
   {
     rk: "N°04",
     title: "Movie Mate",
-    desc: "Social movie tracking web application enabling users to curate film watchlists, post reviews, and discover trending cinema.",
-    tags: ["Next.js", "Firebase", "Tailwind"],
+    desc: "Fullstack movie tracker with TMDB catalog, review logging, watchlists, and secure auth. Built with Next.js 14, Supabase PostgreSQL, and deployed serverless on Vercel.",
+    tags: ["Next.js 14", "Supabase", "PostgreSQL", "Vercel"],
     type: "Web App",
-    link: "#",
-    status: "SYSTEM READY",
+    link: "https://movie-mate.vercel.app",
+    status: "LIVE DEMO ↗",
   },
   {
     rk: "N°05",
@@ -323,10 +323,10 @@ function DataCluster() {
 
 function About() {
   const theses = [
-    { num: "01.", title: "Computer Science Rigor", p: "Undergraduate in Teknik Informatika (Computer Science) at Universitas Brawijaya (2022—2026) maintaining a 3.58 GPA. Dedicated to algorithms, data structures, software architecture, and computational efficiency." },
+    { num: "01.", title: "Fullstack Engineering", p: "Building resilient, type-safe web applications using Next.js, React, Tailwind CSS, Node.js, and modern serverless architectures. Hands-on experience migrating legacy Express backends to unified Next.js API Routes with Supabase PostgreSQL." },
     { num: "02.", title: "End-to-End Machine Learning", p: "Engineered clinical risk stratification for Medeva PROLANIS BPJS combining Logistic Regression NLP for Hypertension with K-Means K=4 for Diabetes Mellitus. Stateless inference pipelines with automated data-drift checks." },
-    { num: "03.", title: "Geospatial & Fullstack Engineering", p: "Developed Web GIS portals using ArcGIS, QGIS, and Leaflet.js during MMD FILKOM UB 2024 at Ngasem. Full-stack: React/Next.js frontend, Node.js + Laravel backend, Docker deployments." },
-    { num: "04.", title: "Continuous Advancement", p: "Completed Web Developer Cohort at Coding Camp powered by DBS Foundation (2025) plus 10 professional Dicoding certifications spanning JavaScript, Front-End, Back-End, and Git workflows." },
+    { num: "03.", title: "Geospatial & WebGIS", p: "Developed interactive Web GIS portals using ArcGIS, QGIS, and Leaflet.js during MMD FILKOM UB 2024 at Ngasem Village to improve administrative planning and spatial resource allocation." },
+    { num: "04.", title: "Continuous Rigor & Growth", p: "Computer Science student at Universitas Brawijaya (GPA 3.58/4.00, Class of 2026), DBS Foundation Coding Camp alumni, and holder of 10 professional Dicoding certificates across frontend, backend, and cloud workflows." },
   ];
   return (
     <section id="about">
