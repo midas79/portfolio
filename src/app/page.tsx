@@ -1,625 +1,724 @@
-"use client";
+﻿"use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
-const NAV_ITEMS = [
-  { label: "ABOUT", href: "#about" },
-  { label: "SKILLS", href: "#skills" },
-  { label: "PROJECTS", href: "#projects" },
-  { label: "EXPERIENCE", href: "#experience" },
-  { label: "CONTACT", href: "#contact" },
-];
-
-const SKILLS = {
-  FE: { title: "FRONTEND ENGINEERING", items: ["React.js", "Next.js", "Tailwind CSS", "HTML5/CSS3", "Figma Design"] },
-  BE: { title: "BACKEND & ARCHITECTURE", items: ["Node.js", "Laravel", "Kotlin", "Python", "Express.js"] },
-  DB: { title: "DATABASE & DEVOPS", items: ["MongoDB", "MySQL", "PostgreSQL", "Docker", "Git / GitHub"] },
-  ML: { title: "DATA SCIENCE & GIS", items: ["Scikit-Learn", "Pandas", "ArcGIS", "QGIS", "Streamlit"] },
+const PROFILE = {
+  name: "Dionisius Surya Jaya",
+  alias: "dionisiussj",
+  level: 42,
+  badgeTitle: "Community Leader",
+  badgeXP: "500 XP",
+  avatarUrl: "/assets/images/avatar_full.jpg",
+  avatarFrame: "/assets/images/shared.akamai.steamstatic.com/c447714efa9703c4c0007a8316127c12ea0d32f4.png",
+  badgeIcon: "/assets/images/shared.akamai.steamstatic.com/2def078bb9d550e4496e9b8ac1f7bca3d4b1ad99-b783dbdb84.png",
+  location: "Malang Regency, East Java, Indonesia",
+  summary:
+    "Undergraduate Computer Science student at Brawijaya University with a strong passion for programming and software development. My goal is to become a professional programmer who builds clean, efficient, and meaningful solutions. Constantly seeking opportunities to learn new technologies, improve my skills, and contribute to real-world projects.",
+  email: "dionisius.suryajaya@gmail.com",
+  linkedin: "https://www.linkedin.com/in/dionisiussj",
+  github: "https://github.com/midas79",
+  topSkills: ["WebDev", "Front-End Development", "Financial Planning"],
+  badges: [
+    { name: "Git & GitHub", org: "Dicoding", xp: "100 XP" },
+    { name: "Back-End Pemula (JS)", org: "Dicoding", xp: "250 XP" },
+    { name: "Fundamental Front-End", org: "Dicoding", xp: "250 XP" },
+    { name: "Dasar Pemrograman Web", org: "Dicoding", xp: "100 XP" },
+    { name: "Financial Literacy 101", org: "Finance", xp: "150 XP" },
+    { name: "Years of Service", org: "Brawijaya Univ", xp: "400 XP" },
+  ],
+  experiences: [
+    {
+      company: "MEDEVA",
+      role: "Machine Learning Intern",
+      period: "Jan 2026 - May 2026 (5 mos)",
+      location: "Malang",
+      desc: "Developing risk stratification machine learning pipelines, NLP clinical classifications, and health predictive models.",
+      hours: "245 hrs",
+      recent: "24.5 hrs past 2 weeks / 245 hrs on record",
+    },
+    {
+      company: "BPS Kota Malang",
+      role: "Data Analyst & Frontend Developer",
+      period: "Sep 2025 - Nov 2025 (3 mos)",
+      location: "Malang",
+      desc: "Processed municipal statistics datasets and built responsive public web dashboards.",
+      hours: "182 hrs",
+      recent: "18.2 hrs past 2 weeks / 182 hrs on record",
+    },
+    {
+      company: "Coding Camp by DBS Foundation",
+      role: "Web Developer",
+      period: "Feb 2025 - Jun 2025 (5 mos)",
+      location: "Malang",
+      desc: "Engineered performant, production-ready React web platforms with clean state management.",
+      hours: "210 hrs",
+      recent: "21.0 hrs past 2 weeks / 210 hrs on record",
+    },
+    {
+      company: "MMD FILKOM UB 2024",
+      role: "Backend Developer & IT Support",
+      period: "Jul 2024 - Aug 2024 (2 mos)",
+      location: "Ngasem, East Java",
+      desc: "Maintained village service portal. Developed digital WebGIS maps using ArcGIS & QGIS.",
+      hours: "110 hrs",
+      recent: "Completed Quest",
+    },
+    {
+      company: "BIOS Filkom UB (ORSEN 2024)",
+      role: "Head of Division Consumption & Health",
+      period: "Aug 2024 - Nov 2024 (4 mos)",
+      location: "Malang",
+      desc: "Coordinated nutrition distribution, emergency health responses, and medical teams.",
+      hours: "95 hrs",
+      recent: "Completed Quest",
+    },
+    {
+      company: "Artropolis UB",
+      role: "Logistics Coordinator",
+      period: "Sep 2023 - Nov 2024 (1 yr 3 mos)",
+      location: "Malang",
+      desc: "Coordinated sound/stage equipment inventory, distribution, and cross-team execution.",
+      hours: "160 hrs",
+      recent: "Completed Quest",
+    },
+  ],
+  education: [
+    {
+      school: "University of Brawijaya",
+      degree: "Computer Science, Informatics",
+      period: "July 2022 - July 2026",
+    },
+    {
+      school: "SMA Negeri 1 Temanggung",
+      degree: "High School Student",
+      period: "2019 - 2022",
+    },
+  ],
 };
 
-const PROJECTS = [
-  {
-    rk: "N°01",
-    title: "Medeva — Clinical Risk Stratification",
-    desc: "End-to-end ML pipeline for PROLANIS BPJS: Logistic Regression + TF-IDF (HT) and K-Means K=4 + Rule-based (DM). Stateless inference, 46% HT coverage, silhouette 0.35.",
-    tags: ["Python", "Scikit-Learn", "Streamlit", "K-Means", "NLP"],
-    type: "Machine Learning",
-    link: "https://medeva-demo-jbnnczbvk6ucappppedszeab.streamlit.app/",
-    status: "LIVE DEMO ↗",
-  },
-  {
-    rk: "N°02",
-    title: "Village Digital Maps — MMD FILKOM UB",
-    desc: "Digital village maps for Ngasem (Ngajum, Malang) built with ArcGIS & QGIS. Interactive Leaflet WebGIS improving administrative planning and geospatial analysis.",
-    tags: ["ArcGIS", "QGIS", "Leaflet.js", "Geospatial"],
-    type: "Geospatial",
-    link: "https://midas79.github.io/Map-Digital-Desa-Ngasem/",
-    status: "LIVE MAP ↗",
-  },
-  {
-    rk: "N°03",
-    title: "Anime31",
-    desc: "Anime streaming platform feature showcase with user watchlists, episode tracking, and real-time content recommendations.",
-    tags: ["React", "REST API", "Tailwind"],
-    type: "Web App",
-    link: "#",
-    status: "SYSTEM READY",
-  },
-  {
-    rk: "N°04",
-    title: "Movie Mate",
-    desc: "Fullstack movie tracker with TMDB catalog, review logging, watchlists, and secure auth. Built with Next.js 14, Supabase PostgreSQL, and deployed serverless on Vercel.",
-    tags: ["Next.js 14", "Supabase", "PostgreSQL", "Vercel"],
-    type: "Web App",
-    link: "https://movie-mate.vercel.app",
-    status: "LIVE DEMO ↗",
-  },
-  {
-    rk: "N°05",
-    title: "Uptime Monitor Engine",
-    desc: "Self-hosted network monitoring engine tracking HTTP endpoints, TCP ports, and DNS propagation with automated alerting.",
-    tags: ["Docker", "Node.js", "SQLite"],
-    type: "Self-Hosted",
-    link: "#",
-    status: "SELF-HOSTED",
-  },
-  {
-    rk: "N°06",
-    title: "Sentiment Analyzer Pipeline",
-    desc: "NLP-based sentiment classification suite with CSV upload parsing, interactive visualization charts, and report exports.",
-    tags: ["Python", "Flask", "NLP"],
-    type: "Research",
-    link: "#",
-    status: "RESEARCH",
-  },
-  {
-    rk: "N°07",
-    title: "Task Management System",
-    desc: "Kanban project management platform featuring drag-and-drop workflow boards, team assignment tools, and velocity metrics.",
-    tags: ["Laravel", "MySQL", "Vue.js"],
-    type: "Web App",
-    link: "#",
-    status: "STABLE",
-  },
-];
+export default function SteamProfile() {
+  const [copied, setCopied] = useState(false);
 
-const EXPERIENCES = [
-  {
-    rk: "EXP.01",
-    period: "JAN 2026 — MAY 2026",
-    title: "Machine Learning Intern",
-    company: "Medeva · Clinical Risk Systems",
-    desc: "Engineered integrated clinical risk stratification algorithms for PROLANIS BPJS patients. Built hybrid pipelines pairing Logistic Regression NLP for Hypertension with K-Means clustering for Diabetes Mellitus.",
-    tags: ["Python", "Scikit-Learn", "Machine Learning", "Streamlit"],
-    category: "work",
-  },
-  {
-    rk: "EXP.02",
-    period: "SEP 2025 — NOV 2025",
-    title: "Data Analyst & Frontend Developer",
-    company: "BPS Kota Malang · Regional Agency",
-    desc: "Analyzed municipal statistical datasets, built data visualizations, and engineered interactive frontend dashboard modules for public regional data dissemination.",
-    tags: ["Data Analysis", "Frontend", "React", "Next.js", "Python"],
-    category: "work",
-  },
-  {
-    rk: "EXP.03",
-    period: "FEB 2025 — JUN 2025",
-    title: "Web Developer Cohort",
-    company: "Coding Camp · DBS Foundation",
-    desc: "Completed full-stack Web Development track. Developed production-ready applications utilizing modern JavaScript tooling and agile collaborative workflows.",
-    tags: ["Full-Stack", "JavaScript", "Web Dev"],
-    category: "training",
-  },
-  {
-    rk: "EXP.04",
-    period: "JUL 2024 — AUG 2024",
-    title: "Backend Developer & IT Support",
-    company: "MMD FILKOM UB 2024 · Ngasem Village",
-    desc: "Maintained village administration portal, built digital spatial maps with ArcGIS & QGIS, and delivered technical support for rural digital transformation.",
-    tags: ["ArcGIS", "QGIS", "Backend", "Web GIS"],
-    category: "work",
-  },
-  {
-    rk: "EXP.05",
-    period: "JUL 2024 — AUG 2024",
-    title: "Event Coordinator",
-    company: "MMD FILKOM UB 2024 · Community Initiatives",
-    desc: "Organized community engagement programs with village stakeholders, structuring timelines and cross-functional operations.",
-    tags: ["Event Planning", "Coordination"],
-    category: "org",
-  },
-  {
-    rk: "EXP.06",
-    period: "AUG 2024 — NOV 2024",
-    title: "Logistics & Health Division Staff",
-    company: "ORSEN FILKOM & Artropolis UB · Malang",
-    desc: "Managed inventory tracking, health services, and vendor logistics coordination for major university-wide events.",
-    tags: ["Logistics", "Operations"],
-    category: "org",
-  },
-];
+  const copyEmail = () => {
+    navigator.clipboard.writeText(PROFILE.email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
-const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
-const easeOutQuart = (t: number) => 1 - Math.pow(1 - t, 4);
-
-function smoothScrollTo(targetY: number, duration = 900) {
-  const startY = window.scrollY;
-  const diff = targetY - startY;
-  let start: number | null = null;
-  function step(ts: number) {
-    if (start === null) start = ts;
-    const p = Math.min((ts - start) / duration, 1);
-    window.scrollTo(0, startY + diff * easeOutCubic(p));
-    if (p < 1) requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
-}
-
-function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   return (
-    <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}>
-      {children}
-    </motion.div>
-  );
-}
-
-const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.12 } } };
-const staggerPop = {
-  hidden: { opacity: 0, y: 18 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } },
-};
-
-function ScrollProgress() {
-  const [progress, setProgress] = useState(0);
-  useEffect(() => {
-    const onScroll = () => {
-      const h = document.documentElement;
-      setProgress((h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100);
-    };
-    window.addEventListener("scroll", onScroll);
-    onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-  return <div className="fixed top-0 left-0 h-[3px] bg-[var(--red)] z-[80]" style={{ width: `${progress}%`, transition: "width 120ms linear" }} />;
-}
-
-function RegisterHeader() {
-  return (
-    <motion.header initial={{ y: -30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }} className="register sticky top-0 z-40">
-      <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="brandmark">DIONISIUS['SURYA_JAYA]</motion.span>
-      <div className="marquee-wrapper flex-1">
-        <div className="marquee-inner mono">
-          {[...Array(2)].map((_, i) => (
-            <span key={i} className="flex gap-7 items-center">
-              <span>ISSUE 2026</span>
-              <span className="st">VOL. 01 / N° 04</span>
-              <span className="tag">&gt;&gt;&gt; PUBLIC PORTFOLIO</span>
-              <span>COORD 7.9666° S / 112.6326° E (MALANG)</span>
-              <span className="st">BACHELOR INFORMATICS · GPA 3.58</span>
-              <span className="tag">/// SWISS INDUSTRIAL SPECIFICATION</span>
-              <span>UNIVERSITAS BRAWIJAYA</span>
-            </span>
-          ))}
+    <div style={{ minHeight: "100vh" }}>
+      {/* Steam Header */}
+      <header
+        style={{
+          background: "var(--bg-header)",
+          height: "104px",
+          display: "flex",
+          justifyContent: "center",
+          position: "relative",
+          zIndex: 10,
+          borderBottom: "1px solid rgba(0,0,0,0.5)",
+        }}
+      >
+        <div
+          style={{
+            width: "940px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "0 16px",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "40px" }}>
+            <a href="https://store.steampowered.com/" target="_blank" rel="noreferrer">
+              <img
+                src="/assets/images/community.akamai.steamstatic.com/logo_steam-e0e81271bb.svg"
+                alt="STEAM"
+                style={{ height: "36px" }}
+              />
+            </a>
+            <nav
+              style={{
+                display: "flex",
+                gap: "16px",
+                fontSize: "14px",
+                fontWeight: 500,
+                textTransform: "uppercase",
+              }}
+            >
+              <a href={PROFILE.github} target="_blank" rel="noreferrer" style={{ color: "#b8b6b4" }}>
+                Store / GitHub
+              </a>
+              <a href="#" style={{ color: "#1a9fff" }}>
+                Community
+              </a>
+              <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" style={{ color: "#b8b6b4" }}>
+                LinkedIn
+              </a>
+              <a href={`mailto:${PROFILE.email}`} style={{ color: "#b8b6b4" }}>
+                Contact
+              </a>
+            </nav>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <button
+              onClick={copyEmail}
+              style={{
+                backgroundColor: "#5c7e10",
+                color: "#e5e4dc",
+                padding: "6px 12px",
+                fontSize: "11px",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+                borderRadius: "2px",
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              <span>{copied ? "Email Copied!" : "Install Steam / Hire Me"}</span>
+            </button>
+            <span style={{ color: "#b8b6b4", fontSize: "12px" }}>login</span>
+            <span style={{ color: "#8f98a0" }}>|</span>
+            <span style={{ color: "#b8b6b4", fontSize: "12px" }}>language</span>
+          </div>
         </div>
-      </div>
-      <motion.nav initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="flex gap-4">
-        {NAV_ITEMS.map((item, i) => (
-          <motion.a
-            key={item.href}
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 + i * 0.08 }}
-            href={item.href}
-            onClick={(e) => {
-              e.preventDefault();
-              const el = document.querySelector(item.href) as HTMLElement | null;
-              if (el) smoothScrollTo(el.offsetTop - 80, 900);
+      </header>
+
+      {/* Profile Container */}
+      <main
+        style={{
+          width: "950px",
+          margin: "0 auto",
+          paddingTop: "24px",
+          paddingBottom: "60px",
+          position: "relative",
+        }}
+      >
+        {/* Profile Top Banner / Header */}
+        <section
+          style={{
+            background: "rgba(23, 26, 33, 0.85)",
+            backdropFilter: "blur(10px)",
+            borderRadius: "4px",
+            padding: "24px",
+            display: "flex",
+            gap: "24px",
+            alignItems: "flex-start",
+            marginBottom: "16px",
+            border: "1px solid rgba(255, 255, 255, 0.05)",
+          }}
+        >
+          {/* Avatar with Animated Frame */}
+          <div
+            style={{
+              position: "relative",
+              width: "166px",
+              height: "166px",
+              flexShrink: 0,
             }}
-            className="link mono"
           >
-            [{item.label}]
-          </motion.a>
-        ))}
-      </motion.nav>
-    </motion.header>
-  );
-}
-
-function Hero() {
-  const tick = { hidden: { opacity: 0, x: -8 }, show: { opacity: 1, x: 0, transition: { duration: 0.4 } } };
-  return (
-    <section className="hero">
-      <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-40px" }} className="wrap hero-grid">
-        <motion.div>
-          <motion.div variants={staggerPop} className="kicker mono">
-            <motion.span variants={tick} className="tick"></motion.span>
-            <span>SYSTEM REGISTER /// FULLSTACK &amp; MACHINE LEARNING ENGINEER</span>
-          </motion.div>
-          <motion.h1 variants={staggerPop} className="display hero-num">
-            DIONISIUS<span className="sup">®</span>
-          </motion.h1>
-          <motion.div variants={staggerPop} className="display" style={{ color: "var(--red)" }}>
-            SURYA JAYA
-          </motion.div>
-          <motion.div variants={staggerPop} className="display">ENGINEER</motion.div>
-          <motion.p variants={staggerPop} style={{ maxWidth: "60ch", marginTop: "32px", fontSize: "18px", lineHeight: 1.6 }}>
-            /// Computer Science undergraduate at <strong>Universitas Brawijaya</strong> (2022—2026) with a <strong>3.58 / 4.00 GPA</strong>. Specialized in production full-stack Web engineering, data analytics, and machine learning pipelines.
-          </motion.p>
-          <motion.div variants={staggerPop} className="flex gap-4 flex-wrap mt-8">
-            <motion.a whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} href="#projects" onClick={(e) => { e.preventDefault(); const el = document.querySelector("#projects") as HTMLElement | null; if (el) smoothScrollTo(el.offsetTop - 80, 900); }} className="btn">
-              VIEW PROJECTS [ 07 ]
-            </motion.a>
-            <motion.a whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} href="#contact" onClick={(e) => { e.preventDefault(); const el = document.querySelector("#contact") as HTMLElement | null; if (el) smoothScrollTo(el.offsetTop - 80, 900); }} className="btn-outline">
-              GET IN TOUCH
-            </motion.a>
-          </motion.div>
-        </motion.div>
-
-        <motion.div variants={staggerPop} className="hero-meta mono">
-          <motion.div variants={staggerPop} className="meta-row">
-            <span className="lbl">INSTITUTION</span>
-            <span className="val">UNIV. BRAWIJAYA</span>
-          </motion.div>
-          <motion.div variants={staggerPop} className="meta-row">
-            <span className="lbl">MAJOR</span>
-            <span className="val">TEKNIK INFORMATIKA</span>
-          </motion.div>
-          <motion.div variants={staggerPop} className="meta-row">
-            <span className="lbl">CUM. GPA</span>
-            <span className="val" style={{ color: "var(--red)" }}>3.58 / 4.00</span>
-          </motion.div>
-          <motion.div variants={staggerPop} className="meta-row">
-            <span className="lbl">LOCATION</span>
-            <span className="val">MALANG, ID</span>
-          </motion.div>
-          <motion.div variants={staggerPop} className="meta-row">
-            <span className="lbl">CERTS</span>
-            <span className="val">10 DICODING SPECS</span>
-          </motion.div>
-          <motion.div variants={staggerPop} className="meta-row">
-            <span className="lbl">STACK</span>
-            <span className="val">REACT / PYTHON / LARAVEL</span>
-          </motion.div>
-          <motion.div variants={staggerPop} className="meta-row">
-            <span className="lbl">AVAILABILITY</span>
-            <span className="val" style={{ color: "var(--red)" }}>&gt;&gt;&gt; OPEN FOR ROLES</span>
-          </motion.div>
-        </motion.div>
-      </motion.div>
-    </section>
-  );
-}
-
-function DataCluster() {
-  return (
-    <section>
-      <div className="wrap">
-        <Reveal>
-          <div className="kicker mono">
-            <span className="tick"></span>
-            <span>[ DATA CLUSTER ] /// PERFORMANCE METRICS</span>
+            <img
+              src={PROFILE.avatarUrl}
+              alt={PROFILE.name}
+              style={{
+                width: "166px",
+                height: "166px",
+                objectFit: "cover",
+                display: "block",
+              }}
+            />
+            <img
+              src={PROFILE.avatarFrame}
+              alt="Avatar Frame"
+              style={{
+                position: "absolute",
+                top: "-18px",
+                left: "-18px",
+                width: "202px",
+                height: "202px",
+                pointerEvents: "none",
+                zIndex: 2,
+              }}
+            />
           </div>
-        </Reveal>
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }} className="divider-module">
-          {[
-            { idx: "01", amt: "3.58", sub: ["CUMULATIVE GPA", "ACADEMIC RIGOR"] },
-            { idx: "02", amt: "10", sub: ["DICODING SPECS", "VERIFIED CREDENTIALS"] },
-            { idx: "03", amt: "07", sub: ["SHIPPED SYSTEMS", "ML, GIS & WEB APPS"] },
-            { idx: "04", amt: "2026", sub: ["BACHELOR DEGREE", "COMPUTER SCIENCE"] },
-          ].map((c) => (
-            <motion.div key={c.idx} variants={staggerPop} whileHover={{ y: -3 }} className="cell">
-              <span className="idx mono">{c.idx}</span>
-              <span className="amt">{c.amt}</span>
-              <span className="sub">{c.sub[0]}<br />{c.sub[1]}</span>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
 
-function About() {
-  const theses = [
-    { num: "01.", title: "Fullstack Engineering", p: "Building resilient, type-safe web applications using Next.js, React, Tailwind CSS, Node.js, and modern serverless architectures. Hands-on experience migrating legacy Express backends to unified Next.js API Routes with Supabase PostgreSQL." },
-    { num: "02.", title: "End-to-End Machine Learning", p: "Engineered clinical risk stratification for Medeva PROLANIS BPJS combining Logistic Regression NLP for Hypertension with K-Means K=4 for Diabetes Mellitus. Stateless inference pipelines with automated data-drift checks." },
-    { num: "03.", title: "Geospatial & WebGIS", p: "Developed interactive Web GIS portals using ArcGIS, QGIS, and Leaflet.js during MMD FILKOM UB 2024 at Ngasem Village to improve administrative planning and spatial resource allocation." },
-    { num: "04.", title: "Continuous Rigor & Growth", p: "Computer Science student at Universitas Brawijaya (GPA 3.58/4.00, Class of 2026), DBS Foundation Coding Camp alumni, and holder of 10 professional Dicoding certificates across frontend, backend, and cloud workflows." },
-  ];
-  return (
-    <section id="about">
-      <div className="wrap">
-        <Reveal>
-          <div className="kicker mono">
-            <span className="tick"></span>
-            <span>[ MANIFEST ] &gt;&gt;&gt; BIOGRAPHY &amp; ENGINEERING THESES</span>
+          {/* Profile Name & Summary */}
+          <div style={{ flexGrow: 1 }}>
+            <h1
+              style={{
+                fontSize: "24px",
+                color: "#ffffff",
+                fontWeight: 300,
+                marginBottom: "8px",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+              }}
+            >
+              {PROFILE.name}
+            </h1>
+            <div style={{ color: "var(--online-green)", fontSize: "12px", marginBottom: "8px" }}>
+              📍 {PROFILE.location} &nbsp;|&nbsp; 🎓 Computer Science @ Brawijaya University
+            </div>
+            <div
+              style={{
+                color: "#acb2b8",
+                fontSize: "13px",
+                marginBottom: "16px",
+                maxWidth: "500px",
+                lineHeight: "1.5",
+              }}
+            >
+              {PROFILE.summary}
+            </div>
+            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+              {PROFILE.topSkills.map((sk) => (
+                <span
+                  key={sk}
+                  style={{
+                    fontSize: "11px",
+                    background: "rgba(0,0,0,0.4)",
+                    color: "var(--text-blue)",
+                    padding: "3px 8px",
+                    borderRadius: "2px",
+                    border: "1px solid rgba(102, 192, 244, 0.3)",
+                  }}
+                >
+                  ★ {sk}
+                </span>
+              ))}
+            </div>
           </div>
-        </Reveal>
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
-          {theses.map((t) => (
-            <motion.article key={t.num} variants={staggerPop} className="thesis">
-              <div className="thesis-head">
-                <span className="thesis-num">{t.num}</span>
-                <h3>{t.title}</h3>
+
+          {/* Level Circle & Community Leader Badge */}
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", flexShrink: 0 }}>
+            <div
+              style={{
+                border: "2px solid #4c6b22",
+                borderRadius: "50%",
+                width: "40px",
+                height: "40px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "16px",
+                color: "#ffffff",
+                fontWeight: "bold",
+                background: "rgba(0, 0, 0, 0.3)",
+              }}
+            >
+              {PROFILE.level}
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                background: "rgba(0, 0, 0, 0.2)",
+                padding: "8px 12px",
+                borderRadius: "4px",
+                border: "1px solid rgba(255,255,255,0.05)",
+              }}
+            >
+              <img
+                src={PROFILE.badgeIcon}
+                alt="Badge"
+                style={{ width: "42px", height: "42px" }}
+              />
+              <div>
+                <div style={{ color: "#ffffff", fontSize: "12px", fontWeight: "bold" }}>
+                  {PROFILE.badgeTitle}
+                </div>
+                <div style={{ color: "#8f98a0", fontSize: "11px" }}>{PROFILE.badgeXP}</div>
               </div>
-              <p>{t.p}</p>
-            </motion.article>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-function Skills() {
-  return (
-    <section id="skills">
-      <div className="wrap">
-        <Reveal>
-          <div className="kicker mono">
-            <span className="tick"></span>
-            <span>[ TYPOGRAPHIC SPECIMEN ] &gt;&gt;&gt; TECH STACK &amp; TOOLING</span>
+            </div>
           </div>
-        </Reveal>
-        <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }} className="spec-grid">
-          {Object.entries(SKILLS).map(([key, cat]) => (
-            <motion.div key={key} variants={staggerPop} whileHover={{ y: -4 }} className="spec">
-              <span className="scale-1">{cat.title}</span>
-              <div className="flex flex-wrap gap-2 my-4">
-                {cat.items.map((item) => (
-                  <span key={item} className="mono" style={{ background: "var(--ink)", color: "var(--paper)", padding: "4px 8px" }}>{item}</span>
+        </section>
+
+        {/* Main Grid: Left Column Showcases (1fr) + Right Sidebar (280px) */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 280px",
+            gap: "16px",
+          }}
+        >
+          {/* Left Column */}
+          <div>
+            {/* Featured Game Showcase (Lead Project: MEDEVA Risk Stratification) */}
+            <section
+              style={{
+                background: "var(--bg-card)",
+                borderRadius: "4px",
+                padding: "16px",
+                marginBottom: "16px",
+                border: "1px solid rgba(255, 255, 255, 0.05)",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "14px",
+                  color: "#8f98a0",
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                  marginBottom: "12px",
+                  paddingBottom: "6px",
+                  borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <span>Featured Showcase / Lead Role</span>
+                <span style={{ fontSize: "11px", color: "var(--text-blue)" }}>IN PROGRESS</span>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  gap: "16px",
+                  alignItems: "center",
+                  marginBottom: "16px",
+                }}
+              >
+                <img
+                  src="/assets/images/shared.akamai.steamstatic.com/capsule_184x69-7dacf18340.jpg"
+                  alt="MEDEVA ML"
+                  style={{ width: "184px", height: "69px", borderRadius: "2px", objectFit: "cover" }}
+                />
+                <div style={{ display: "flex", gap: "24px" }}>
+                  <div>
+                    <div style={{ fontSize: "20px", color: "#ffffff" }}>245</div>
+                    <div style={{ fontSize: "11px", color: "#8f98a0", textTransform: "uppercase" }}>
+                      Hours Interned
+                    </div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: "20px", color: "#ffffff" }}>12 / 12</div>
+                    <div style={{ fontSize: "11px", color: "#8f98a0", textTransform: "uppercase" }}>
+                      Milestones Met
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p style={{ color: "#acb2b8", fontSize: "13px", lineHeight: "1.5" }}>
+                <strong>MEDEVA — Risk Stratification Engine:</strong> End-to-end Machine Learning pipeline for BPJS
+                patients. Combining NLP classification (Logistic Regression) with K-Means clustering for clinical
+                hypertension and diabetes mellitus risk indicators.
+              </p>
+              <div style={{ marginTop: "12px" }}>
+                <a
+                  href="https://medeva-demo-jbnnczbvk6ucappppedszeab.streamlit.app/"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    display: "inline-block",
+                    backgroundColor: "var(--btn-bg)",
+                    color: "#ffffff",
+                    padding: "6px 14px",
+                    borderRadius: "2px",
+                    fontSize: "12px",
+                    fontWeight: 500,
+                  }}
+                >
+                  Play / Launch Live Demo ↗
+                </a>
+              </div>
+            </section>
+
+            {/* Recent Activity Showcase (All Work Experiences as Games) */}
+            <section
+              style={{
+                background: "var(--bg-card)",
+                borderRadius: "4px",
+                padding: "16px",
+                marginBottom: "16px",
+                border: "1px solid rgba(255, 255, 255, 0.05)",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "14px",
+                  color: "#8f98a0",
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                  marginBottom: "12px",
+                  paddingBottom: "6px",
+                  borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                }}
+              >
+                Career Activity ({PROFILE.experiences.length} Quests)
+              </div>
+
+              {PROFILE.experiences.map((exp, i) => (
+                <div
+                  key={i}
+                  style={{
+                    display: "flex",
+                    gap: "12px",
+                    background: "rgba(0, 0, 0, 0.2)",
+                    padding: "10px",
+                    borderRadius: "3px",
+                    marginBottom: "8px",
+                    border: "1px solid rgba(255,255,255,0.02)",
+                  }}
+                >
+                  <img
+                    src={
+                      i % 2 === 0
+                        ? "/assets/images/shared.akamai.steamstatic.com/b20a49e94c49ef54d009da987d56b0f9b74447ae-8dc915bce1.jpg"
+                        : "/assets/images/shared.akamai.steamstatic.com/544ed7db7ee3328cd09404329cb25926794e4830-ee8ec8c252.jpg"
+                    }
+                    alt={exp.company}
+                    style={{ width: "64px", height: "64px", borderRadius: "2px", objectFit: "cover" }}
+                  />
+                  <div style={{ flexGrow: 1 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                      <div style={{ fontSize: "14px", color: "#ffffff", fontWeight: "bold" }}>
+                        {exp.role} <span style={{ color: "var(--text-blue)", fontWeight: "normal" }}>@ {exp.company}</span>
+                      </div>
+                      <div style={{ fontSize: "11px", color: "#8f98a0" }}>{exp.period}</div>
+                    </div>
+                    <div style={{ fontSize: "12px", color: "#8f98a0", marginTop: "2px" }}>
+                      {exp.recent}
+                    </div>
+                    <div style={{ fontSize: "12px", color: "#acb2b8", marginTop: "4px" }}>
+                      {exp.desc}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </section>
+
+            {/* Custom Showcase: Education & Academics */}
+            <section
+              style={{
+                background: "var(--bg-card)",
+                borderRadius: "4px",
+                padding: "16px",
+                marginBottom: "16px",
+                border: "1px solid rgba(255, 255, 255, 0.05)",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "14px",
+                  color: "#8f98a0",
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                  marginBottom: "12px",
+                  paddingBottom: "6px",
+                  borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                }}
+              >
+                Education History
+              </div>
+              {PROFILE.education.map((edu, i) => (
+                <div
+                  key={i}
+                  style={{
+                    padding: "8px 0",
+                    borderBottom: i < PROFILE.education.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <div style={{ color: "#ffffff", fontWeight: "bold" }}>{edu.school}</div>
+                    <div style={{ color: "#8f98a0", fontSize: "12px" }}>{edu.period}</div>
+                  </div>
+                  <div style={{ color: "var(--text-blue)", fontSize: "12px" }}>{edu.degree}</div>
+                </div>
+              ))}
+            </section>
+          </div>
+
+          {/* Right Column: Sidebar Stats */}
+          <aside>
+            {/* Online Status */}
+            <div
+              style={{
+                background: "var(--bg-card)",
+                borderRadius: "4px",
+                padding: "16px",
+                marginBottom: "16px",
+                border: "1px solid rgba(255, 255, 255, 0.05)",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "16px",
+                  color: "var(--online-green)",
+                  fontWeight: 300,
+                  marginBottom: "6px",
+                }}
+              >
+                Currently Online
+              </div>
+              <div style={{ fontSize: "12px", color: "#8f98a0" }}>Ready for Software Engineering Roles</div>
+            </div>
+
+            {/* Sidebar Badges Summary */}
+            <div
+              style={{
+                background: "var(--bg-card)",
+                borderRadius: "4px",
+                padding: "16px",
+                marginBottom: "16px",
+                border: "1px solid rgba(255, 255, 255, 0.05)",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "13px",
+                  color: "#8f98a0",
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                  marginBottom: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <span>Certifications</span>
+                <span style={{ color: "#ffffff" }}>{PROFILE.badges.length}</span>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                {PROFILE.badges.map((b, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      fontSize: "12px",
+                      background: "rgba(0,0,0,0.2)",
+                      padding: "6px 8px",
+                      borderRadius: "2px",
+                    }}
+                  >
+                    <div>
+                      <div style={{ color: "#ffffff" }}>{b.name}</div>
+                      <div style={{ color: "#8f98a0", fontSize: "10px" }}>{b.org}</div>
+                    </div>
+                    <span style={{ color: "var(--text-gold)", fontSize: "11px" }}>{b.xp}</span>
+                  </div>
                 ))}
               </div>
-              <div className="mono meta">MODULE ID: {key} /// VERIFIED</div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
+            </div>
 
-function Projects() {
-  const [filter, setFilter] = useState("ALL");
-  const categories = ["ALL", "Machine Learning", "Geospatial", "Web App", "Self-Hosted", "Research"];
-  const filtered = filter === "ALL" ? PROJECTS : PROJECTS.filter((p) => p.type === filter);
-
-  return (
-    <section id="projects">
-      <div className="wrap">
-        <div className="kicker mono">
-          <span className="tick"></span>
-          <span>[ REGISTER INDEX ] /// SHIPPED SYSTEMS &amp; RESEARCH</span>
-        </div>
-
-        <div className="flex flex-wrap gap-2 mb-8">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setFilter(cat)}
-              className="mono"
+            {/* Sidebar Links */}
+            <div
               style={{
-                padding: "8px 16px",
-                background: filter === cat ? "var(--ink)" : "var(--paper)",
-                color: filter === cat ? "var(--paper)" : "var(--ink)",
-                border: "var(--rule)",
-                cursor: "pointer",
+                background: "var(--bg-card)",
+                borderRadius: "4px",
+                padding: "16px",
+                marginBottom: "16px",
+                border: "1px solid rgba(255, 255, 255, 0.05)",
               }}
             >
-              [{cat}] {cat === "ALL" ? `[${PROJECTS.length}]` : `[${PROJECTS.filter((p) => p.type === cat).length}]`}
-            </button>
-          ))}
-        </div>
-
-        <div className="index-module">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((project) => (
-              <motion.div
-                key={project.title}
-                layout
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="index-row"
-              >
-                <span className="rk">{project.rk} /// [{project.type}]</span>
-                <div>
-                  <div className="nm">{project.title}</div>
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    {project.tags.map((t) => (
-                      <span key={t} className="mono" style={{ fontSize: "10px", color: "var(--red)" }}>
-                        #{t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <span className="ds">{project.desc}</span>
-                {project.link !== "#" ? (
-                  <a href={project.link} target="_blank" rel="noopener noreferrer" className="btn mono" style={{ padding: "10px 18px", minHeight: "auto" }}>
-                    {project.status}
+              <ul style={{ listStyle: "none" }}>
+                <li style={{ marginBottom: "8px" }}>
+                  <a
+                    href={PROFILE.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ display: "flex", justifyContent: "space-between", color: "#8f98a0" }}
+                  >
+                    <span>LinkedIn Profile</span>
+                    <span style={{ color: "#ffffff" }}>↗</span>
                   </a>
-                ) : (
-                  <span className="st ok">{project.status}</span>
-                )}
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Experience() {
-  const [tab, setTab] = useState("all");
-  const tabs = [
-    { id: "all", label: "ALL" },
-    { id: "work", label: "WORK & INTERNSHIP" },
-    { id: "training", label: "TRAINING" },
-    { id: "org", label: "ORGANIZATION" },
-  ];
-  const filtered = tab === "all" ? EXPERIENCES : EXPERIENCES.filter((e) => e.category === tab);
-
-  return (
-    <section id="experience">
-      <div className="wrap">
-        <div className="kicker mono">
-          <span className="tick"></span>
-          <span>[ CHRONOLOGICAL LOG ] &gt;&gt;&gt; EXPERIENCE &amp; CERTIFICATION TIMELINE</span>
-        </div>
-
-        <div className="flex flex-wrap gap-2 mb-8">
-          {tabs.map((t) => (
-            <button
-              key={t.id}
-              onClick={() => setTab(t.id)}
-              className="mono"
-              style={{
-                padding: "8px 16px",
-                background: tab === t.id ? "var(--ink)" : "var(--paper)",
-                color: tab === t.id ? "var(--paper)" : "var(--ink)",
-                border: "var(--rule)",
-                cursor: "pointer",
-              }}
-            >
-              [{t.label}]
-            </button>
-          ))}
-        </div>
-
-        <div className="index-module">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((exp) => (
-              <motion.div
-                key={exp.title + exp.company}
-                layout
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="index-row"
-                style={{ gridTemplateColumns: "1.2fr 2fr 1fr auto" }}
-              >
-                <span className="rk">{exp.rk} /// {exp.period}</span>
-                <div>
-                  <div className="nm">{exp.title}</div>
-                  <div className="mono" style={{ color: "var(--red)", marginTop: "4px", fontWeight: "700" }}>
-                    {exp.company}
-                  </div>
-                </div>
-                <span className="ds">{exp.desc}</span>
-                <div className="flex flex-wrap gap-1">
-                  {exp.tags.map((t) => (
-                    <span key={t} className="mono" style={{ background: "var(--ink)", color: "var(--paper)", padding: "2px 6px", fontSize: "9px" }}>
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function AsciiSchematic() {
-  return (
-    <section>
-      <div className="wrap">
-        <div className="kicker mono">
-          <span className="tick"></span>
-          <span>[ REGISTRATION SCHEMATIC ] /// ARCHITECTURAL ORNAMENT</span>
-        </div>
-        <div className="ascii">
-+-----------------------------------------------------------------------------------+
-|  [SYS.01]  &gt;&gt;&gt;  INSTITUTION: UNIV. BRAWIJAYA  ///  DEGREE: CS (2022-2026)         |
-|  +-------------------+  +-------------------+  +-------------------+  +---------+  |
-|  | ML: SCIKIT-LEARN  |  | FE: REACT/NEXT.JS |  | BE: NODE/LARAVEL  |  | GPA: 3.58|  |
-|  | DM+HT PROLANIS    |  | TAILWIND/FIGMA    |  | DOCKER/EXPRESS    |  | / 4.00  |  |
-|  +-------------------+  +-------------------+  +-------------------+  +---------+  |
-|  STATUS: VERIFIED ®                                   LOCATION: MALANG, INDONESIA |
-+-----------------------------------------------------------------------------------+
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ContactColophon() {
-  const links = [
-    { lbl: "ELECTRONIC MAIL", txt: "dionisius.suryajaya@gmail.com", href: "mailto:dionisius.suryajaya@gmail.com" },
-    { lbl: "LINKEDIN NETWORK", txt: "linkedin.com/in/dionisiussj", href: "https://linkedin.com/in/dionisiussj" },
-    { lbl: "GITHUB REPOSITORY", txt: "github.com/midas79", href: "https://github.com/midas79" },
-    { lbl: "TELEPHONE / WA", txt: "+62 821-4568-8609", href: "tel:+6282145688609" },
-  ];
-
-  return (
-    <section id="contact">
-      <div className="wrap">
-        <div className="kicker mono">
-          <span className="tick"></span>
-          <span>[ CLOSING COLOPHON ] &gt;&gt;&gt; CONTACT DIRECTORY</span>
-        </div>
-
-        <div className="colophon">
-          {links.map((c) => (
-            <a key={c.lbl} href={c.href} target="_blank" rel="noopener noreferrer" className="col link">
-              <div className="mono lbl">/// {c.lbl}</div>
-              <div className="txt">{c.txt} ↗</div>
-            </a>
-          ))}
-        </div>
-
-        <div className="cta-band">
-          <div>
-            <div className="mono" style={{ color: "var(--red)", marginBottom: "8px" }}>
-              &gt;&gt;&gt; READY FOR PRESS &amp; ENGINEERING ROLES
+                </li>
+                <li style={{ marginBottom: "8px" }}>
+                  <a
+                    href={PROFILE.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ display: "flex", justifyContent: "space-between", color: "#8f98a0" }}
+                  >
+                    <span>GitHub Repositories</span>
+                    <span style={{ color: "#ffffff" }}>↗</span>
+                  </a>
+                </li>
+                <li style={{ marginBottom: "8px" }}>
+                  <button
+                    onClick={copyEmail}
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      color: "#8f98a0",
+                      background: "none",
+                      border: "none",
+                      padding: 0,
+                      width: "100%",
+                      cursor: "pointer",
+                      fontSize: "13px",
+                      textAlign: "left",
+                    }}
+                  >
+                    <span>Copy Email</span>
+                    <span style={{ color: "#ffffff" }}>{copied ? "Copied!" : "📋"}</span>
+                  </button>
+                </li>
+              </ul>
             </div>
-            <div className="mono" style={{ fontSize: "13px" }}>
-              MALANG, EAST JAVA, INDONESIA /// UNIVERSITAS BRAWIJAYA
-            </div>
-          </div>
-          <a href="mailto:dionisius.suryajaya@gmail.com" className="btn">
-            SEND EMAIL DIRECTLY [ DIONISIUS ]
-          </a>
+          </aside>
         </div>
-      </div>
-    </section>
-  );
-}
-
-function Footer() {
-  return (
-    <footer style={{ borderTop: "var(--rule)", padding: "32px 0", background: "var(--paper)" }}>
-      <div className="wrap flex flex-col sm:flex-row items-center justify-between gap-4">
-        <span className="mono">© 2026 DIONISIUS SURYA JAYA · MALANG, INDONESIA</span>
-        <span className="mono" style={{ color: "var(--ghost)" }}>
-          SET IN ARCHIVO BLACK / JETBRAINS MONO / INTER
-        </span>
-      </div>
-    </footer>
-  );
-}
-
-export default function Home() {
-  return (
-    <>
-      <ScrollProgress />
-      <RegisterHeader />
-      <main>
-        <Hero />
-        <DataCluster />
-        <About />
-        <Skills />
-        <Projects />
-        <Experience />
-        <Reveal><AsciiSchematic /></Reveal>
-        <ContactColophon />
       </main>
-      <Footer />
-    </>
+
+      {/* Footer */}
+      <footer
+        style={{
+          background: "#000000",
+          color: "#8b929a",
+          padding: "32px 0",
+          fontSize: "12px",
+          borderTop: "1px solid #363c44",
+        }}
+      >
+        <div
+          style={{
+            width: "940px",
+            margin: "0 auto",
+            display: "flex",
+            flexDirection: "column",
+            gap: "16px",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              borderBottom: "1px solid #363c44",
+              paddingBottom: "16px",
+            }}
+          >
+            <img
+              src="/assets/images/community.akamai.steamstatic.com/footerLogo_valve_new-58413ab1ee.png"
+              alt="Valve Logo"
+              style={{ height: "26px" }}
+            />
+            <img
+              src="/assets/images/community.akamai.steamstatic.com/header_logo-6f7393813c.png"
+              alt="Steam Logo"
+              style={{ height: "26px" }}
+            />
+          </div>
+          <div>
+            &copy; 2026 Dionisius Surya Jaya. Built with exact Steam Community Profile specifications. All trademarks are
+            property of their respective owners.
+          </div>
+          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+            <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" style={{ color: "#c6d4df" }}>
+              LinkedIn
+            </a>{" "}
+            |
+            <a href={PROFILE.github} target="_blank" rel="noreferrer" style={{ color: "#c6d4df" }}>
+              GitHub
+            </a>{" "}
+            |
+            <a href={`mailto:${PROFILE.email}`} style={{ color: "#c6d4df" }}>
+              Contact Email
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
   );
 }
