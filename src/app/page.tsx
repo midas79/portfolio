@@ -6,7 +6,7 @@ const PROFILE = {
   name: "Dionisius Surya Jaya",
   alias: "dionisiussj",
   level: 42,
-  badgeTitle: "Community Leader & ML Pioneer",
+  badgeTitle: "Community Leader & ML Engineer",
   badgeXP: "1,337 XP",
   avatarUrl: "/assets/images/avatar_full.jpg",
   avatarFrame: "/assets/images/shared.akamai.steamstatic.com/c447714efa9703c4c0007a8316127c12ea0d32f4.png",
@@ -41,49 +41,131 @@ const PROFILE = {
     publisher: "Healthcare Analytics Solutions",
     status: "Active Research & Production Pipeline",
     hoursPlayed: "320 hrs",
-    achievements: "18 / 18 Unlocked",
+    achievements: "18 / 18 Unlocked (100%)",
     liveDemo: "https://medeva-demo-jbnnczbvk6ucappppedszeab.streamlit.app/",
     githubRepo: "https://github.com/midas79",
     description:
       "End-to-end Machine Learning pipeline tailored for BPJS patient clinical data. Features automated data cleaning, exploratory data analysis, Natural Language Processing (Logistic Regression) for Hypertension symptom stratification, and unsupervised K-Means clustering for Diabetes Mellitus risk groups.",
     tags: ["Python", "Scikit-Learn", "Streamlit", "Pandas", "NLP", "K-Means", "BPJS HealthTech"],
   },
-  projects: [
+  // All 7 Portfolio Projects from original archive
+  allProjects: [
     {
-      title: "Village Digital Maps (WebGIS)",
-      badge: "Interactive Map System",
-      hours: "184.2 hrs on record",
-      achievements: "12 / 12 Achievements (100%)",
-      desc: "Comprehensive digital administrative map application using ArcGIS, QGIS, and Leaflet. Built during MMD FILKOM UB 2024 to modernize spatial resource management and public administrative delivery for Ngasem Village.",
-      tech: ["Leaflet.js", "ArcGIS", "QGIS", "GeoJSON", "JavaScript"],
-      link: "https://midas79.github.io/Map-Digital-Desa-Ngasem/",
-      cta: "Launch WebGIS Map ↗",
-      iconBg: "from-emerald-950 to-emerald-800",
-      accent: "#57cbde",
+      id: "medeva",
+      category: "Machine Learning",
+      title: "Medeva — Clinical Risk Stratification",
+      desc: "End-to-end ML pipeline for PROLANIS BPJS: Logistic Regression + TF-IDF NLP (Hypertension) & K-Means clustering (Diabetes Mellitus). Stateless inference with automated data-drift checks.",
+      tags: ["Python", "Scikit-Learn", "Streamlit", "K-Means", "NLP"],
+      hours: "320.0 hrs",
+      achievements: "18 / 18 (100%)",
+      link: "https://medeva-demo-jbnnczbvk6ucappppedszeab.streamlit.app/",
+      cta: "Launch Live Demo ↗",
+      accent: "#90ba3c",
+      iconBg: "bg-emerald-950/80",
     },
     {
-      title: "BPS Malang Regional Data Portal",
-      badge: "Analytics Dashboard",
-      hours: "142.0 hrs on record",
-      achievements: "9 / 9 Achievements (100%)",
-      desc: "Responsive governmental statistics portal engineered for BPS Kota Malang. Visualizes regional economic indicators, inflation indices, and demographic registries with intuitive interactive data charts.",
-      tech: ["Next.js", "Tailwind CSS", "Data Analysis", "REST API", "JavaScript"],
+      id: "webgis",
+      category: "Geospatial",
+      title: "Village Digital Maps (WebGIS) — MMD FILKOM UB",
+      desc: "Digital village maps for Ngasem (Ngajum, Malang) built with ArcGIS & QGIS. Interactive Leaflet WebGIS improving administrative territorial planning and public services.",
+      tags: ["ArcGIS", "QGIS", "Leaflet.js", "Geospatial", "GeoJSON"],
+      hours: "184.2 hrs",
+      achievements: "12 / 12 (100%)",
+      link: "https://midas79.github.io/Map-Digital-Desa-Ngasem/",
+      cta: "Explore Interactive Map ↗",
+      accent: "#57cbde",
+      iconBg: "bg-teal-950/80",
+    },
+    {
+      id: "bps",
+      category: "Web App",
+      title: "BPS Kota Malang Regional Data Portal",
+      desc: "Responsive governmental statistics portal engineered for BPS Kota Malang. Visualizes regional economic indicators, inflation indices, and demographic registries with intuitive interactive charts.",
+      tags: ["Next.js", "Tailwind CSS", "Data Analysis", "REST API", "JavaScript"],
+      hours: "142.0 hrs",
+      achievements: "9 / 9 (100%)",
       link: "https://github.com/midas79",
       cta: "Inspect Source Repos ↗",
-      iconBg: "from-blue-950 to-blue-800",
       accent: "#66c0f4",
+      iconBg: "bg-blue-950/80",
     },
     {
-      title: "DBS Foundation Web Application Platform",
-      badge: "Modern Fullstack App",
-      hours: "196.5 hrs on record",
-      achievements: "15 / 15 Achievements (100%)",
-      desc: "Production capstone built during the Coding Camp powered by DBS Foundation. Fully compliant with modern web accessibility guidelines, strict UI reactivity, and clean architectural state handling.",
-      tech: ["React.js", "Next.js", "REST APIs", "Modern CSS", "Git"],
+      id: "dbs",
+      category: "Web App",
+      title: "Coding Camp by DBS Foundation Platform",
+      desc: "Production web application capstone built during the DBS Foundation Coding Camp. Full-stack responsive web platform with state management, clean routing, and accessibility standards.",
+      tags: ["React.js", "Next.js", "REST APIs", "Modern CSS", "Git"],
+      hours: "196.5 hrs",
+      achievements: "15 / 15 (100%)",
       link: "https://github.com/midas79",
       cta: "Inspect Repository ↗",
-      iconBg: "from-amber-950 to-amber-800",
       accent: "#e5c43b",
+      iconBg: "bg-amber-950/80",
+    },
+    {
+      id: "anime31",
+      category: "Web App",
+      title: "Anime31 — Media Streaming & Catalog Platform",
+      desc: "Anime streaming and media catalog showcase featuring curated user watchlists, episode release tracking, category filtering, and responsive video player integration.",
+      tags: ["React", "REST API", "Tailwind CSS", "Media Player"],
+      hours: "112.4 hrs",
+      achievements: "8 / 8 (100%)",
+      link: "https://github.com/midas79",
+      cta: "Inspect Repository ↗",
+      accent: "#ff79c6",
+      iconBg: "bg-purple-950/80",
+    },
+    {
+      id: "moviemate",
+      category: "Web App",
+      title: "Movie Mate — Social Cinema Watchlist",
+      desc: "Social movie tracking web application enabling cinephiles to discover trending films, curate personal watchlists, log ratings, and exchange recommendations in real time.",
+      tags: ["Next.js", "Firebase", "Tailwind CSS", "TMDB API"],
+      hours: "98.5 hrs",
+      achievements: "10 / 10 (100%)",
+      link: "https://github.com/midas79",
+      cta: "Inspect Repository ↗",
+      accent: "#ff5555",
+      iconBg: "bg-red-950/80",
+    },
+    {
+      id: "uptime",
+      category: "Self-Hosted",
+      title: "Uptime Monitor Engine",
+      desc: "Self-hosted network reliability monitoring engine tracking HTTP endpoints, ping latency, TCP ports, and DNS status with automated webhook notifications on downtime.",
+      tags: ["Docker", "Node.js", "SQLite", "DevOps"],
+      hours: "85.0 hrs",
+      achievements: "7 / 7 (100%)",
+      link: "https://github.com/midas79",
+      cta: "Inspect Repository ↗",
+      accent: "#50fa7b",
+      iconBg: "bg-emerald-950/80",
+    },
+    {
+      id: "sentiment",
+      category: "Research",
+      title: "NLP Sentiment Analyzer Pipeline",
+      desc: "Natural Language Processing sentiment classification suite with CSV upload parsing, text preprocessing, interactive distribution charts, and exportable report summaries.",
+      tags: ["Python", "Flask", "NLP", "Scikit-Learn", "Matplotlib"],
+      hours: "76.0 hrs",
+      achievements: "6 / 6 (100%)",
+      link: "https://github.com/midas79",
+      cta: "Inspect Repository ↗",
+      accent: "#bd93f9",
+      iconBg: "bg-indigo-950/80",
+    },
+    {
+      id: "kanban",
+      category: "Web App",
+      title: "Task Management & Kanban System",
+      desc: "Interactive Kanban project management platform featuring drag-and-drop workflow columns, task assignment, priority tagging, and sprint velocity metrics.",
+      tags: ["Laravel", "MySQL", "Vue.js", "RESTful API"],
+      hours: "135.0 hrs",
+      achievements: "11 / 11 (100%)",
+      link: "https://github.com/midas79",
+      cta: "Inspect Repository ↗",
+      accent: "#f1fa8c",
+      iconBg: "bg-yellow-950/80",
     },
   ],
   experiences: [
@@ -164,7 +246,7 @@ const PROFILE = {
       degree: "Bachelor of Computer Science, Informatics",
       period: "July 2022 - July 2026 (Expected Graduation)",
       details:
-        "Focus on Software Engineering, Machine Learning, Data Structures & Algorithms, Distributed Databases, and Geospatial Systems.",
+        "Focus on Software Engineering, Machine Learning, Data Structures & Algorithms, Distributed Databases, and Geospatial Systems. GPA 3.58 / 4.00.",
     },
     {
       school: "SMA Negeri 1 Temanggung",
@@ -245,12 +327,19 @@ const PROFILE = {
 
 export default function SteamProfile() {
   const [copied, setCopied] = useState(false);
+  const [projectFilter, setProjectFilter] = useState("ALL");
 
   const copyEmail = () => {
     navigator.clipboard.writeText(PROFILE.email);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
+  const categories = ["ALL", "Machine Learning", "Geospatial", "Web App", "Self-Hosted", "Research"];
+  const filteredProjects =
+    projectFilter === "ALL"
+      ? PROFILE.allProjects
+      : PROFILE.allProjects.filter((p) => p.category === projectFilter);
 
   return (
     <div style={{ minHeight: "100vh" }}>
@@ -442,7 +531,7 @@ export default function SteamProfile() {
             </div>
 
             <div style={{ color: "#8f98a0", fontSize: "12px", marginBottom: "10px" }}>
-              📍 {PROFILE.location} &nbsp;•&nbsp; 🎓 Universitas Brawijaya (Informatics)
+              📍 {PROFILE.location} &nbsp;•&nbsp; 🎓 Universitas Brawijaya (Informatics) &nbsp;•&nbsp; GPA 3.58 / 4.00
             </div>
 
             <p
@@ -531,7 +620,7 @@ export default function SteamProfile() {
             gap: "16px",
           }}
         >
-          {/* Left Column (Showcases, Quests, Projects, Reviews, Comments) */}
+          {/* Left Column (Showcases, All Projects, Quests, Reviews, Comments) */}
           <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             {/* Lead Featured Project Showcase (MEDEVA Risk Stratification) */}
             <section
@@ -556,7 +645,7 @@ export default function SteamProfile() {
                   alignItems: "center",
                 }}
               >
-                <span>Featured Showcase // Lead Machine Learning Project</span>
+                <span>Featured Game Showcase // Flagship Project</span>
                 <span
                   style={{
                     fontSize: "11px",
@@ -672,7 +761,7 @@ export default function SteamProfile() {
               </div>
             </section>
 
-            {/* Other Shipped Projects Showcase */}
+            {/* Complete Game / Software Library Showcase (All 9 Projects) */}
             <section
               style={{
                 background: "var(--bg-card)",
@@ -690,20 +779,63 @@ export default function SteamProfile() {
                   marginBottom: "12px",
                   paddingBottom: "6px",
                   borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexWrap: "wrap",
+                  gap: "8px",
                 }}
               >
-                Shipped Systems & Web Applications ({PROFILE.projects.length})
+                <span>Game Library // Shipped Works &amp; Research ({PROFILE.allProjects.length})</span>
+                <span style={{ fontSize: "11px", color: "var(--online-green)" }}>
+                  Showing {filteredProjects.length} Projects
+                </span>
               </div>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                {PROFILE.projects.map((proj, idx) => (
+              {/* Steam Library Filter Tabs */}
+              <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginBottom: "14px" }}>
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setProjectFilter(cat)}
+                    style={{
+                      padding: "4px 10px",
+                      fontSize: "11px",
+                      background:
+                        projectFilter === cat
+                          ? "linear-gradient(180deg, #214b6e 0%, #173650 100%)"
+                          : "rgba(0,0,0,0.3)",
+                      color: projectFilter === cat ? "#ffffff" : "#8f98a0",
+                      border:
+                        projectFilter === cat
+                          ? "1px solid #66c0f4"
+                          : "1px solid rgba(255,255,255,0.05)",
+                      borderRadius: "2px",
+                      cursor: "pointer",
+                      fontWeight: projectFilter === cat ? "bold" : "normal",
+                    }}
+                  >
+                    [{cat}]{" "}
+                    {cat === "ALL"
+                      ? `(${PROFILE.allProjects.length})`
+                      : `(${PROFILE.allProjects.filter((p) => p.category === cat).length})`}
+                  </button>
+                ))}
+              </div>
+
+              {/* All Projects Grid */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {filteredProjects.map((proj) => (
                   <div
-                    key={idx}
+                    key={proj.id}
                     style={{
                       background: "rgba(0, 0, 0, 0.25)",
                       borderRadius: "3px",
-                      padding: "14px",
+                      padding: "12px 14px",
                       border: "1px solid rgba(255, 255, 255, 0.04)",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "6px",
                     }}
                   >
                     <div
@@ -711,26 +843,38 @@ export default function SteamProfile() {
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "flex-start",
-                        marginBottom: "6px",
+                        flexWrap: "wrap",
+                        gap: "6px",
                       }}
                     >
                       <div>
-                        <div style={{ fontSize: "15px", color: "#ffffff", fontWeight: "bold" }}>
+                        <div style={{ fontSize: "14px", color: "#ffffff", fontWeight: "bold" }}>
                           {proj.title}
                         </div>
-                        <div style={{ fontSize: "11px", color: proj.accent }}>{proj.badge}</div>
+                        <span
+                          style={{
+                            fontSize: "10px",
+                            color: proj.accent,
+                            border: `1px solid ${proj.accent}40`,
+                            padding: "1px 5px",
+                            borderRadius: "2px",
+                            marginTop: "2px",
+                            display: "inline-block",
+                          }}
+                        >
+                          {proj.category}
+                        </span>
                       </div>
+
                       <div style={{ textAlign: "right" }}>
                         <div style={{ fontSize: "11px", color: "#90ba3c", fontFamily: "monospace" }}>
-                          {proj.hours}
+                          {proj.hours} on record
                         </div>
                         <div style={{ fontSize: "10px", color: "#8f98a0" }}>{proj.achievements}</div>
                       </div>
                     </div>
 
-                    <p style={{ fontSize: "12px", color: "#acb2b8", lineHeight: "1.5", marginBottom: "10px" }}>
-                      {proj.desc}
-                    </p>
+                    <p style={{ fontSize: "12px", color: "#acb2b8", lineHeight: "1.4" }}>{proj.desc}</p>
 
                     <div
                       style={{
@@ -739,35 +883,39 @@ export default function SteamProfile() {
                         alignItems: "center",
                         flexWrap: "wrap",
                         gap: "8px",
+                        marginTop: "4px",
+                        paddingTop: "6px",
+                        borderTop: "1px solid rgba(255,255,255,0.03)",
                       }}
                     >
                       <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
-                        {proj.tech.map((t) => (
+                        {proj.tags.map((t) => (
                           <span
                             key={t}
                             style={{
                               fontSize: "10px",
                               background: "rgba(0,0,0,0.5)",
-                              color: "#c6d4df",
+                              color: "#8f98a0",
                               padding: "2px 6px",
                               borderRadius: "2px",
                             }}
                           >
-                            {t}
+                            #{t}
                           </span>
                         ))}
                       </div>
+
                       <a
                         href={proj.link}
                         target="_blank"
                         rel="noreferrer"
                         style={{
                           fontSize: "11px",
-                          color: "#66c0f4",
-                          background: "rgba(102, 192, 244, 0.1)",
+                          color: "#ffffff",
+                          backgroundColor: "var(--btn-bg)",
                           padding: "4px 10px",
                           borderRadius: "2px",
-                          border: "1px solid rgba(102, 192, 244, 0.2)",
+                          fontWeight: 500,
                         }}
                       >
                         {proj.cta}
@@ -1144,6 +1292,67 @@ export default function SteamProfile() {
                       {b.xp}
                     </span>
                   </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Tech Inventory Widget */}
+            <div
+              style={{
+                background: "var(--bg-card)",
+                borderRadius: "4px",
+                padding: "16px",
+                border: "1px solid rgba(255, 255, 255, 0.05)",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "13px",
+                  color: "#8f98a0",
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                  marginBottom: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <span>Tech Inventory</span>
+                <span style={{ color: "#ffffff" }}>18 Items</span>
+              </div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
+                {[
+                  "React.js",
+                  "Next.js",
+                  "Tailwind CSS",
+                  "TypeScript",
+                  "Python",
+                  "Scikit-Learn",
+                  "Pandas",
+                  "Node.js",
+                  "Express.js",
+                  "Laravel",
+                  "PostgreSQL",
+                  "MySQL",
+                  "SQLite",
+                  "Docker",
+                  "ArcGIS",
+                  "QGIS",
+                  "Leaflet.js",
+                  "Git & GitHub",
+                ].map((tech) => (
+                  <span
+                    key={tech}
+                    style={{
+                      fontSize: "11px",
+                      background: "rgba(0,0,0,0.35)",
+                      color: "#c6d4df",
+                      padding: "2px 6px",
+                      borderRadius: "2px",
+                      border: "1px solid rgba(255,255,255,0.05)",
+                    }}
+                  >
+                    {tech}
+                  </span>
                 ))}
               </div>
             </div>
