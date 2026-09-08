@@ -360,7 +360,7 @@ export default function SteamProfile() {
         {/* Profile Header Card */}
         <section
           style={{
-            background: "rgba(23, 26, 33, 0.88)",
+            background: "rgba(15, 21, 30, 0.95)",
             backdropFilter: "blur(12px)",
             borderRadius: "6px",
             padding: "28px",
@@ -560,10 +560,10 @@ export default function SteamProfile() {
         <div
           style={{
             display: "flex",
-            gap: "4px",
-            marginBottom: "16px",
-            borderBottom: "1px solid rgba(255,255,255,0.08)",
-            paddingBottom: "8px",
+            gap: "8px",
+            marginBottom: "18px",
+            borderBottom: "1px solid rgba(102, 192, 244, 0.25)",
+            paddingBottom: "10px",
           }}
         >
           {[
@@ -575,19 +575,28 @@ export default function SteamProfile() {
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               style={{
-                padding: "8px 16px",
+                padding: "10px 20px",
                 fontSize: "12px",
-                fontWeight: 600,
+                fontWeight: 700,
+                letterSpacing: "0.5px",
                 textTransform: "uppercase",
                 background:
                   activeTab === tab.id
-                    ? "linear-gradient(180deg, rgba(102, 192, 244, 0.2) 0%, rgba(33, 75, 110, 0.4) 100%)"
-                    : "rgba(0,0,0,0.2)",
-                color: activeTab === tab.id ? "#66c0f4" : "#8f98a0",
-                border: "none",
-                borderBottom: activeTab === tab.id ? "2px solid #66c0f4" : "2px solid transparent",
+                    ? "linear-gradient(180deg, #2a475e 0%, #192837 100%)"
+                    : "rgba(18, 26, 36, 0.95)",
+                color: activeTab === tab.id ? "#ffffff" : "#8f98a0",
+                border:
+                  activeTab === tab.id
+                    ? "1px solid #66c0f4"
+                    : "1px solid rgba(255, 255, 255, 0.08)",
+                borderBottom: activeTab === tab.id ? "3px solid #66c0f4" : "3px solid transparent",
                 cursor: "pointer",
-                borderRadius: "2px 2px 0 0",
+                borderRadius: "3px 3px 0 0",
+                boxShadow:
+                  activeTab === tab.id
+                    ? "0 4px 12px rgba(0, 0, 0, 0.4), 0 0 10px rgba(102, 192, 244, 0.25)"
+                    : "none",
+                transition: "all 0.15s ease",
               }}
             >
               {tab.label}
@@ -608,10 +617,11 @@ export default function SteamProfile() {
             {/* Lead Showcase (Always Visible) */}
             <section
               style={{
-                background: "var(--bg-card)",
+                background: "rgba(20, 27, 38, 0.96)",
                 borderRadius: "4px",
-                padding: "16px",
-                border: "1px solid rgba(255, 255, 255, 0.05)",
+                padding: "20px",
+                border: "1px solid rgba(102, 192, 244, 0.25)",
+                boxShadow: "0 6px 20px rgba(0, 0, 0, 0.55)",
               }}
             >
               <div
@@ -746,42 +756,44 @@ export default function SteamProfile() {
             {activeTab === "projects" && (
               <section
                 style={{
-                  background: "var(--bg-card)",
+                  background: "rgba(20, 27, 38, 0.96)",
                   borderRadius: "4px",
-                  padding: "16px",
-                  border: "1px solid rgba(255, 255, 255, 0.05)",
+                  padding: "20px",
+                  border: "1px solid rgba(102, 192, 244, 0.2)",
+                  boxShadow: "0 6px 20px rgba(0, 0, 0, 0.55)",
                 }}
               >
                 <div
                   style={{
                     fontSize: "14px",
-                    color: "#8f98a0",
+                    color: "#66c0f4",
                     textTransform: "uppercase",
                     letterSpacing: "1px",
-                    marginBottom: "12px",
-                    paddingBottom: "6px",
-                    borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                    fontWeight: 700,
+                    marginBottom: "16px",
+                    paddingBottom: "8px",
+                    borderBottom: "1px solid rgba(102, 192, 244, 0.2)",
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
                   }}
                 >
                   <span>Software Portfolio Projects ({PROFILE.allProjects.length})</span>
-                  <span style={{ fontSize: "11px", color: "var(--online-green)" }}>All Shipped Works</span>
+                  <span style={{ fontSize: "11px", color: "var(--online-green)", fontWeight: "normal" }}>All Shipped Works</span>
                 </div>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
                   {PROFILE.allProjects.map((proj) => (
                     <div
                       key={proj.id}
                       style={{
-                        background: "rgba(0, 0, 0, 0.25)",
+                        background: "rgba(10, 15, 23, 0.92)",
                         borderRadius: "3px",
-                        padding: "14px",
-                        border: "1px solid rgba(255, 255, 255, 0.04)",
+                        padding: "16px",
+                        border: "1px solid rgba(66, 85, 106, 0.45)",
                         display: "flex",
                         flexDirection: "column",
-                        gap: "8px",
+                        gap: "10px",
                       }}
                     >
                       <div
@@ -801,11 +813,13 @@ export default function SteamProfile() {
                             style={{
                               fontSize: "10px",
                               color: proj.accent,
-                              border: `1px solid ${proj.accent}40`,
-                              padding: "1px 5px",
+                              border: `1px solid ${proj.accent}60`,
+                              background: `${proj.accent}15`,
+                              padding: "2px 6px",
                               borderRadius: "2px",
-                              marginTop: "2px",
+                              marginTop: "4px",
                               display: "inline-block",
+                              fontWeight: 600,
                             }}
                           >
                             {proj.category}
@@ -813,14 +827,14 @@ export default function SteamProfile() {
                         </div>
 
                         <div style={{ textAlign: "right" }}>
-                          <div style={{ fontSize: "11px", color: "#90ba3c", fontFamily: "monospace" }}>
+                          <div style={{ fontSize: "12px", color: "#90ba3c", fontFamily: "monospace", fontWeight: "bold" }}>
                             {proj.hours} on record
                           </div>
                           <div style={{ fontSize: "10px", color: "#8f98a0" }}>{proj.achievements}</div>
                         </div>
                       </div>
 
-                      <p style={{ fontSize: "12px", color: "#acb2b8", lineHeight: "1.5" }}>{proj.desc}</p>
+                      <p style={{ fontSize: "13px", color: "#c6d4df", lineHeight: "1.6" }}>{proj.desc}</p>
 
                       <div
                         style={{
@@ -830,8 +844,8 @@ export default function SteamProfile() {
                           flexWrap: "wrap",
                           gap: "8px",
                           marginTop: "4px",
-                          paddingTop: "6px",
-                          borderTop: "1px solid rgba(255,255,255,0.03)",
+                          paddingTop: "8px",
+                          borderTop: "1px solid rgba(255,255,255,0.06)",
                         }}
                       >
                         <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
@@ -840,10 +854,11 @@ export default function SteamProfile() {
                               key={t}
                               style={{
                                 fontSize: "10px",
-                                background: "rgba(0,0,0,0.5)",
+                                background: "rgba(0,0,0,0.6)",
                                 color: "#8f98a0",
-                                padding: "2px 6px",
+                                padding: "2px 8px",
                                 borderRadius: "2px",
+                                border: "1px solid rgba(255,255,255,0.06)",
                               }}
                             >
                               #{t}
@@ -856,12 +871,13 @@ export default function SteamProfile() {
                           target="_blank"
                           rel="noreferrer"
                           style={{
-                            fontSize: "11px",
+                            fontSize: "12px",
                             color: "#ffffff",
                             backgroundColor: "var(--btn-bg)",
-                            padding: "5px 12px",
+                            padding: "6px 14px",
                             borderRadius: "2px",
-                            fontWeight: 500,
+                            fontWeight: 600,
+                            boxShadow: "0 2px 6px rgba(0,0,0,0.4)",
                           }}
                         >
                           {proj.cta}
@@ -877,38 +893,40 @@ export default function SteamProfile() {
             {activeTab === "experience" && (
               <section
                 style={{
-                  background: "var(--bg-card)",
+                  background: "rgba(20, 27, 38, 0.96)",
                   borderRadius: "4px",
-                  padding: "16px",
-                  border: "1px solid rgba(255, 255, 255, 0.05)",
+                  padding: "20px",
+                  border: "1px solid rgba(102, 192, 244, 0.2)",
+                  boxShadow: "0 6px 20px rgba(0, 0, 0, 0.55)",
                 }}
               >
                 <div
                   style={{
                     fontSize: "14px",
-                    color: "#8f98a0",
+                    color: "#66c0f4",
                     textTransform: "uppercase",
                     letterSpacing: "1px",
-                    marginBottom: "12px",
-                    paddingBottom: "6px",
-                    borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                    fontWeight: 700,
+                    marginBottom: "16px",
+                    paddingBottom: "8px",
+                    borderBottom: "1px solid rgba(102, 192, 244, 0.2)",
                     display: "flex",
                     justifyContent: "space-between",
                   }}
                 >
                   <span>Career Experience & Quest Log ({PROFILE.experiences.length})</span>
-                  <span style={{ fontSize: "11px", color: "#8f98a0" }}>Work & Leadership Roles</span>
+                  <span style={{ fontSize: "11px", color: "#8f98a0", fontWeight: "normal" }}>Work & Leadership Roles</span>
                 </div>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                   {PROFILE.experiences.map((exp, idx) => (
                     <div
                       key={idx}
                       style={{
-                        background: "rgba(0, 0, 0, 0.2)",
+                        background: "rgba(10, 15, 23, 0.92)",
                         borderRadius: "3px",
-                        padding: "12px",
-                        border: "1px solid rgba(255, 255, 255, 0.03)",
+                        padding: "16px",
+                        border: "1px solid rgba(66, 85, 106, 0.4)",
                       }}
                     >
                       <div
@@ -916,39 +934,40 @@ export default function SteamProfile() {
                           display: "flex",
                           justifyContent: "space-between",
                           alignItems: "flex-start",
-                          marginBottom: "4px",
+                          marginBottom: "6px",
                         }}
                       >
                         <div>
-                          <span style={{ fontSize: "14px", color: "#ffffff", fontWeight: "bold" }}>
+                          <span style={{ fontSize: "15px", color: "#ffffff", fontWeight: "bold" }}>
                             {exp.role}
                           </span>{" "}
-                          <span style={{ color: "#66c0f4", fontSize: "13px" }}>@ {exp.company}</span>
+                          <span style={{ color: "#66c0f4", fontSize: "13px", fontWeight: 600 }}>@ {exp.company}</span>
                         </div>
-                        <span style={{ fontSize: "11px", color: "#8f98a0", fontFamily: "monospace" }}>
+                        <span style={{ fontSize: "12px", color: "#8f98a0", fontFamily: "monospace" }}>
                           {exp.period}
                         </span>
                       </div>
 
-                      <div style={{ fontSize: "11px", color: "#90ba3c", marginBottom: "6px" }}>
+                      <div style={{ fontSize: "11px", color: "#90ba3c", marginBottom: "8px", fontWeight: 500 }}>
                         📍 {exp.location} &nbsp;•&nbsp; {exp.type} &nbsp;•&nbsp; {exp.hours}
                       </div>
 
-                      <p style={{ fontSize: "12px", color: "#acb2b8", lineHeight: "1.4", marginBottom: "8px" }}>
+                      <p style={{ fontSize: "13px", color: "#c6d4df", lineHeight: "1.6", marginBottom: "10px" }}>
                         {exp.desc}
                       </p>
 
-                      <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
+                      <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
                         {exp.skills.map((s) => (
                           <span
                             key={s}
                             style={{
-                              fontSize: "10px",
-                              background: "rgba(102, 192, 244, 0.08)",
+                              fontSize: "11px",
+                              background: "rgba(102, 192, 244, 0.12)",
                               color: "#66c0f4",
-                              padding: "2px 6px",
+                              padding: "3px 8px",
                               borderRadius: "2px",
-                              border: "1px solid rgba(102, 192, 244, 0.2)",
+                              border: "1px solid rgba(102, 192, 244, 0.25)",
+                              fontWeight: 500,
                             }}
                           >
                             {s}
@@ -965,68 +984,71 @@ export default function SteamProfile() {
             {activeTab === "reviews" && (
               <section
                 style={{
-                  background: "var(--bg-card)",
+                  background: "rgba(20, 27, 38, 0.96)",
                   borderRadius: "4px",
-                  padding: "16px",
-                  border: "1px solid rgba(255, 255, 255, 0.05)",
+                  padding: "20px",
+                  border: "1px solid rgba(102, 192, 244, 0.2)",
+                  boxShadow: "0 6px 20px rgba(0, 0, 0, 0.55)",
                 }}
               >
                 <div
                   style={{
                     fontSize: "14px",
-                    color: "#8f98a0",
+                    color: "#66c0f4",
                     textTransform: "uppercase",
                     letterSpacing: "1px",
-                    marginBottom: "12px",
-                    paddingBottom: "6px",
-                    borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                    fontWeight: 700,
+                    marginBottom: "16px",
+                    paddingBottom: "8px",
+                    borderBottom: "1px solid rgba(102, 192, 244, 0.2)",
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
                   }}
                 >
                   <span>Customer Reviews / Professional Endorsements ({PROFILE.reviews.length})</span>
-                  <span style={{ fontSize: "11px", color: "#66c0f4" }}>Overwhelmingly Positive (100%)</span>
+                  <span style={{ fontSize: "11px", color: "#66c0f4", fontWeight: "normal" }}>Overwhelmingly Positive (100%)</span>
                 </div>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
                   {PROFILE.reviews.map((rev, idx) => (
                     <div
                       key={idx}
                       style={{
-                        background: "rgba(0, 0, 0, 0.3)",
+                        background: "rgba(10, 15, 23, 0.92)",
                         borderRadius: "3px",
-                        padding: "14px",
-                        border: "1px solid rgba(255, 255, 255, 0.04)",
+                        padding: "16px",
+                        border: "1px solid rgba(66, 85, 106, 0.4)",
                       }}
                     >
                       <div
                         style={{
                           display: "flex",
                           alignItems: "center",
-                          gap: "10px",
-                          marginBottom: "10px",
-                          borderBottom: "1px solid rgba(255,255,255,0.05)",
-                          paddingBottom: "8px",
+                          gap: "12px",
+                          marginBottom: "12px",
+                          borderBottom: "1px solid rgba(255,255,255,0.08)",
+                          paddingBottom: "10px",
                         }}
                       >
                         <div
                           style={{
                             background: "#214b6e",
                             color: "#66c0f4",
-                            width: "36px",
-                            height: "36px",
+                            width: "38px",
+                            height: "38px",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
                             fontSize: "18px",
                             borderRadius: "2px",
+                            border: "1px solid rgba(102, 192, 244, 0.3)",
                           }}
                         >
                           👍
                         </div>
                         <div>
-                          <div style={{ fontSize: "14px", color: "#ffffff", fontWeight: "bold" }}>
+                          <div style={{ fontSize: "15px", color: "#ffffff", fontWeight: "bold" }}>
                             Recommended
                           </div>
                           <div style={{ fontSize: "11px", color: "#8f98a0" }}>
@@ -1038,7 +1060,7 @@ export default function SteamProfile() {
                         </div>
                       </div>
 
-                      <p style={{ color: "#c6d4df", fontSize: "13px", lineHeight: "1.6", marginBottom: "10px" }}>
+                      <p style={{ color: "#d2dce6", fontSize: "13px", lineHeight: "1.65", marginBottom: "12px" }}>
                         &ldquo;{rev.review}&rdquo;
                       </p>
 
@@ -1049,8 +1071,8 @@ export default function SteamProfile() {
                           alignItems: "center",
                           fontSize: "11px",
                           color: "#8f98a0",
-                          borderTop: "1px solid rgba(255,255,255,0.03)",
-                          paddingTop: "6px",
+                          borderTop: "1px solid rgba(255,255,255,0.06)",
+                          paddingTop: "8px",
                         }}
                       >
                         <div>
@@ -1067,21 +1089,23 @@ export default function SteamProfile() {
             {/* Steam Comments Section (Always visible at bottom of left col) */}
             <section
               style={{
-                background: "var(--bg-card)",
+                background: "rgba(20, 27, 38, 0.96)",
                 borderRadius: "4px",
-                padding: "16px",
-                border: "1px solid rgba(255, 255, 255, 0.05)",
+                padding: "20px",
+                border: "1px solid rgba(102, 192, 244, 0.2)",
+                boxShadow: "0 6px 20px rgba(0, 0, 0, 0.55)",
               }}
             >
               <div
                 style={{
                   fontSize: "14px",
-                  color: "#8f98a0",
+                  color: "#66c0f4",
                   textTransform: "uppercase",
                   letterSpacing: "1px",
-                  marginBottom: "12px",
-                  paddingBottom: "6px",
-                  borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                  fontWeight: 700,
+                  marginBottom: "16px",
+                  paddingBottom: "8px",
+                  borderBottom: "1px solid rgba(102, 192, 244, 0.2)",
                   display: "flex",
                   justifyContent: "space-between",
                 }}
@@ -1096,28 +1120,30 @@ export default function SteamProfile() {
                     cursor: "pointer",
                     fontSize: "11px",
                     textDecoration: "underline",
+                    fontWeight: 600,
                   }}
                 >
                   Leave a +rep comment via email
                 </button>
               </div>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 {PROFILE.comments.map((cm, idx) => (
                   <div
                     key={idx}
                     style={{
                       display: "flex",
-                      gap: "10px",
-                      background: "rgba(0,0,0,0.2)",
-                      padding: "8px 10px",
+                      gap: "12px",
+                      background: "rgba(10, 15, 23, 0.9)",
+                      padding: "10px 14px",
                       borderRadius: "2px",
+                      border: "1px solid rgba(66, 85, 106, 0.3)",
                     }}
                   >
                     <div
                       style={{
-                        width: "32px",
-                        height: "32px",
+                        width: "34px",
+                        height: "34px",
                         background: "#2a475e",
                         borderRadius: "2px",
                         display: "flex",
@@ -1125,8 +1151,9 @@ export default function SteamProfile() {
                         justifyContent: "center",
                         color: "#ffffff",
                         fontWeight: "bold",
-                        fontSize: "12px",
+                        fontSize: "13px",
                         flexShrink: 0,
+                        border: "1px solid rgba(102, 192, 244, 0.3)",
                       }}
                     >
                       {cm.avatar}
@@ -1138,7 +1165,7 @@ export default function SteamProfile() {
                         </span>
                         <span style={{ color: "#8f98a0", fontSize: "10px" }}>{cm.date}</span>
                       </div>
-                      <p style={{ color: "#c6d4df", fontSize: "12px", marginTop: "2px", fontFamily: "monospace" }}>
+                      <p style={{ color: "#c6d4df", fontSize: "12px", marginTop: "4px", fontFamily: "monospace" }}>
                         {cm.text}
                       </p>
                     </div>
@@ -1153,34 +1180,36 @@ export default function SteamProfile() {
             {/* Online Status Widget */}
             <div
               style={{
-                background: "var(--bg-card)",
+                background: "rgba(20, 27, 38, 0.96)",
                 borderRadius: "4px",
                 padding: "16px",
-                border: "1px solid rgba(255, 255, 255, 0.05)",
+                border: "1px solid rgba(102, 192, 244, 0.2)",
+                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.5)",
               }}
             >
               <div
                 style={{
                   fontSize: "16px",
                   color: "var(--online-green)",
-                  fontWeight: 300,
+                  fontWeight: 600,
                   marginBottom: "4px",
                 }}
               >
                 Currently Online
               </div>
-              <div style={{ fontSize: "12px", color: "#8f98a0", marginBottom: "8px" }}>
+              <div style={{ fontSize: "12px", color: "#c6d4df", marginBottom: "8px" }}>
                 Open to Full-Time / Internship Roles
               </div>
               <div
                 style={{
                   fontSize: "11px",
-                  color: "#c6d4df",
-                  background: "rgba(0,0,0,0.3)",
-                  padding: "6px 8px",
+                  color: "#66c0f4",
+                  background: "rgba(10, 15, 23, 0.9)",
+                  padding: "8px 10px",
                   borderRadius: "2px",
                   fontFamily: "monospace",
                   wordBreak: "break-all",
+                  border: "1px solid rgba(102, 192, 244, 0.2)",
                 }}
               >
                 {PROFILE.email}
@@ -1190,18 +1219,20 @@ export default function SteamProfile() {
             {/* Badges & Certifications Showcase */}
             <div
               style={{
-                background: "var(--bg-card)",
+                background: "rgba(20, 27, 38, 0.96)",
                 borderRadius: "4px",
                 padding: "16px",
-                border: "1px solid rgba(255, 255, 255, 0.05)",
+                border: "1px solid rgba(102, 192, 244, 0.2)",
+                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.5)",
               }}
             >
               <div
                 style={{
                   fontSize: "13px",
-                  color: "#8f98a0",
+                  color: "#66c0f4",
                   textTransform: "uppercase",
                   letterSpacing: "1px",
+                  fontWeight: 700,
                   marginBottom: "12px",
                   display: "flex",
                   justifyContent: "space-between",
@@ -1220,10 +1251,10 @@ export default function SteamProfile() {
                       alignItems: "center",
                       justifyContent: "space-between",
                       fontSize: "12px",
-                      background: "rgba(0,0,0,0.25)",
+                      background: "rgba(10, 15, 23, 0.9)",
                       padding: "8px 10px",
                       borderRadius: "2px",
-                      border: "1px solid rgba(255,255,255,0.02)",
+                      border: "1px solid rgba(66, 85, 106, 0.35)",
                     }}
                   >
                     <div style={{ display: "flex", alignItems: "center", gap: "8px", overflow: "hidden" }}>
@@ -1246,18 +1277,20 @@ export default function SteamProfile() {
             {/* Tech Inventory Widget */}
             <div
               style={{
-                background: "var(--bg-card)",
+                background: "rgba(20, 27, 38, 0.96)",
                 borderRadius: "4px",
                 padding: "16px",
-                border: "1px solid rgba(255, 255, 255, 0.05)",
+                border: "1px solid rgba(102, 192, 244, 0.2)",
+                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.5)",
               }}
             >
               <div
                 style={{
                   fontSize: "13px",
-                  color: "#8f98a0",
+                  color: "#66c0f4",
                   textTransform: "uppercase",
                   letterSpacing: "1px",
+                  fontWeight: 700,
                   marginBottom: "10px",
                   display: "flex",
                   justifyContent: "space-between",
@@ -1291,11 +1324,11 @@ export default function SteamProfile() {
                     key={tech}
                     style={{
                       fontSize: "11px",
-                      background: "rgba(0,0,0,0.35)",
+                      background: "rgba(10, 15, 23, 0.9)",
                       color: "#c6d4df",
-                      padding: "2px 6px",
+                      padding: "3px 8px",
                       borderRadius: "2px",
-                      border: "1px solid rgba(255,255,255,0.05)",
+                      border: "1px solid rgba(102, 192, 244, 0.2)",
                     }}
                   >
                     {tech}
@@ -1307,18 +1340,20 @@ export default function SteamProfile() {
             {/* Education Lore */}
             <div
               style={{
-                background: "var(--bg-card)",
+                background: "rgba(20, 27, 38, 0.96)",
                 borderRadius: "4px",
                 padding: "16px",
-                border: "1px solid rgba(255, 255, 255, 0.05)",
+                border: "1px solid rgba(102, 192, 244, 0.2)",
+                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.5)",
               }}
             >
               <div
                 style={{
                   fontSize: "13px",
-                  color: "#8f98a0",
+                  color: "#66c0f4",
                   textTransform: "uppercase",
                   letterSpacing: "1px",
+                  fontWeight: 700,
                   marginBottom: "10px",
                 }}
               >
@@ -1329,7 +1364,7 @@ export default function SteamProfile() {
                   key={idx}
                   style={{
                     padding: "8px 0",
-                    borderBottom: idx < PROFILE.education.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
+                    borderBottom: idx < PROFILE.education.length - 1 ? "1px solid rgba(255,255,255,0.06)" : "none",
                   }}
                 >
                   <div style={{ color: "#ffffff", fontWeight: "bold", fontSize: "12px" }}>
@@ -1346,18 +1381,20 @@ export default function SteamProfile() {
             {/* Quick Links */}
             <div
               style={{
-                background: "var(--bg-card)",
+                background: "rgba(20, 27, 38, 0.96)",
                 borderRadius: "4px",
                 padding: "16px",
-                border: "1px solid rgba(255, 255, 255, 0.05)",
+                border: "1px solid rgba(102, 192, 244, 0.2)",
+                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.5)",
               }}
             >
               <div
                 style={{
                   fontSize: "13px",
-                  color: "#8f98a0",
+                  color: "#66c0f4",
                   textTransform: "uppercase",
                   letterSpacing: "1px",
+                  fontWeight: 700,
                   marginBottom: "10px",
                 }}
               >
@@ -1369,10 +1406,10 @@ export default function SteamProfile() {
                     href={PROFILE.linkedin}
                     target="_blank"
                     rel="noreferrer"
-                    style={{ display: "flex", justifyContent: "space-between", color: "#8f98a0" }}
+                    style={{ display: "flex", justifyContent: "space-between", color: "#c6d4df" }}
                   >
                     <span>LinkedIn Profile</span>
-                    <span style={{ color: "#ffffff" }}>↗</span>
+                    <span style={{ color: "#66c0f4" }}>↗</span>
                   </a>
                 </li>
                 <li style={{ marginBottom: "8px" }}>
@@ -1380,10 +1417,10 @@ export default function SteamProfile() {
                     href={PROFILE.github}
                     target="_blank"
                     rel="noreferrer"
-                    style={{ display: "flex", justifyContent: "space-between", color: "#8f98a0" }}
+                    style={{ display: "flex", justifyContent: "space-between", color: "#c6d4df" }}
                   >
                     <span>GitHub Repositories</span>
-                    <span style={{ color: "#ffffff" }}>↗</span>
+                    <span style={{ color: "#66c0f4" }}>↗</span>
                   </a>
                 </li>
                 <li style={{ marginBottom: "8px" }}>
@@ -1392,7 +1429,7 @@ export default function SteamProfile() {
                     style={{
                       display: "flex",
                       justifyContent: "space-between",
-                      color: "#8f98a0",
+                      color: "#c6d4df",
                       background: "none",
                       border: "none",
                       padding: 0,
@@ -1403,7 +1440,7 @@ export default function SteamProfile() {
                     }}
                   >
                     <span>Direct Email</span>
-                    <span style={{ color: "#ffffff" }}>{copied ? "Copied!" : "📋"}</span>
+                    <span style={{ color: "#66c0f4" }}>{copied ? "Copied!" : "📋"}</span>
                   </button>
                 </li>
               </ul>
