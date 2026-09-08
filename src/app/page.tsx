@@ -48,7 +48,7 @@ const PROFILE = {
       "End-to-end Machine Learning pipeline tailored for BPJS patient clinical data. Features automated data cleaning, exploratory data analysis, Natural Language Processing (Logistic Regression) for Hypertension symptom stratification, and unsupervised K-Means clustering for Diabetes Mellitus risk groups.",
     tags: ["Python", "Scikit-Learn", "Streamlit", "Pandas", "NLP", "K-Means", "BPJS HealthTech"],
   },
-  // All 7 Portfolio Projects from original archive
+  // Exact 4 Projects
   allProjects: [
     {
       id: "medeva",
@@ -61,7 +61,6 @@ const PROFILE = {
       link: "https://medeva-demo-jbnnczbvk6ucappppedszeab.streamlit.app/",
       cta: "Launch Live Demo ↗",
       accent: "#90ba3c",
-      iconBg: "bg-emerald-950/80",
     },
     {
       id: "webgis",
@@ -74,33 +73,6 @@ const PROFILE = {
       link: "https://midas79.github.io/Map-Digital-Desa-Ngasem/",
       cta: "Explore Interactive Map ↗",
       accent: "#57cbde",
-      iconBg: "bg-teal-950/80",
-    },
-    {
-      id: "bps",
-      category: "Web App",
-      title: "BPS Kota Malang Regional Data Portal",
-      desc: "Responsive governmental statistics portal engineered for BPS Kota Malang. Visualizes regional economic indicators, inflation indices, and demographic registries with intuitive interactive charts.",
-      tags: ["Next.js", "Tailwind CSS", "Data Analysis", "REST API", "JavaScript"],
-      hours: "142.0 hrs",
-      achievements: "9 / 9 (100%)",
-      link: "https://github.com/midas79",
-      cta: "Inspect Source Repos ↗",
-      accent: "#66c0f4",
-      iconBg: "bg-blue-950/80",
-    },
-    {
-      id: "dbs",
-      category: "Web App",
-      title: "Coding Camp by DBS Foundation Platform",
-      desc: "Production web application capstone built during the DBS Foundation Coding Camp. Full-stack responsive web platform with state management, clean routing, and accessibility standards.",
-      tags: ["React.js", "Next.js", "REST APIs", "Modern CSS", "Git"],
-      hours: "196.5 hrs",
-      achievements: "15 / 15 (100%)",
-      link: "https://github.com/midas79",
-      cta: "Inspect Repository ↗",
-      accent: "#e5c43b",
-      iconBg: "bg-amber-950/80",
     },
     {
       id: "anime31",
@@ -113,7 +85,6 @@ const PROFILE = {
       link: "https://github.com/midas79",
       cta: "Inspect Repository ↗",
       accent: "#ff79c6",
-      iconBg: "bg-purple-950/80",
     },
     {
       id: "moviemate",
@@ -126,48 +97,9 @@ const PROFILE = {
       link: "https://github.com/midas79",
       cta: "Inspect Repository ↗",
       accent: "#ff5555",
-      iconBg: "bg-red-950/80",
-    },
-    {
-      id: "uptime",
-      category: "Self-Hosted",
-      title: "Uptime Monitor Engine",
-      desc: "Self-hosted network reliability monitoring engine tracking HTTP endpoints, ping latency, TCP ports, and DNS status with automated webhook notifications on downtime.",
-      tags: ["Docker", "Node.js", "SQLite", "DevOps"],
-      hours: "85.0 hrs",
-      achievements: "7 / 7 (100%)",
-      link: "https://github.com/midas79",
-      cta: "Inspect Repository ↗",
-      accent: "#50fa7b",
-      iconBg: "bg-emerald-950/80",
-    },
-    {
-      id: "sentiment",
-      category: "Research",
-      title: "NLP Sentiment Analyzer Pipeline",
-      desc: "Natural Language Processing sentiment classification suite with CSV upload parsing, text preprocessing, interactive distribution charts, and exportable report summaries.",
-      tags: ["Python", "Flask", "NLP", "Scikit-Learn", "Matplotlib"],
-      hours: "76.0 hrs",
-      achievements: "6 / 6 (100%)",
-      link: "https://github.com/midas79",
-      cta: "Inspect Repository ↗",
-      accent: "#bd93f9",
-      iconBg: "bg-indigo-950/80",
-    },
-    {
-      id: "kanban",
-      category: "Web App",
-      title: "Task Management & Kanban System",
-      desc: "Interactive Kanban project management platform featuring drag-and-drop workflow columns, task assignment, priority tagging, and sprint velocity metrics.",
-      tags: ["Laravel", "MySQL", "Vue.js", "RESTful API"],
-      hours: "135.0 hrs",
-      achievements: "11 / 11 (100%)",
-      link: "https://github.com/midas79",
-      cta: "Inspect Repository ↗",
-      accent: "#f1fa8c",
-      iconBg: "bg-yellow-950/80",
     },
   ],
+  // Work & Leadership Experiences from CV
   experiences: [
     {
       company: "MEDEVA",
@@ -327,7 +259,7 @@ const PROFILE = {
 
 export default function SteamProfile() {
   const [copied, setCopied] = useState(false);
-  const [projectFilter, setProjectFilter] = useState("ALL");
+  const [activeTab, setActiveTab] = useState<"projects" | "experience" | "reviews">("projects");
 
   const copyEmail = () => {
     navigator.clipboard.writeText(PROFILE.email);
@@ -335,15 +267,9 @@ export default function SteamProfile() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const categories = ["ALL", "Machine Learning", "Geospatial", "Web App", "Self-Hosted", "Research"];
-  const filteredProjects =
-    projectFilter === "ALL"
-      ? PROFILE.allProjects
-      : PROFILE.allProjects.filter((p) => p.category === projectFilter);
-
   return (
     <div style={{ minHeight: "100vh" }}>
-      {/* Steam Top Header */}
+      {/* Steam Top Header Nav */}
       <header
         style={{
           background: "var(--bg-header)",
@@ -446,7 +372,7 @@ export default function SteamProfile() {
             boxShadow: "0 8px 30px rgba(0,0,0,0.5)",
           }}
         >
-          {/* Avatar + Frame */}
+          {/* Avatar + Animated Frame */}
           <div
             style={{
               position: "relative",
@@ -480,7 +406,7 @@ export default function SteamProfile() {
             />
           </div>
 
-          {/* Profile Details */}
+          {/* Profile Main Information */}
           <div style={{ flexGrow: 1 }}>
             <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "4px" }}>
               <h1
@@ -612,6 +538,45 @@ export default function SteamProfile() {
           </div>
         </section>
 
+        {/* Navigation Tabs to Switch Main View */}
+        <div
+          style={{
+            display: "flex",
+            gap: "4px",
+            marginBottom: "16px",
+            borderBottom: "1px solid rgba(255,255,255,0.08)",
+            paddingBottom: "8px",
+          }}
+        >
+          {[
+            { id: "projects" as const, label: `FEATURED PROJECTS (${PROFILE.allProjects.length})` },
+            { id: "experience" as const, label: `CAREER EXPERIENCE (${PROFILE.experiences.length})` },
+            { id: "reviews" as const, label: `ENDORSEMENTS & REVIEWS (${PROFILE.reviews.length})` },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              style={{
+                padding: "8px 16px",
+                fontSize: "12px",
+                fontWeight: 600,
+                textTransform: "uppercase",
+                background:
+                  activeTab === tab.id
+                    ? "linear-gradient(180deg, rgba(102, 192, 244, 0.2) 0%, rgba(33, 75, 110, 0.4) 100%)"
+                    : "rgba(0,0,0,0.2)",
+                color: activeTab === tab.id ? "#66c0f4" : "#8f98a0",
+                border: "none",
+                borderBottom: activeTab === tab.id ? "2px solid #66c0f4" : "2px solid transparent",
+                cursor: "pointer",
+                borderRadius: "2px 2px 0 0",
+              }}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
         {/* Content Layout: 1fr left column + 280px right column */}
         <div
           style={{
@@ -620,9 +585,9 @@ export default function SteamProfile() {
             gap: "16px",
           }}
         >
-          {/* Left Column (Showcases, All Projects, Quests, Reviews, Comments) */}
+          {/* Left Column Content */}
           <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-            {/* Lead Featured Project Showcase (MEDEVA Risk Stratification) */}
+            {/* Lead Showcase (Always Visible) */}
             <section
               style={{
                 background: "var(--bg-card)",
@@ -659,7 +624,7 @@ export default function SteamProfile() {
                 </span>
               </div>
 
-              {/* Game / Project Banner Header */}
+              {/* Game Banner Header */}
               <div
                 style={{
                   background: "linear-gradient(90deg, rgba(20,30,48,0.7) 0%, rgba(36,59,85,0.7) 100%)",
@@ -706,7 +671,6 @@ export default function SteamProfile() {
                 {PROFILE.leadShowcase.description}
               </p>
 
-              {/* Tech Tags */}
               <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginBottom: "14px" }}>
                 {PROFILE.leadShowcase.tags.map((t) => (
                   <span
@@ -725,7 +689,6 @@ export default function SteamProfile() {
                 ))}
               </div>
 
-              {/* Action Buttons */}
               <div style={{ display: "flex", gap: "10px" }}>
                 <a
                   href={PROFILE.leadShowcase.liveDemo}
@@ -761,363 +724,329 @@ export default function SteamProfile() {
               </div>
             </section>
 
-            {/* Complete Game / Software Library Showcase (All 9 Projects) */}
-            <section
-              style={{
-                background: "var(--bg-card)",
-                borderRadius: "4px",
-                padding: "16px",
-                border: "1px solid rgba(255, 255, 255, 0.05)",
-              }}
-            >
-              <div
+            {/* TAB 1: PROJECTS (Exact 4 Portfolio Projects) */}
+            {activeTab === "projects" && (
+              <section
                 style={{
-                  fontSize: "14px",
-                  color: "#8f98a0",
-                  textTransform: "uppercase",
-                  letterSpacing: "1px",
-                  marginBottom: "12px",
-                  paddingBottom: "6px",
-                  borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  flexWrap: "wrap",
-                  gap: "8px",
+                  background: "var(--bg-card)",
+                  borderRadius: "4px",
+                  padding: "16px",
+                  border: "1px solid rgba(255, 255, 255, 0.05)",
                 }}
               >
-                <span>Game Library // Shipped Works &amp; Research ({PROFILE.allProjects.length})</span>
-                <span style={{ fontSize: "11px", color: "var(--online-green)" }}>
-                  Showing {filteredProjects.length} Projects
-                </span>
-              </div>
+                <div
+                  style={{
+                    fontSize: "14px",
+                    color: "#8f98a0",
+                    textTransform: "uppercase",
+                    letterSpacing: "1px",
+                    marginBottom: "12px",
+                    paddingBottom: "6px",
+                    borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <span>Software Portfolio Projects ({PROFILE.allProjects.length})</span>
+                  <span style={{ fontSize: "11px", color: "var(--online-green)" }}>All Shipped Works</span>
+                </div>
 
-              {/* Steam Library Filter Tabs */}
-              <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginBottom: "14px" }}>
-                {categories.map((cat) => (
-                  <button
-                    key={cat}
-                    onClick={() => setProjectFilter(cat)}
-                    style={{
-                      padding: "4px 10px",
-                      fontSize: "11px",
-                      background:
-                        projectFilter === cat
-                          ? "linear-gradient(180deg, #214b6e 0%, #173650 100%)"
-                          : "rgba(0,0,0,0.3)",
-                      color: projectFilter === cat ? "#ffffff" : "#8f98a0",
-                      border:
-                        projectFilter === cat
-                          ? "1px solid #66c0f4"
-                          : "1px solid rgba(255,255,255,0.05)",
-                      borderRadius: "2px",
-                      cursor: "pointer",
-                      fontWeight: projectFilter === cat ? "bold" : "normal",
-                    }}
-                  >
-                    [{cat}]{" "}
-                    {cat === "ALL"
-                      ? `(${PROFILE.allProjects.length})`
-                      : `(${PROFILE.allProjects.filter((p) => p.category === cat).length})`}
-                  </button>
-                ))}
-              </div>
-
-              {/* All Projects Grid */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                {filteredProjects.map((proj) => (
-                  <div
-                    key={proj.id}
-                    style={{
-                      background: "rgba(0, 0, 0, 0.25)",
-                      borderRadius: "3px",
-                      padding: "12px 14px",
-                      border: "1px solid rgba(255, 255, 255, 0.04)",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "6px",
-                    }}
-                  >
+                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                  {PROFILE.allProjects.map((proj) => (
                     <div
+                      key={proj.id}
                       style={{
+                        background: "rgba(0, 0, 0, 0.25)",
+                        borderRadius: "3px",
+                        padding: "14px",
+                        border: "1px solid rgba(255, 255, 255, 0.04)",
                         display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "flex-start",
-                        flexWrap: "wrap",
-                        gap: "6px",
+                        flexDirection: "column",
+                        gap: "8px",
                       }}
                     >
-                      <div>
-                        <div style={{ fontSize: "14px", color: "#ffffff", fontWeight: "bold" }}>
-                          {proj.title}
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "flex-start",
+                          flexWrap: "wrap",
+                          gap: "6px",
+                        }}
+                      >
+                        <div>
+                          <div style={{ fontSize: "15px", color: "#ffffff", fontWeight: "bold" }}>
+                            {proj.title}
+                          </div>
+                          <span
+                            style={{
+                              fontSize: "10px",
+                              color: proj.accent,
+                              border: `1px solid ${proj.accent}40`,
+                              padding: "1px 5px",
+                              borderRadius: "2px",
+                              marginTop: "2px",
+                              display: "inline-block",
+                            }}
+                          >
+                            {proj.category}
+                          </span>
                         </div>
-                        <span
+
+                        <div style={{ textAlign: "right" }}>
+                          <div style={{ fontSize: "11px", color: "#90ba3c", fontFamily: "monospace" }}>
+                            {proj.hours} on record
+                          </div>
+                          <div style={{ fontSize: "10px", color: "#8f98a0" }}>{proj.achievements}</div>
+                        </div>
+                      </div>
+
+                      <p style={{ fontSize: "12px", color: "#acb2b8", lineHeight: "1.5" }}>{proj.desc}</p>
+
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          flexWrap: "wrap",
+                          gap: "8px",
+                          marginTop: "4px",
+                          paddingTop: "6px",
+                          borderTop: "1px solid rgba(255,255,255,0.03)",
+                        }}
+                      >
+                        <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
+                          {proj.tags.map((t) => (
+                            <span
+                              key={t}
+                              style={{
+                                fontSize: "10px",
+                                background: "rgba(0,0,0,0.5)",
+                                color: "#8f98a0",
+                                padding: "2px 6px",
+                                borderRadius: "2px",
+                              }}
+                            >
+                              #{t}
+                            </span>
+                          ))}
+                        </div>
+
+                        <a
+                          href={proj.link}
+                          target="_blank"
+                          rel="noreferrer"
                           style={{
-                            fontSize: "10px",
-                            color: proj.accent,
-                            border: `1px solid ${proj.accent}40`,
-                            padding: "1px 5px",
+                            fontSize: "11px",
+                            color: "#ffffff",
+                            backgroundColor: "var(--btn-bg)",
+                            padding: "5px 12px",
                             borderRadius: "2px",
-                            marginTop: "2px",
-                            display: "inline-block",
+                            fontWeight: 500,
                           }}
                         >
-                          {proj.category}
+                          {proj.cta}
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* TAB 2: CAREER EXPERIENCES */}
+            {activeTab === "experience" && (
+              <section
+                style={{
+                  background: "var(--bg-card)",
+                  borderRadius: "4px",
+                  padding: "16px",
+                  border: "1px solid rgba(255, 255, 255, 0.05)",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: "14px",
+                    color: "#8f98a0",
+                    textTransform: "uppercase",
+                    letterSpacing: "1px",
+                    marginBottom: "12px",
+                    paddingBottom: "6px",
+                    borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <span>Career Experience & Quest Log ({PROFILE.experiences.length})</span>
+                  <span style={{ fontSize: "11px", color: "#8f98a0" }}>Work & Leadership Roles</span>
+                </div>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                  {PROFILE.experiences.map((exp, idx) => (
+                    <div
+                      key={idx}
+                      style={{
+                        background: "rgba(0, 0, 0, 0.2)",
+                        borderRadius: "3px",
+                        padding: "12px",
+                        border: "1px solid rgba(255, 255, 255, 0.03)",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "flex-start",
+                          marginBottom: "4px",
+                        }}
+                      >
+                        <div>
+                          <span style={{ fontSize: "14px", color: "#ffffff", fontWeight: "bold" }}>
+                            {exp.role}
+                          </span>{" "}
+                          <span style={{ color: "#66c0f4", fontSize: "13px" }}>@ {exp.company}</span>
+                        </div>
+                        <span style={{ fontSize: "11px", color: "#8f98a0", fontFamily: "monospace" }}>
+                          {exp.period}
                         </span>
                       </div>
 
-                      <div style={{ textAlign: "right" }}>
-                        <div style={{ fontSize: "11px", color: "#90ba3c", fontFamily: "monospace" }}>
-                          {proj.hours} on record
-                        </div>
-                        <div style={{ fontSize: "10px", color: "#8f98a0" }}>{proj.achievements}</div>
+                      <div style={{ fontSize: "11px", color: "#90ba3c", marginBottom: "6px" }}>
+                        📍 {exp.location} &nbsp;•&nbsp; {exp.type} &nbsp;•&nbsp; {exp.hours}
                       </div>
-                    </div>
 
-                    <p style={{ fontSize: "12px", color: "#acb2b8", lineHeight: "1.4" }}>{proj.desc}</p>
+                      <p style={{ fontSize: "12px", color: "#acb2b8", lineHeight: "1.4", marginBottom: "8px" }}>
+                        {exp.desc}
+                      </p>
 
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        flexWrap: "wrap",
-                        gap: "8px",
-                        marginTop: "4px",
-                        paddingTop: "6px",
-                        borderTop: "1px solid rgba(255,255,255,0.03)",
-                      }}
-                    >
                       <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
-                        {proj.tags.map((t) => (
+                        {exp.skills.map((s) => (
                           <span
-                            key={t}
+                            key={s}
                             style={{
                               fontSize: "10px",
-                              background: "rgba(0,0,0,0.5)",
-                              color: "#8f98a0",
+                              background: "rgba(102, 192, 244, 0.08)",
+                              color: "#66c0f4",
                               padding: "2px 6px",
                               borderRadius: "2px",
+                              border: "1px solid rgba(102, 192, 244, 0.2)",
                             }}
                           >
-                            #{t}
+                            {s}
                           </span>
                         ))}
                       </div>
-
-                      <a
-                        href={proj.link}
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{
-                          fontSize: "11px",
-                          color: "#ffffff",
-                          backgroundColor: "var(--btn-bg)",
-                          padding: "4px 10px",
-                          borderRadius: "2px",
-                          fontWeight: 500,
-                        }}
-                      >
-                        {proj.cta}
-                      </a>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </section>
+                  ))}
+                </div>
+              </section>
+            )}
 
-            {/* Career Quests / Experience Log */}
-            <section
-              style={{
-                background: "var(--bg-card)",
-                borderRadius: "4px",
-                padding: "16px",
-                border: "1px solid rgba(255, 255, 255, 0.05)",
-              }}
-            >
-              <div
+            {/* TAB 3: REVIEWS & ENDORSEMENTS */}
+            {activeTab === "reviews" && (
+              <section
                 style={{
-                  fontSize: "14px",
-                  color: "#8f98a0",
-                  textTransform: "uppercase",
-                  letterSpacing: "1px",
-                  marginBottom: "12px",
-                  paddingBottom: "6px",
-                  borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
-                  display: "flex",
-                  justifyContent: "space-between",
+                  background: "var(--bg-card)",
+                  borderRadius: "4px",
+                  padding: "16px",
+                  border: "1px solid rgba(255, 255, 255, 0.05)",
                 }}
               >
-                <span>Career Experience & Quest Log</span>
-                <span style={{ fontSize: "11px", color: "#8f98a0" }}>
-                  {PROFILE.experiences.length} Completed Quests
-                </span>
-              </div>
+                <div
+                  style={{
+                    fontSize: "14px",
+                    color: "#8f98a0",
+                    textTransform: "uppercase",
+                    letterSpacing: "1px",
+                    marginBottom: "12px",
+                    paddingBottom: "6px",
+                    borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <span>Customer Reviews / Professional Endorsements ({PROFILE.reviews.length})</span>
+                  <span style={{ fontSize: "11px", color: "#66c0f4" }}>Overwhelmingly Positive (100%)</span>
+                </div>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                {PROFILE.experiences.map((exp, idx) => (
-                  <div
-                    key={idx}
-                    style={{
-                      background: "rgba(0, 0, 0, 0.2)",
-                      borderRadius: "3px",
-                      padding: "12px",
-                      border: "1px solid rgba(255, 255, 255, 0.03)",
-                    }}
-                  >
+                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                  {PROFILE.reviews.map((rev, idx) => (
                     <div
+                      key={idx}
                       style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "flex-start",
-                        marginBottom: "4px",
+                        background: "rgba(0, 0, 0, 0.3)",
+                        borderRadius: "3px",
+                        padding: "14px",
+                        border: "1px solid rgba(255, 255, 255, 0.04)",
                       }}
                     >
-                      <div>
-                        <span style={{ fontSize: "14px", color: "#ffffff", fontWeight: "bold" }}>
-                          {exp.role}
-                        </span>{" "}
-                        <span style={{ color: "#66c0f4", fontSize: "13px" }}>@ {exp.company}</span>
-                      </div>
-                      <span style={{ fontSize: "11px", color: "#8f98a0", fontFamily: "monospace" }}>
-                        {exp.period}
-                      </span>
-                    </div>
-
-                    <div style={{ fontSize: "11px", color: "#90ba3c", marginBottom: "6px" }}>
-                      📍 {exp.location} &nbsp;•&nbsp; {exp.type} &nbsp;•&nbsp; {exp.hours}
-                    </div>
-
-                    <p style={{ fontSize: "12px", color: "#acb2b8", lineHeight: "1.4", marginBottom: "8px" }}>
-                      {exp.desc}
-                    </p>
-
-                    <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
-                      {exp.skills.map((s) => (
-                        <span
-                          key={s}
-                          style={{
-                            fontSize: "10px",
-                            background: "rgba(102, 192, 244, 0.08)",
-                            color: "#66c0f4",
-                            padding: "2px 6px",
-                            borderRadius: "2px",
-                            border: "1px solid rgba(102, 192, 244, 0.2)",
-                          }}
-                        >
-                          {s}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Steam Player Reviews / Endorsements Section */}
-            <section
-              style={{
-                background: "var(--bg-card)",
-                borderRadius: "4px",
-                padding: "16px",
-                border: "1px solid rgba(255, 255, 255, 0.05)",
-              }}
-            >
-              <div
-                style={{
-                  fontSize: "14px",
-                  color: "#8f98a0",
-                  textTransform: "uppercase",
-                  letterSpacing: "1px",
-                  marginBottom: "12px",
-                  paddingBottom: "6px",
-                  borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <span>Customer Reviews / Professional Endorsements ({PROFILE.reviews.length})</span>
-                <span style={{ fontSize: "11px", color: "#66c0f4" }}>Overwhelmingly Positive (100%)</span>
-              </div>
-
-              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                {PROFILE.reviews.map((rev, idx) => (
-                  <div
-                    key={idx}
-                    style={{
-                      background: "rgba(0, 0, 0, 0.3)",
-                      borderRadius: "3px",
-                      padding: "14px",
-                      border: "1px solid rgba(255, 255, 255, 0.04)",
-                    }}
-                  >
-                    {/* Steam Review Header Bar */}
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "10px",
-                        marginBottom: "10px",
-                        borderBottom: "1px solid rgba(255,255,255,0.05)",
-                        paddingBottom: "8px",
-                      }}
-                    >
-                      {/* Thumbs Up Badge */}
                       <div
                         style={{
-                          background: "#214b6e",
-                          color: "#66c0f4",
-                          width: "36px",
-                          height: "36px",
                           display: "flex",
                           alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: "18px",
-                          borderRadius: "2px",
+                          gap: "10px",
+                          marginBottom: "10px",
+                          borderBottom: "1px solid rgba(255,255,255,0.05)",
+                          paddingBottom: "8px",
                         }}
                       >
-                        👍
-                      </div>
-                      <div>
-                        <div style={{ fontSize: "14px", color: "#ffffff", fontWeight: "bold" }}>
-                          Recommended
+                        <div
+                          style={{
+                            background: "#214b6e",
+                            color: "#66c0f4",
+                            width: "36px",
+                            height: "36px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "18px",
+                            borderRadius: "2px",
+                          }}
+                        >
+                          👍
                         </div>
-                        <div style={{ fontSize: "11px", color: "#8f98a0" }}>
-                          {rev.playtime} &nbsp;|&nbsp; {rev.relation}
+                        <div>
+                          <div style={{ fontSize: "14px", color: "#ffffff", fontWeight: "bold" }}>
+                            Recommended
+                          </div>
+                          <div style={{ fontSize: "11px", color: "#8f98a0" }}>
+                            {rev.playtime} &nbsp;|&nbsp; {rev.relation}
+                          </div>
+                        </div>
+                        <div style={{ marginLeft: "auto", fontSize: "11px", color: "#8f98a0" }}>
+                          {rev.date}
                         </div>
                       </div>
-                      <div style={{ marginLeft: "auto", fontSize: "11px", color: "#8f98a0" }}>
-                        {rev.date}
+
+                      <p style={{ color: "#c6d4df", fontSize: "13px", lineHeight: "1.6", marginBottom: "10px" }}>
+                        &ldquo;{rev.review}&rdquo;
+                      </p>
+
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          fontSize: "11px",
+                          color: "#8f98a0",
+                          borderTop: "1px solid rgba(255,255,255,0.03)",
+                          paddingTop: "6px",
+                        }}
+                      >
+                        <div>
+                          Review by <strong style={{ color: "#ffffff" }}>{rev.author}</strong>
+                        </div>
+                        <div>{rev.helpful} people found this review helpful</div>
                       </div>
                     </div>
+                  ))}
+                </div>
+              </section>
+            )}
 
-                    <p style={{ color: "#c6d4df", fontSize: "13px", lineHeight: "1.6", marginBottom: "10px" }}>
-                      &ldquo;{rev.review}&rdquo;
-                    </p>
-
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        fontSize: "11px",
-                        color: "#8f98a0",
-                        borderTop: "1px solid rgba(255,255,255,0.03)",
-                        paddingTop: "6px",
-                      }}
-                    >
-                      <div>
-                        Review by <strong style={{ color: "#ffffff" }}>{rev.author}</strong>
-                      </div>
-                      <div>{rev.helpful} people found this review helpful</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Steam Profile Comments Section */}
+            {/* Steam Comments Section (Always visible at bottom of left col) */}
             <section
               style={{
                 background: "var(--bg-card)",
@@ -1357,7 +1286,7 @@ export default function SteamProfile() {
               </div>
             </div>
 
-            {/* Education History */}
+            {/* Education Lore */}
             <div
               style={{
                 background: "var(--bg-card)",
