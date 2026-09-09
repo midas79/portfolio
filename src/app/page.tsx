@@ -1,452 +1,1360 @@
 ﻿"use client";
 
 import { useState } from "react";
-import {
-  PROFILE,
-  PROJECTS,
-  EXPERIENCES,
-  CERTIFICATIONS,
-  SKILL_GROUPS,
-} from "../data/portfolio";
 
-export default function ArchitecturalPortfolio() {
+const PROFILE = {
+  name: "Dionisius Surya Jaya",
+  alias: "dionisiussj",
+  level: 42,
+  badgeTitle: "Community Leader & ML Engineer",
+  badgeXP: "1,337 XP",
+  avatarUrl: "/assets/images/avatar_full.jpg",
+  avatarFrame: "/assets/images/shared.akamai.steamstatic.com/c447714efa9703c4c0007a8316127c12ea0d32f4.png",
+  badgeIcon: "/assets/images/shared.akamai.steamstatic.com/2def078bb9d550e4496e9b8ac1f7bca3d4b1ad99-b783dbdb84.png",
+  location: "Malang Regency, East Java, Indonesia",
+  headline: "In-Game: Visual Studio Code — Full-Stack & Machine Learning Workspace",
+  summary:
+    "I am an undergraduate Computer Science student at Universitas Brawijaya (Informatics 2022–2026) with a strong passion for programming and software development. My goal is to become a professional programmer who not only writes clean and efficient code but also builds meaningful, impactful solutions. Constantly seeking opportunities to learn new technologies, refine system architectures, and contribute to production-grade real-world projects.",
+  email: "dionisius.suryajaya@gmail.com",
+  linkedin: "https://www.linkedin.com/in/dionisiussj",
+  github: "https://github.com/midas79",
+  topSkills: [
+    "WebDev",
+    "Front-End Development",
+    "Machine Learning & NLP",
+    "Backend & APIs",
+    "Financial Planning",
+    "Geospatial WebGIS",
+  ],
+  badges: [
+    { name: "Belajar Dasar Git dengan GitHub", org: "Dicoding Indonesia", xp: "100 XP", icon: "📦" },
+    { name: "Belajar Back-End Pemula dengan JavaScript", org: "Dicoding Indonesia", xp: "250 XP", icon: "⚙️" },
+    { name: "Belajar Fundamental Front-End Web Dev", org: "Dicoding Indonesia", xp: "250 XP", icon: "🎨" },
+    { name: "Belajar Dasar Pemrograman Web", org: "Dicoding Indonesia", xp: "100 XP", icon: "🌐" },
+    { name: "Belajar Dasar Pemrograman JavaScript", org: "Dicoding Indonesia", xp: "150 XP", icon: "💻" },
+    { name: "Belajar Membuat Front-End Web untuk Pemula", org: "Dicoding Indonesia", xp: "150 XP", icon: "🚀" },
+    { name: "Belajar Membuat Aplikasi Web dengan React", org: "Dicoding Indonesia", xp: "250 XP", icon: "⚛️" },
+    { name: "Cloud Practitioner Essentials (AWS Cloud)", org: "Dicoding / AWS", xp: "150 XP", icon: "☁️" },
+    { name: "Belajar Prinsip Pemrograman SOLID", org: "Dicoding Indonesia", xp: "150 XP", icon: "🛡️" },
+    { name: "Belajar Data Analysis / Machine Learning", org: "Dicoding Indonesia", xp: "200 XP", icon: "📊" },
+    { name: "Financial Literacy 101", org: "Financial Education", xp: "150 XP", icon: "💎" },
+  ],
+  leadShowcase: {
+    title: "MEDEVA — Health Risk Stratification System",
+    genre: "Machine Learning / Clinical Predictive Diagnostics",
+    developer: "MEDEVA & Dionisius Surya Jaya",
+    publisher: "Healthcare Analytics Solutions",
+    status: "Active Research & Production Pipeline",
+    hoursPlayed: "320 hrs",
+    achievements: "18 / 18 Unlocked (100%)",
+    liveDemo: "https://medeva-demo-jbnnczbvk6ucappppedszeab.streamlit.app/",
+    githubRepo: "https://github.com/midas79",
+    description:
+      "End-to-end Machine Learning pipeline tailored for BPJS patient clinical data. Features automated data cleaning, exploratory data analysis, Natural Language Processing (Logistic Regression) for Hypertension symptom stratification, and unsupervised K-Means clustering for Diabetes Mellitus risk groups.",
+    tags: ["Python", "Scikit-Learn", "Streamlit", "Pandas", "NLP", "K-Means", "BPJS HealthTech"],
+  },
+  // Exact 4 Projects
+  allProjects: [
+    {
+      id: "medeva",
+      category: "Machine Learning",
+      title: "Medeva — Clinical Risk Stratification",
+      desc: "End-to-end ML pipeline for PROLANIS BPJS: Logistic Regression + TF-IDF NLP (Hypertension) & K-Means clustering (Diabetes Mellitus). Stateless inference with automated data-drift checks.",
+      tags: ["Python", "Scikit-Learn", "Streamlit", "K-Means", "NLP"],
+      metric: "Stateless ML Pipeline",
+      impact: "Clinical Decision Support",
+      link: "https://medeva-demo-jbnnczbvk6ucappppedszeab.streamlit.app/",
+      cta: "Launch Live Demo ↗",
+      accent: "#90ba3c",
+    },
+    {
+      id: "webgis",
+      category: "Geospatial",
+      title: "Village Digital Maps (WebGIS) — MMD FILKOM UB",
+      desc: "Digital village maps for Ngasem (Ngajum, Malang) built with ArcGIS & QGIS. Interactive Leaflet WebGIS improving administrative territorial planning and public services.",
+      tags: ["ArcGIS", "QGIS", "Leaflet.js", "Geospatial", "GeoJSON"],
+      metric: "ArcGIS & QGIS Vector Layer",
+      impact: "Public Spatial Planning",
+      link: "https://midas79.github.io/Map-Digital-Desa-Ngasem/",
+      cta: "Explore Interactive Map ↗",
+      accent: "#57cbde",
+    },
+    {
+      id: "anime31",
+      category: "Web App",
+      title: "Anime31 — Media Streaming & Catalog Platform",
+      desc: "Anime streaming and media catalog showcase featuring curated user watchlists, episode release tracking, category filtering, and responsive video player integration.",
+      tags: ["React", "REST API", "Tailwind CSS", "Media Player"],
+      metric: "Full-Featured Web App",
+      impact: "User Watchlist & Filtering",
+      link: "https://anime31.vercel.app/",
+      cta: "Launch Web App ↗",
+      accent: "#ff79c6",
+    },
+    {
+      id: "moviemate",
+      category: "Web App",
+      title: "Movie Mate — Social Cinema Watchlist",
+      desc: "Social movie tracking web application enabling cinephiles to discover trending films, curate personal watchlists, log ratings, and exchange recommendations in real time.",
+      tags: ["Next.js", "Firebase", "Tailwind CSS", "TMDB API"],
+      metric: "Realtime Firebase Store",
+      impact: "Social Film Recommendations",
+      link: "https://movie-mate-tan.vercel.app/",
+      cta: "Launch Web App ↗",
+      accent: "#ff5555",
+    },
+  ],
+  // Work & Leadership Experiences from CV
+  experiences: [
+    {
+      company: "MEDEVA",
+      role: "Machine Learning Intern",
+      period: "January 2026 - May 2026 (5 months)",
+      location: "Malang, Indonesia",
+      type: "Machine Learning & AI",
+      desc: "Architecting and training machine learning classification pipelines for health diagnostics. Processing clinical registries, engineering features for predictive scoring, and serving real-time model inferences via interactive web demos.",
+      skills: ["Python", "Scikit-Learn", "Machine Learning", "Streamlit", "Pandas", "NLP"],
+    },
+    {
+      company: "BPS Kota Malang",
+      role: "Data Analyst & Frontend Developer",
+      period: "September 2025 - November 2025 (3 months)",
+      location: "Malang, Indonesia",
+      type: "Public Sector Data Analytics",
+      desc: "Conducted statistical data validation, regional indicator trend analysis, and engineered frontend web dashboards that enable public civil servants to query complex municipal records with ease.",
+      skills: ["Data Analysis", "Frontend Development", "JavaScript", "Excel/Stats", "Tailwind CSS"],
+    },
+    {
+      company: "Coding Camp powered by DBS Foundation",
+      role: "Web Developer",
+      period: "February 2025 - June 2025 (5 months)",
+      location: "Malang, Indonesia",
+      type: "Full-Stack Web Apprenticeship",
+      desc: "Developed modern, mobile-first responsive web apps in an agile team workflow. Implemented client-side caching, component modularity, and integration with third-party RESTful services.",
+      skills: ["React.js", "Next.js", "Front-End Development", "RESTful APIs", "Git"],
+    },
+    {
+      company: "MMD FILKOM UB 2024",
+      role: "Backend Developer and IT Support",
+      period: "July 2024 - August 2024 (2 months)",
+      location: "Ngasem, East Java, Indonesia",
+      type: "WebGIS & Infrastructure Support",
+      desc: "Maintained and optimized the village official web portal for administrative stability. Developed a comprehensive digital village map using ArcGIS and QGIS, accelerating public service delivery.",
+      skills: ["Backend Support", "ArcGIS", "QGIS", "Leaflet.js", "WebGIS", "Data Geospatial"],
+    },
+    {
+      company: "BIOS Filkom UB",
+      role: "Head of Division Consumption and Health (ORSEN FILKOM 2024)",
+      period: "August 2024 - November 2024 (4 months)",
+      location: "Malang, East Java, Indonesia",
+      type: "Leadership & Healthcare Operations",
+      desc: "Assisted in managing meal distribution and health services, coordinated team operations, liaised with external vendors and medical teams, ensuring all logistics met high hygiene and safety standards.",
+      skills: ["Leadership", "Operations Management", "Healthcare Logistics", "Coordination"],
+    },
+    {
+      company: "Artropolis UB",
+      role: "Logistics Coordinator",
+      period: "September 2023 - November 2024 (1 year 3 months)",
+      location: "Malang, East Java, Indonesia",
+      type: "Logistics & Operational Planning",
+      desc: "Supported coordination and logistics planning, managed equipment inventory and distribution, and collaborated across cross-functional divisions to ensure smooth high-capacity event execution.",
+      skills: ["Inventory Management", "Logistics", "Problem Solving", "Teamwork"],
+    },
+    {
+      company: "MMD FILKOM UB 2024",
+      role: "Event Coordinator",
+      period: "July 2024 - August 2024 (2 months)",
+      location: "Ngasem, East Java, Indonesia",
+      type: "Project Planning & Stakeholder Relations",
+      desc: "Planned and organized local community programs, coordinated with village leadership and municipal authorities, and drove active community engagement.",
+      skills: ["Event Planning", "Community Relations", "Public Speaking"],
+    },
+  ],
+  education: [
+    {
+      school: "University of Brawijaya (Universitas Brawijaya)",
+      degree: "Bachelor of Computer Science, Informatics",
+      period: "July 2022 - July 2026 (Expected Graduation)",
+      details:
+        "Focus on Software Engineering, Machine Learning, Data Structures & Algorithms, Distributed Databases, and Geospatial Systems. GPA 3.58 / 4.00.",
+    },
+    {
+      school: "SMA Negeri 1 Temanggung",
+      degree: "Natural Sciences (MIPA)",
+      period: "2019 - 2022",
+      details: "Strong academic grounding in mathematics, logical reasoning, and computing fundamentals.",
+    },
+  ],
+  comments: [] as { user: string; date: string; text: string; avatar: string }[],
+};
+
+export default function SteamProfile() {
   const [copied, setCopied] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [activeTab, setActiveTab] = useState<"projects" | "experience" | "badges">("projects");
+  const [comments, setComments] = useState<{ user: string; date: string; text: string; avatar: string }[]>([]);
+  const [authorName, setAuthorName] = useState("");
+  const [commentText, setCommentText] = useState("");
+  const [postStatus, setPostStatus] = useState<string | null>(null);
 
-  const categories = ["All", ...Array.from(new Set(PROJECTS.map((p) => p.category)))];
-
-  const filteredProjects =
-    selectedCategory === "All"
-      ? PROJECTS
-      : PROJECTS.filter((p) => p.category === selectedCategory);
-
-  const handleCopyEmail = () => {
+  const copyEmail = () => {
     navigator.clipboard.writeText(PROFILE.email);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handlePostComment = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!commentText.trim()) return;
+    const newComment = {
+      user: authorName.trim() || "Steam Visitor",
+      date: "Just now",
+      text: commentText.trim(),
+      avatar: (authorName.trim() || "V")[0].toUpperCase(),
+    };
+    setComments([newComment, ...comments]);
+    setCommentText("");
+    setAuthorName("");
+    setPostStatus("Comment posted successfully!");
+    setTimeout(() => setPostStatus(null), 3000);
+  };
+
   return (
-    <div className="bg-[#101010] text-[#f3f3f3] min-h-screen">
-      {/* Top Header Grid Band */}
-      <header className="border-b border-[#212121] bg-[#101010]/95 backdrop-blur sticky top-0 z-50">
-        <div className="max-w-[1280px] mx-auto border-x border-[#212121] grid grid-cols-1 md:grid-cols-12 items-center divide-y md:divide-y-0 md:divide-x divide-[#212121]">
-          {/* Brand block */}
-          <div className="md:col-span-4 p-4 sm:px-6 flex items-center justify-between">
-            <a href="#" className="text-[17px] tracking-tight text-[#f3f3f3] font-normal">
-              {PROFILE.name}
+    <div style={{ minHeight: "100vh" }}>
+      {/* Steam Top Header Nav */}
+      <header
+        style={{
+          background: "var(--bg-header)",
+          height: "104px",
+          display: "flex",
+          justifyContent: "center",
+          position: "relative",
+          zIndex: 10,
+          borderBottom: "1px solid rgba(0,0,0,0.5)",
+        }}
+      >
+        <div
+          style={{
+            width: "940px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "0 16px",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "40px" }}>
+            <a href="https://store.steampowered.com/" target="_blank" rel="noreferrer">
+              <img
+                src="/assets/images/community.akamai.steamstatic.com/logo_steam-e0e81271bb.svg"
+                alt="STEAM"
+                style={{ height: "36px" }}
+              />
             </a>
-            <span className="meta-mono text-[11px] text-[#6f6759] border border-[#212121] px-2 py-0.5 rounded-[4px]">
-              v2026.04
-            </span>
+            <nav
+              style={{
+                display: "flex",
+                gap: "18px",
+                fontSize: "13px",
+                fontWeight: 600,
+                textTransform: "uppercase",
+                letterSpacing: "0.5px",
+              }}
+            >
+              <a href={PROFILE.github} target="_blank" rel="noreferrer" style={{ color: "#c6d4df" }}>
+                GitHub
+              </a>
+              <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" style={{ color: "#c6d4df" }}>
+                LinkedIn
+              </a>
+              <a href="/Dionisius_Surya_Jaya_CV.pdf" target="_blank" rel="noreferrer" style={{ color: "#66c0f4" }}>
+                Resume / CV ↗
+              </a>
+              <a href={`mailto:${PROFILE.email}`} style={{ color: "#c6d4df" }}>
+                Contact
+              </a>
+            </nav>
           </div>
-
-          {/* Navigation link block */}
-          <nav className="md:col-span-5 p-4 sm:px-6 flex items-center gap-6 text-[13px] uppercase meta-mono">
-            <a href="#projects" className="text-[#9c9c9c] hover:text-[#f3f3f3] transition-colors">
-              [01] Projects
-            </a>
-            <a href="#experience" className="text-[#9c9c9c] hover:text-[#f3f3f3] transition-colors">
-              [02] Experience
-            </a>
-            <a href="#credentials" className="text-[#9c9c9c] hover:text-[#f3f3f3] transition-colors">
-              [03] Credentials
-            </a>
-            <a href="#stack" className="text-[#9c9c9c] hover:text-[#f3f3f3] transition-colors">
-              [04] Stack
-            </a>
-          </nav>
-
-          {/* CTA actions block */}
-          <div className="md:col-span-3 p-3 sm:px-6 flex items-center justify-end gap-3">
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <a
-              href={PROFILE.resumeUrl}
+              href="/Dionisius_Surya_Jaya_CV.pdf"
               target="_blank"
               rel="noreferrer"
-              className="ghost-outline text-[12px] py-1.5 px-3"
+              style={{
+                backgroundColor: "rgba(102, 192, 244, 0.15)",
+                color: "#66c0f4",
+                padding: "6px 12px",
+                fontSize: "11px",
+                fontWeight: 700,
+                borderRadius: "2px",
+                border: "1px solid rgba(102, 192, 244, 0.35)",
+                textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "4px",
+              }}
             >
-              Resume ↗
+              <span>📄 VIEW CV</span>
             </a>
             <button
-              onClick={handleCopyEmail}
-              className="pill-primary text-[12px] py-1.5 px-4"
+              onClick={copyEmail}
+              style={{
+                backgroundColor: "#5c7e10",
+                color: "#e5e4dc",
+                padding: "6px 14px",
+                fontSize: "11px",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+                borderRadius: "2px",
+                border: "none",
+                cursor: "pointer",
+                fontWeight: 700,
+              }}
             >
-              {copied ? "COPIED" : "CONTACT ↗"}
+              <span>{copied ? "Email Copied!" : "✉ CONTACT / HIRE"}</span>
             </button>
           </div>
         </div>
       </header>
 
-      {/* Main Grid Frame */}
-      <main className="max-w-[1280px] mx-auto border-x border-[#212121]">
-        {/* HERO ARCHITECTURAL SPECIFICATION BLOCK */}
-        <section className="arch-grid-frame grid-cols-1 md:grid-cols-12 border-b border-[#212121]">
-          {/* Main Title & Bio Cell */}
-          <div className="arch-cell md:col-span-8 p-8 sm:p-14 flex flex-col justify-between space-y-8">
-            <div>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="status-badge">
-                  <span className="pulse-dot"></span>
-                  <span>OPEN FOR ROLES · MALANG, ID / REMOTE</span>
-                </div>
-                <span className="meta-mono text-[11px] text-[#6f6759]">INDEX // 00</span>
-              </div>
+      {/* Main Steam Profile Container */}
+      <main
+        style={{
+          width: "min(960px, calc(100% - 32px))",
+          margin: "0 auto",
+          paddingTop: "32px",
+          paddingBottom: "60px",
+          position: "relative",
+        }}
+      >
+        {/* Profile Header Card */}
+        <section
+          style={{
+            background: "rgba(15, 21, 30, 0.95)",
+            backdropFilter: "blur(12px)",
+            borderRadius: "6px",
+            padding: "28px",
+            display: "flex",
+            gap: "32px",
+            alignItems: "flex-start",
+            marginBottom: "20px",
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            boxShadow: "0 8px 30px rgba(0,0,0,0.5)",
+          }}
+        >
+          {/* Avatar + Animated Frame */}
+          <div
+            style={{
+              position: "relative",
+              width: "166px",
+              height: "166px",
+              flexShrink: 0,
+            }}
+          >
+            <img
+              src={PROFILE.avatarUrl}
+              alt={PROFILE.name}
+              style={{
+                width: "166px",
+                height: "166px",
+                objectFit: "cover",
+                display: "block",
+              }}
+            />
+            <img
+              src={PROFILE.avatarFrame}
+              alt="Avatar Frame"
+              style={{
+                position: "absolute",
+                top: "-18px",
+                left: "-18px",
+                width: "202px",
+                height: "202px",
+                pointerEvents: "none",
+                zIndex: 2,
+              }}
+            />
+          </div>
 
-              <h1 className="text-[36px] sm:text-[48px] md:text-[56px] font-normal leading-[1.05] tracking-[-0.69px] text-[#f3f3f3] mb-6">
-                {PROFILE.title}.
+          {/* Profile Main Information */}
+          <div style={{ flexGrow: 1, minWidth: 0 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px", flexWrap: "wrap" }}>
+              <h1
+                style={{
+                  fontSize: "26px",
+                  color: "#ffffff",
+                  fontWeight: 400,
+                  letterSpacing: "0.3px",
+                  lineHeight: 1.2,
+                }}
+              >
+                {PROFILE.name}
               </h1>
+              <span
+                style={{
+                  fontSize: "11px",
+                  color: "#66c0f4",
+                  background: "rgba(102, 192, 244, 0.15)",
+                  padding: "3px 8px",
+                  borderRadius: "2px",
+                  fontWeight: 500,
+                }}
+              >
+                /{PROFILE.alias}
+              </span>
+            </div>
 
-              <p className="text-[17px] font-normal leading-[1.4] text-[#9c9c9c] max-w-[680px]">
-                {PROFILE.bio}
+            {/* In-Game Status Strip */}
+            <div
+              style={{
+                color: "#90ba3c",
+                fontSize: "12px",
+                fontWeight: 500,
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                marginBottom: "10px",
+                lineHeight: 1.4,
+              }}
+            >
+              <span
+                style={{
+                  width: "8px",
+                  height: "8px",
+                  borderRadius: "50%",
+                  backgroundColor: "#90ba3c",
+                  display: "inline-block",
+                  flexShrink: 0,
+                  boxShadow: "0 0 6px #90ba3c",
+                }}
+              ></span>
+              <span>{PROFILE.headline}</span>
+            </div>
+
+            <div style={{ color: "#8f98a0", fontSize: "12px", marginBottom: "16px", lineHeight: 1.6 }}>
+              <div>📍 {PROFILE.location}</div>
+              <div>🎓 Universitas Brawijaya (Informatics) — GPA 3.58 / 4.00</div>
+            </div>
+
+            <div
+              style={{
+                background: "rgba(0, 0, 0, 0.35)",
+                border: "1px solid rgba(255, 255, 255, 0.04)",
+                borderLeft: "3px solid #66c0f4",
+                borderRadius: "3px",
+                padding: "12px 16px",
+                marginBottom: "16px",
+              }}
+            >
+              <p
+                style={{
+                  color: "#c6d4df",
+                  fontSize: "13px",
+                  lineHeight: 1.65,
+                  margin: 0,
+                  letterSpacing: "0.01em",
+                }}
+              >
+                {PROFILE.summary}
               </p>
             </div>
 
-            {/* Quick Action Matrix */}
-            <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-[#212121]">
-              <a href="#projects" className="pill-primary">
-                PROJECT CATALOG [{PROJECTS.length}] ↗
-              </a>
-              <a href={PROFILE.resumeUrl} target="_blank" rel="noreferrer" className="ghost-outline">
-                VIEW CV (PDF)
-              </a>
-              <a href={PROFILE.github} target="_blank" rel="noreferrer" className="ghost-outline">
-                GITHUB ↗
-              </a>
-              <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" className="ghost-outline">
-                LINKEDIN ↗
-              </a>
-            </div>
-          </div>
-
-          {/* Academic & Geographic Specification Cell */}
-          <div className="arch-cell md:col-span-4 p-8 sm:p-10 flex flex-col justify-between divide-y divide-[#212121]">
-            <div className="pb-6">
-              <span className="meta-mono text-[11px] uppercase text-[#6f6759] block mb-2">
-                ACADEMIC CREDENTIAL
-              </span>
-              <div className="text-[16px] text-[#f3f3f3] font-normal">{PROFILE.university}</div>
-              <div className="meta-mono text-[13px] text-[#9c9c9c] mt-1">{PROFILE.major}</div>
-              <div className="meta-mono text-[12px] text-[#c1c1c1] mt-2">
-                Class of {PROFILE.graduation} · GPA <span className="text-[#f3f3f3] font-bold">{PROFILE.gpa}</span>
-              </div>
-            </div>
-
-            <div className="py-6">
-              <span className="meta-mono text-[11px] uppercase text-[#6f6759] block mb-2">
-                PRIMARY DOMAINS
-              </span>
-              <ul className="meta-mono text-[12px] space-y-1 text-[#c1c1c1]">
-                <li>✦ Full-Stack Web Development</li>
-                <li>✦ Applied Machine Learning &amp; NLP</li>
-                <li>✦ Geospatial Information Systems (GIS)</li>
-                <li>✦ Statistical Data Validation</li>
-              </ul>
-            </div>
-
-            <div className="pt-6">
-              <span className="meta-mono text-[11px] uppercase text-[#6f6759] block mb-2">
-                SYSTEM TELEMETRY
-              </span>
-              <div className="meta-mono text-[12px] text-[#9c9c9c] space-y-1">
-                <div>LOC: Malang, East Java, ID</div>
-                <div>COORDINATES: 7.97° S, 112.63° E</div>
-                <div>CONTACT: {PROFILE.email}</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* SECTION 01: PROJECT CATALOGUE (Hairline Index Grid) */}
-        <section id="projects" className="border-b border-[#212121]">
-          {/* Section Sub-Header Bar */}
-          <div className="p-6 sm:px-10 border-b border-[#212121] flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#0c0c0c]">
-            <div className="flex items-center gap-4">
-              <span className="meta-mono text-[12px] text-[#6f6759] border border-[#212121] px-2.5 py-1 rounded-[4px]">
-                SECTION // 01
-              </span>
-              <h2 className="text-[23px] font-normal tracking-tight text-[#f3f3f3]">
-                Project Catalogue [{PROJECTS.length}]
-              </h2>
-            </div>
-
-            {/* Dynamic Filter Controls */}
-            <div className="flex flex-wrap gap-1.5">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`meta-mono text-[12px] uppercase px-3 py-1.5 rounded-[4px] border transition-all ${
-                    selectedCategory === cat
-                      ? "bg-[#ffffff] text-[#101010] border-[#ffffff]"
-                      : "bg-[#101010] text-[#9c9c9c] border-[#212121] hover:border-[#474747]"
-                  }`}
+            {/* Specialization Tags */}
+            <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+              {PROFILE.topSkills.map((sk) => (
+                <span
+                  key={sk}
+                  style={{
+                    fontSize: "11px",
+                    background: "rgba(102, 192, 244, 0.12)",
+                    color: "#a8d8f8",
+                    padding: "4px 10px",
+                    borderRadius: "2px",
+                    border: "1px solid rgba(102, 192, 244, 0.3)",
+                    fontWeight: 500,
+                  }}
                 >
-                  {cat}
-                </button>
+                  {sk}
+                </span>
               ))}
             </div>
           </div>
-
-          {/* Unified Index Grid Cells */}
-          <div className="arch-grid-frame grid-cols-1 md:grid-cols-2">
-            {filteredProjects.map((proj, idx) => (
-              <article
-                key={proj.id}
-                className="arch-cell p-8 sm:p-10 flex flex-col justify-between space-y-6"
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-4">
-                    <span className="meta-mono text-[11px] text-[#6f6759] border border-[#212121] px-2 py-0.5 rounded-[4px]">
-                      INDEX {String(idx + 1).padStart(2, "0")} · {proj.category}
-                    </span>
-                    <span className="meta-mono text-[12px] text-[#9c9c9c]">{proj.year}</span>
-                  </div>
-
-                  <h3 className="text-[21px] font-normal leading-[1.2] text-[#f3f3f3] mb-3">
-                    {proj.title}
-                  </h3>
-
-                  <p className="text-[14px] leading-[1.6] text-[#9c9c9c] mb-6">
-                    {proj.description}
-                  </p>
-
-                  <div className="meta-mono text-[12px] text-[#c1c1c1] bg-[#080808] p-3.5 rounded-[4px] border border-[#212121]">
-                    <span className="text-[#6f6759] block text-[10px] uppercase mb-1">Architecture / Stack</span>
-                    {proj.architecture}
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex flex-wrap gap-1.5 mb-6">
-                    {proj.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="meta-mono text-[11px] text-[#9c9c9c] bg-[#141414] px-2 py-0.5 rounded-[4px] border border-[#212121]"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex items-center gap-3 pt-4 border-t border-[#212121]">
-                    {proj.links.live && (
-                      <a
-                        href={proj.links.live}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="pill-primary text-[11px] py-1.5 px-3.5"
-                      >
-                        LAUNCH DEPLOYMENT ↗
-                      </a>
-                    )}
-                    {proj.links.github && (
-                      <a
-                        href={proj.links.github}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="ghost-outline text-[11px] py-1.5 px-3.5"
-                      >
-                        SOURCE CODE ↗
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
         </section>
 
-        {/* SECTION 02: CAREER LOGBOOK (Table Ledger Index) */}
-        <section id="experience" className="border-b border-[#212121]">
-          <div className="p-6 sm:px-10 border-b border-[#212121] flex items-center justify-between bg-[#0c0c0c]">
-            <div className="flex items-center gap-4">
-              <span className="meta-mono text-[12px] text-[#6f6759] border border-[#212121] px-2.5 py-1 rounded-[4px]">
-                SECTION // 02
-              </span>
-              <h2 className="text-[23px] font-normal tracking-tight text-[#f3f3f3]">
-                Work &amp; Leadership Chronology [{EXPERIENCES.length}]
-              </h2>
-            </div>
-            <span className="meta-mono text-[12px] text-[#6f6759] hidden sm:inline">
-              ORDER // DESCENDING
-            </span>
-          </div>
-
-          <div className="arch-grid-frame grid-cols-1">
-            {EXPERIENCES.map((exp, idx) => (
-              <div
-                key={exp.id}
-                className="arch-cell p-8 sm:p-10 grid grid-cols-1 md:grid-cols-12 gap-6 items-start"
-              >
-                {/* Time & Org Meta (4 cols) */}
-                <div className="md:col-span-4 space-y-2">
-                  <span className="meta-mono text-[11px] text-[#6f6759] block">
-                    LOG [{String(idx + 1).padStart(2, "0")}]
-                  </span>
-                  <h3 className="text-[17px] font-normal text-[#f3f3f3]">{exp.company}</h3>
-                  <div className="meta-mono text-[13px] text-[#f3f3f3] font-normal">
-                    {exp.period}
-                  </div>
-                  <div className="meta-mono text-[12px] text-[#9c9c9c]">
-                    📍 {exp.location} · {exp.type}
-                  </div>
-                </div>
-
-                {/* Role Details & Scope (8 cols) */}
-                <div className="md:col-span-8 space-y-4">
-                  <div className="text-[16px] text-[#f3f3f3] font-normal flex items-center gap-2">
-                    <span className="text-[#6f6759]">ROLE //</span>
-                    <span>{exp.role}</span>
-                  </div>
-
-                  <ul className="space-y-2 text-[14px] text-[#9c9c9c] leading-relaxed list-disc list-inside">
-                    {exp.description.map((item, dIdx) => (
-                      <li key={dIdx}>{item}</li>
-                    ))}
-                  </ul>
-
-                  <div className="flex flex-wrap gap-1.5 pt-2">
-                    {exp.skills.map((s) => (
-                      <span
-                        key={s}
-                        className="meta-mono text-[11px] text-[#c1c1c1] border border-[#212121] px-2 py-0.5 rounded-[4px] bg-[#141414]"
-                      >
-                        {s}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* SECTION 03: VERIFIED CREDENTIALS & CERTIFICATIONS (3-Col Grid) */}
-        <section id="credentials" className="border-b border-[#212121]">
-          <div className="p-6 sm:px-10 border-b border-[#212121] flex items-center justify-between bg-[#0c0c0c]">
-            <div className="flex items-center gap-4">
-              <span className="meta-mono text-[12px] text-[#6f6759] border border-[#212121] px-2.5 py-1 rounded-[4px]">
-                SECTION // 03
-              </span>
-              <h2 className="text-[23px] font-normal tracking-tight text-[#f3f3f3]">
-                Verified Credentials [{CERTIFICATIONS.length}]
-              </h2>
-            </div>
-            <span className="meta-mono text-[12px] text-[#6f6759] hidden sm:inline">
-              ISSUER // DICODING &amp; AWS
-            </span>
-          </div>
-
-          <div className="arch-grid-frame grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-            {CERTIFICATIONS.map((cert, idx) => (
-              <div
-                key={cert.id}
-                className="arch-cell p-6 sm:p-8 flex flex-col justify-between space-y-6"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="meta-mono text-[10px] text-[#6f6759] uppercase border border-[#212121] px-1.5 py-0.5 rounded-[3px]">
-                      {cert.category}
-                    </span>
-                    <span className="meta-mono text-[11px] text-[#9c9c9c]">
-                      #{String(idx + 1).padStart(2, "0")}
-                    </span>
-                  </div>
-                  <h3 className="text-[15px] font-normal leading-[1.35] text-[#f3f3f3]">
-                    {cert.title}
-                  </h3>
-                </div>
-
-                <div className="pt-4 border-t border-[#212121] flex items-center justify-between text-[12px] meta-mono text-[#9c9c9c]">
-                  <span>{cert.issuer}</span>
-                  {cert.year && <span>{cert.year}</span>}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* SECTION 04: TECHNICAL STACK ARSENAL (4-Col Grid) */}
-        <section id="stack" className="border-b border-[#212121]">
-          <div className="p-6 sm:px-10 border-b border-[#212121] flex items-center justify-between bg-[#0c0c0c]">
-            <div className="flex items-center gap-4">
-              <span className="meta-mono text-[12px] text-[#6f6759] border border-[#212121] px-2.5 py-1 rounded-[4px]">
-                SECTION // 04
-              </span>
-              <h2 className="text-[23px] font-normal tracking-tight text-[#f3f3f3]">
-                Technical Stack Specification
-              </h2>
-            </div>
-            <span className="meta-mono text-[12px] text-[#6f6759] hidden sm:inline">
-              CAPABILITIES // MATRIX
-            </span>
-          </div>
-
-          <div className="arch-grid-frame grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
-            {SKILL_GROUPS.map((grp) => (
-              <div key={grp.group} className="arch-cell p-6 sm:p-8 space-y-4">
-                <span className="meta-mono text-[11px] uppercase text-[#6f6759] block tracking-wider">
-                  {grp.group}
-                </span>
-                <ul className="space-y-2 text-[14px] text-[#9c9c9c]">
-                  {grp.items.map((it) => (
-                    <li key={it} className="flex items-center gap-2">
-                      <span className="w-1 h-1 bg-[#474747] rounded-full"></span>
-                      <span className="text-[#f3f3f3] font-normal">{it}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* SECTION 05: DIRECT CONTACT TERMINATION */}
-        <section id="contact" className="arch-grid-frame grid-cols-1 md:grid-cols-12">
-          <div className="arch-cell md:col-span-7 p-8 sm:p-14 space-y-4">
-            <span className="meta-mono text-[11px] text-[#6f6759] uppercase block">
-              COLLABORATION &amp; INQUIRY
-            </span>
-            <h2 className="text-[34px] sm:text-[40px] font-normal tracking-[-0.31px] text-[#f3f3f3] leading-tight">
-              Ready for production engineering contributions.
-            </h2>
-            <p className="text-[15px] text-[#9c9c9c] max-w-[560px] leading-relaxed">
-              Seeking opportunities to build impactful software architectures, machine learning classification pipelines, and responsive web products.
-            </p>
-          </div>
-
-          <div className="arch-cell md:col-span-5 p-8 sm:p-14 flex flex-col justify-center gap-4">
-            <button onClick={handleCopyEmail} className="pill-primary justify-center w-full py-3">
-              {copied ? "EMAIL COPIED TO CLIPBOARD" : "COPY EMAIL ADDRESS ↗"}
-            </button>
-            <a
-              href={`mailto:${PROFILE.email}`}
-              className="ghost-outline justify-center w-full py-2.5 text-center"
+        {/* Navigation Tabs to Switch Main View */}
+        <div
+          style={{
+            display: "flex",
+            gap: "8px",
+            marginBottom: "18px",
+            borderBottom: "1px solid rgba(102, 192, 244, 0.25)",
+            paddingBottom: "10px",
+            overflowX: "auto",
+          }}
+        >
+          {[
+            { id: "projects" as const, label: `FEATURED PROJECTS (${PROFILE.allProjects.length})` },
+            { id: "experience" as const, label: `CAREER EXPERIENCE (${PROFILE.experiences.length})` },
+            { id: "badges" as const, label: `BADGES & CERTS (${PROFILE.badges.length})` },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              style={{
+                padding: "10px 18px",
+                fontSize: "12px",
+                fontWeight: 700,
+                letterSpacing: "0.5px",
+                textTransform: "uppercase",
+                background:
+                  activeTab === tab.id
+                    ? "linear-gradient(180deg, #2a475e 0%, #192837 100%)"
+                    : "rgba(18, 26, 36, 0.95)",
+                color: activeTab === tab.id ? "#ffffff" : "#8f98a0",
+                border:
+                  activeTab === tab.id
+                    ? "1px solid #66c0f4"
+                    : "1px solid rgba(255, 255, 255, 0.08)",
+                borderBottom: activeTab === tab.id ? "3px solid #66c0f4" : "3px solid transparent",
+                cursor: "pointer",
+                borderRadius: "3px 3px 0 0",
+                boxShadow:
+                  activeTab === tab.id
+                    ? "0 4px 12px rgba(0, 0, 0, 0.4), 0 0 10px rgba(102, 192, 244, 0.25)"
+                    : "none",
+                whiteSpace: "nowrap",
+                transition: "all 0.15s ease",
+              }}
             >
-              SEND DIRECT EMAIL
-            </a>
-            <div className="text-center meta-mono text-[12px] text-[#6f6759] pt-2">
-              {PROFILE.email}
-            </div>
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Content Layout: 1fr left column + 280px right column */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 280px",
+            gap: "16px",
+          }}
+        >
+          {/* Left Column Content */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            {/* TAB 1: PROJECTS (Exact 4 Portfolio Projects) */}
+            {activeTab === "projects" && (
+              <section
+                style={{
+                  background: "rgba(20, 27, 38, 0.96)",
+                  borderRadius: "4px",
+                  padding: "20px",
+                  border: "1px solid rgba(102, 192, 244, 0.2)",
+                  boxShadow: "0 6px 20px rgba(0, 0, 0, 0.55)",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: "14px",
+                    color: "#66c0f4",
+                    textTransform: "uppercase",
+                    letterSpacing: "1px",
+                    fontWeight: 700,
+                    marginBottom: "16px",
+                    paddingBottom: "8px",
+                    borderBottom: "1px solid rgba(102, 192, 244, 0.2)",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <span>Software Portfolio Projects ({PROFILE.allProjects.length})</span>
+                  <span style={{ fontSize: "11px", color: "var(--online-green)", fontWeight: "normal" }}>All Shipped Works</span>
+                </div>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+                  {PROFILE.allProjects.map((proj) => (
+                    <div
+                      key={proj.id}
+                      style={{
+                        background: "rgba(10, 15, 23, 0.92)",
+                        borderRadius: "3px",
+                        padding: "16px",
+                        border: "1px solid rgba(66, 85, 106, 0.45)",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "10px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "flex-start",
+                          flexWrap: "wrap",
+                          gap: "6px",
+                        }}
+                      >
+                        <div>
+                          <div style={{ fontSize: "15px", color: "#ffffff", fontWeight: "bold" }}>
+                            {proj.title}
+                          </div>
+                          <span
+                            style={{
+                              fontSize: "10px",
+                              color: proj.accent,
+                              border: `1px solid ${proj.accent}60`,
+                              background: `${proj.accent}15`,
+                              padding: "2px 6px",
+                              borderRadius: "2px",
+                              marginTop: "4px",
+                              display: "inline-block",
+                              fontWeight: 600,
+                            }}
+                          >
+                            {proj.category}
+                          </span>
+                        </div>
+
+                        <div style={{ textAlign: "right" }}>
+                          <div style={{ fontSize: "12px", color: "#90ba3c", fontFamily: "monospace", fontWeight: "bold" }}>
+                            {proj.metric}
+                          </div>
+                          <div style={{ fontSize: "11px", color: "#8f98a0" }}>{proj.impact}</div>
+                        </div>
+                      </div>
+
+                      <p style={{ fontSize: "13px", color: "#c6d4df", lineHeight: "1.6" }}>{proj.desc}</p>
+
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          flexWrap: "wrap",
+                          gap: "8px",
+                          marginTop: "4px",
+                          paddingTop: "8px",
+                          borderTop: "1px solid rgba(255,255,255,0.06)",
+                        }}
+                      >
+                        <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
+                          {proj.tags.map((t) => (
+                            <span
+                              key={t}
+                              style={{
+                                fontSize: "10px",
+                                background: "rgba(0,0,0,0.6)",
+                                color: "#8f98a0",
+                                padding: "2px 8px",
+                                borderRadius: "2px",
+                                border: "1px solid rgba(255,255,255,0.06)",
+                              }}
+                            >
+                              #{t}
+                            </span>
+                          ))}
+                        </div>
+
+                        <a
+                          href={proj.link}
+                          target="_blank"
+                          rel="noreferrer"
+                          style={{
+                            fontSize: "12px",
+                            color: "#ffffff",
+                            backgroundColor: "var(--btn-bg)",
+                            padding: "6px 14px",
+                            borderRadius: "2px",
+                            fontWeight: 600,
+                            boxShadow: "0 2px 6px rgba(0,0,0,0.4)",
+                          }}
+                        >
+                          {proj.cta}
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* TAB 2: CAREER EXPERIENCES */}
+            {activeTab === "experience" && (
+              <section
+                style={{
+                  background: "rgba(20, 27, 38, 0.96)",
+                  borderRadius: "4px",
+                  padding: "20px",
+                  border: "1px solid rgba(102, 192, 244, 0.2)",
+                  boxShadow: "0 6px 20px rgba(0, 0, 0, 0.55)",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: "14px",
+                    color: "#66c0f4",
+                    textTransform: "uppercase",
+                    letterSpacing: "1px",
+                    fontWeight: 700,
+                    marginBottom: "16px",
+                    paddingBottom: "8px",
+                    borderBottom: "1px solid rgba(102, 192, 244, 0.2)",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <span>Work & Leadership Experience ({PROFILE.experiences.length})</span>
+                  <span style={{ fontSize: "11px", color: "#8f98a0", fontWeight: "normal" }}>Internships & Key Initiatives</span>
+                </div>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                  {PROFILE.experiences.map((exp, idx) => (
+                    <div
+                      key={idx}
+                      style={{
+                        background: "rgba(10, 15, 23, 0.92)",
+                        borderRadius: "3px",
+                        padding: "16px",
+                        border: "1px solid rgba(66, 85, 106, 0.4)",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "flex-start",
+                          marginBottom: "6px",
+                        }}
+                      >
+                        <div>
+                          <span style={{ fontSize: "15px", color: "#ffffff", fontWeight: "bold" }}>
+                            {exp.role}
+                          </span>{" "}
+                          <span style={{ color: "#66c0f4", fontSize: "13px", fontWeight: 600 }}>@ {exp.company}</span>
+                        </div>
+                        <span style={{ fontSize: "12px", color: "#8f98a0", fontFamily: "monospace" }}>
+                          {exp.period}
+                        </span>
+                      </div>
+
+                      <div style={{ fontSize: "11px", color: "#90ba3c", marginBottom: "8px", fontWeight: 500 }}>
+                        📍 {exp.location} &nbsp;•&nbsp; {exp.type}
+                      </div>
+
+                      <p style={{ fontSize: "13px", color: "#c6d4df", lineHeight: "1.6", marginBottom: "10px" }}>
+                        {exp.desc}
+                      </p>
+
+                      <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+                        {exp.skills.map((s) => (
+                          <span
+                            key={s}
+                            style={{
+                              fontSize: "11px",
+                              background: "rgba(102, 192, 244, 0.12)",
+                              color: "#66c0f4",
+                              padding: "3px 8px",
+                              borderRadius: "2px",
+                              border: "1px solid rgba(102, 192, 244, 0.25)",
+                              fontWeight: 500,
+                            }}
+                          >
+                            {s}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* TAB: BADGES & CERTIFICATIONS */}
+            {activeTab === "badges" && (
+              <section
+                style={{
+                  background: "rgba(20, 27, 38, 0.96)",
+                  borderRadius: "4px",
+                  padding: "20px",
+                  border: "1px solid rgba(102, 192, 244, 0.2)",
+                  boxShadow: "0 6px 20px rgba(0, 0, 0, 0.55)",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: "14px",
+                    color: "#66c0f4",
+                    textTransform: "uppercase",
+                    letterSpacing: "1px",
+                    fontWeight: 700,
+                    marginBottom: "16px",
+                    paddingBottom: "8px",
+                    borderBottom: "1px solid rgba(102, 192, 244, 0.2)",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <span>Badges & Industry Certifications ({PROFILE.badges.length})</span>
+                  <span style={{ fontSize: "11px", color: "var(--online-green)", fontWeight: "normal" }}>All Verified Badges</span>
+                </div>
+
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "14px" }}>
+                  {PROFILE.badges.map((b, i) => (
+                    <div
+                      key={i}
+                      style={{
+                        background: "rgba(10, 15, 23, 0.92)",
+                        borderRadius: "3px",
+                        padding: "16px",
+                        border: "1px solid rgba(66, 85, 106, 0.4)",
+                        display: "flex",
+                        gap: "14px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: "52px",
+                          height: "52px",
+                          background: "rgba(33, 75, 110, 0.35)",
+                          border: "1px solid rgba(102, 192, 244, 0.3)",
+                          borderRadius: "4px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: "26px",
+                          flexShrink: 0,
+                          boxShadow: "0 0 10px rgba(102, 192, 244, 0.15)",
+                        }}
+                      >
+                        {b.icon}
+                      </div>
+                      <div style={{ flexGrow: 1, minWidth: 0 }}>
+                        <div style={{ color: "#ffffff", fontSize: "13px", fontWeight: "bold", lineHeight: 1.3 }}>
+                          {b.name}
+                        </div>
+                        <div style={{ color: "#8f98a0", fontSize: "11px", marginTop: "2px" }}>
+                          Issuer: {b.org}
+                        </div>
+                        <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "6px" }}>
+                          <span style={{ color: "var(--text-gold)", fontSize: "11px", fontWeight: "bold", background: "rgba(229, 196, 59, 0.1)", padding: "1px 6px", borderRadius: "2px", border: "1px solid rgba(229, 196, 59, 0.25)" }}>
+                            ★ {b.xp}
+                          </span>
+                          <span style={{ color: "#57cbde", fontSize: "10px" }}>Verified Credential</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Steam Comments Section (Interactive User Commenting) */}
+            <section
+              style={{
+                background: "rgba(20, 27, 38, 0.96)",
+                borderRadius: "4px",
+                padding: "20px",
+                border: "1px solid rgba(102, 192, 244, 0.2)",
+                boxShadow: "0 6px 20px rgba(0, 0, 0, 0.55)",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "14px",
+                  color: "#66c0f4",
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                  fontWeight: 700,
+                  marginBottom: "16px",
+                  paddingBottom: "8px",
+                  borderBottom: "1px solid rgba(102, 192, 244, 0.2)",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <span>Comments ({comments.length})</span>
+                <span style={{ fontSize: "11px", color: "#8f98a0", fontWeight: "normal" }}>Public Steam Wall</span>
+              </div>
+
+              {/* Comment Input Form */}
+              <form onSubmit={handlePostComment} style={{ marginBottom: comments.length > 0 ? "20px" : "0" }}>
+                <div
+                  style={{
+                    background: "rgba(10, 15, 23, 0.92)",
+                    padding: "16px",
+                    borderRadius: "3px",
+                    border: "1px solid rgba(66, 85, 106, 0.45)",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "12px",
+                  }}
+                >
+                  <input
+                    type="text"
+                    placeholder="Your Name / Steam Handle (e.g. John Doe)"
+                    value={authorName}
+                    onChange={(e) => setAuthorName(e.target.value)}
+                    style={{
+                      width: "100%",
+                      maxWidth: "320px",
+                      background: "rgba(0, 0, 0, 0.6)",
+                      border: "1px solid rgba(102, 192, 244, 0.25)",
+                      borderRadius: "2px",
+                      padding: "8px 12px",
+                      color: "#ffffff",
+                      fontSize: "12px",
+                      outline: "none",
+                    }}
+                  />
+                  <textarea
+                    placeholder="Write a comment (+rep, message, recommendation)..."
+                    value={commentText}
+                    onChange={(e) => setCommentText(e.target.value)}
+                    rows={3}
+                    required
+                    style={{
+                      width: "100%",
+                      background: "rgba(0, 0, 0, 0.6)",
+                      border: "1px solid rgba(102, 192, 244, 0.25)",
+                      borderRadius: "2px",
+                      padding: "10px 12px",
+                      color: "#ffffff",
+                      fontSize: "12px",
+                      resize: "vertical",
+                      outline: "none",
+                      fontFamily: "inherit",
+                    }}
+                  />
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "8px" }}>
+                    {postStatus ? (
+                      <span style={{ color: "#90ba3c", fontSize: "12px", fontWeight: 600 }}>{postStatus}</span>
+                    ) : (
+                      <span style={{ color: "#8f98a0", fontSize: "11px" }}>Comments appear instantly on profile wall</span>
+                    )}
+                    <button
+                      type="submit"
+                      style={{
+                        backgroundColor: "var(--btn-bg)",
+                        color: "#ffffff",
+                        padding: "8px 20px",
+                        borderRadius: "2px",
+                        border: "none",
+                        fontSize: "12px",
+                        fontWeight: 600,
+                        cursor: "pointer",
+                        boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
+                      }}
+                    >
+                      Post Comment ↵
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+              {/* Empty state or comments list */}
+              {comments.length === 0 ? (
+                <div
+                  style={{
+                    padding: "24px",
+                    textAlign: "center",
+                    color: "#8f98a0",
+                    fontSize: "13px",
+                    fontStyle: "italic",
+                  }}
+                >
+                  No comments yet. Be the first to leave a message or recommendation above!
+                </div>
+              ) : (
+                <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "16px" }}>
+                  {comments.map((cm, idx) => (
+                    <div
+                      key={idx}
+                      style={{
+                        display: "flex",
+                        gap: "12px",
+                        background: "rgba(10, 15, 23, 0.9)",
+                        padding: "12px 14px",
+                        borderRadius: "2px",
+                        border: "1px solid rgba(66, 85, 106, 0.3)",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: "34px",
+                          height: "34px",
+                          background: "#2a475e",
+                          borderRadius: "2px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: "#ffffff",
+                          fontWeight: "bold",
+                          fontSize: "13px",
+                          flexShrink: 0,
+                          border: "1px solid rgba(102, 192, 244, 0.3)",
+                        }}
+                      >
+                        {cm.avatar}
+                      </div>
+                      <div style={{ flexGrow: 1, minWidth: 0 }}>
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                          <span style={{ color: "#ffffff", fontWeight: "bold", fontSize: "12px" }}>
+                            {cm.user}
+                          </span>
+                          <span style={{ color: "#8f98a0", fontSize: "10px" }}>{cm.date}</span>
+                        </div>
+                        <p style={{ color: "#c6d4df", fontSize: "12px", marginTop: "4px", fontFamily: "monospace", wordBreak: "break-word" }}>
+                          {cm.text}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
           </div>
-        </section>
+
+          {/* Right Column / Sidebar */}
+          <aside style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            {/* Online Status Widget */}
+            <div
+              style={{
+                background: "rgba(20, 27, 38, 0.96)",
+                borderRadius: "4px",
+                padding: "16px",
+                border: "1px solid rgba(102, 192, 244, 0.2)",
+                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.5)",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "16px",
+                  color: "var(--online-green)",
+                  fontWeight: 600,
+                  marginBottom: "4px",
+                }}
+              >
+                Currently Online
+              </div>
+              <div style={{ fontSize: "12px", color: "#c6d4df", marginBottom: "8px" }}>
+                Open to Full-Time / Internship Roles
+              </div>
+              <div
+                style={{
+                  fontSize: "11px",
+                  color: "#66c0f4",
+                  background: "rgba(10, 15, 23, 0.9)",
+                  padding: "8px 10px",
+                  borderRadius: "2px",
+                  fontFamily: "monospace",
+                  wordBreak: "break-all",
+                  border: "1px solid rgba(102, 192, 244, 0.2)",
+                }}
+              >
+                {PROFILE.email}
+              </div>
+            </div>
+
+            {/* Badges & Certifications Showcase */}
+            <div
+              style={{
+                background: "rgba(20, 27, 38, 0.96)",
+                borderRadius: "4px",
+                padding: "16px",
+                border: "1px solid rgba(102, 192, 244, 0.2)",
+                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.5)",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "13px",
+                  color: "#66c0f4",
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                  fontWeight: 700,
+                  marginBottom: "12px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <span>Badges & Certs</span>
+                <span style={{ color: "#ffffff" }}>{PROFILE.badges.length}</span>
+              </div>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                {PROFILE.badges.map((b, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      fontSize: "12px",
+                      background: "rgba(10, 15, 23, 0.9)",
+                      padding: "8px 10px",
+                      borderRadius: "2px",
+                      border: "1px solid rgba(66, 85, 106, 0.35)",
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px", overflow: "hidden" }}>
+                      <span style={{ fontSize: "16px" }}>{b.icon}</span>
+                      <div style={{ overflow: "hidden" }}>
+                        <div style={{ color: "#ffffff", fontSize: "11px", fontWeight: "bold", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                          {b.name}
+                        </div>
+                        <div style={{ color: "#8f98a0", fontSize: "10px" }}>{b.org}</div>
+                      </div>
+                    </div>
+                    <span style={{ color: "var(--text-gold)", fontSize: "10px", fontWeight: "bold", marginLeft: "6px" }}>
+                      {b.xp}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Tech Inventory Widget */}
+            <div
+              style={{
+                background: "rgba(20, 27, 38, 0.96)",
+                borderRadius: "4px",
+                padding: "16px",
+                border: "1px solid rgba(102, 192, 244, 0.2)",
+                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.5)",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "13px",
+                  color: "#66c0f4",
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                  fontWeight: 700,
+                  marginBottom: "10px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <span>Tech Inventory</span>
+                <span style={{ color: "#ffffff" }}>18 Items</span>
+              </div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
+                {[
+                  "React.js",
+                  "Next.js",
+                  "Tailwind CSS",
+                  "TypeScript",
+                  "Python",
+                  "Scikit-Learn",
+                  "Pandas",
+                  "Node.js",
+                  "Express.js",
+                  "Laravel",
+                  "PostgreSQL",
+                  "MySQL",
+                  "SQLite",
+                  "Docker",
+                  "ArcGIS",
+                  "QGIS",
+                  "Leaflet.js",
+                  "Git & GitHub",
+                ].map((tech) => (
+                  <span
+                    key={tech}
+                    style={{
+                      fontSize: "11px",
+                      background: "rgba(10, 15, 23, 0.9)",
+                      color: "#c6d4df",
+                      padding: "3px 8px",
+                      borderRadius: "2px",
+                      border: "1px solid rgba(102, 192, 244, 0.2)",
+                    }}
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Education Lore */}
+            <div
+              style={{
+                background: "rgba(20, 27, 38, 0.96)",
+                borderRadius: "4px",
+                padding: "16px",
+                border: "1px solid rgba(102, 192, 244, 0.2)",
+                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.5)",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "13px",
+                  color: "#66c0f4",
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                  fontWeight: 700,
+                  marginBottom: "10px",
+                }}
+              >
+                Education Lore
+              </div>
+              {PROFILE.education.map((edu, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    padding: "8px 0",
+                    borderBottom: idx < PROFILE.education.length - 1 ? "1px solid rgba(255,255,255,0.06)" : "none",
+                  }}
+                >
+                  <div style={{ color: "#ffffff", fontWeight: "bold", fontSize: "12px" }}>
+                    {edu.school}
+                  </div>
+                  <div style={{ color: "#66c0f4", fontSize: "11px" }}>{edu.degree}</div>
+                  <div style={{ color: "#8f98a0", fontSize: "10px", marginTop: "2px" }}>
+                    {edu.period}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Quick Links */}
+            <div
+              style={{
+                background: "rgba(20, 27, 38, 0.96)",
+                borderRadius: "4px",
+                padding: "16px",
+                border: "1px solid rgba(102, 192, 244, 0.2)",
+                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.5)",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "13px",
+                  color: "#66c0f4",
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                  fontWeight: 700,
+                  marginBottom: "10px",
+                }}
+              >
+                Quick Links
+              </div>
+              <ul style={{ listStyle: "none", fontSize: "12px" }}>
+                <li style={{ marginBottom: "8px" }}>
+                  <a
+                    href="/Dionisius_Surya_Jaya_CV.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ display: "flex", justifyContent: "space-between", color: "#66c0f4", fontWeight: 600 }}
+                  >
+                    <span>Download / View CV</span>
+                    <span>📄 ↗</span>
+                  </a>
+                </li>
+                <li style={{ marginBottom: "8px" }}>
+                  <a
+                    href={PROFILE.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ display: "flex", justifyContent: "space-between", color: "#c6d4df" }}
+                  >
+                    <span>LinkedIn Profile</span>
+                    <span style={{ color: "#66c0f4" }}>↗</span>
+                  </a>
+                </li>
+                <li style={{ marginBottom: "8px" }}>
+                  <a
+                    href={PROFILE.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ display: "flex", justifyContent: "space-between", color: "#c6d4df" }}
+                  >
+                    <span>GitHub Repositories</span>
+                    <span style={{ color: "#66c0f4" }}>↗</span>
+                  </a>
+                </li>
+                <li style={{ marginBottom: "8px" }}>
+                  <button
+                    onClick={copyEmail}
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      color: "#c6d4df",
+                      background: "none",
+                      border: "none",
+                      padding: 0,
+                      width: "100%",
+                      cursor: "pointer",
+                      fontSize: "12px",
+                      textAlign: "left",
+                    }}
+                  >
+                    <span>Direct Email</span>
+                    <span style={{ color: "#66c0f4" }}>{copied ? "Copied!" : "📋"}</span>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </aside>
+        </div>
       </main>
 
-      {/* Grid Footer Bar */}
-      <footer className="border-t border-[#212121] bg-[#101010] text-[12px] meta-mono text-[#9c9c9c]">
-        <div className="max-w-[1280px] mx-auto border-x border-[#212121] p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div>
-            © {new Date().getFullYear()} {PROFILE.name} · Architectural Index System.
+      {/* Steam Footer */}
+      <footer
+        style={{
+          background: "#000000",
+          color: "#8b929a",
+          padding: "32px 0",
+          fontSize: "12px",
+          borderTop: "1px solid #363c44",
+        }}
+      >
+        <div
+          style={{
+            width: "940px",
+            margin: "0 auto",
+            display: "flex",
+            flexDirection: "column",
+            gap: "16px",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              borderBottom: "1px solid #363c44",
+              paddingBottom: "16px",
+            }}
+          >
+            <img
+              src="/assets/images/community.akamai.steamstatic.com/footerLogo_valve_new-58413ab1ee.png"
+              alt="Valve Logo"
+              style={{ height: "26px" }}
+            />
+            <img
+              src="/assets/images/community.akamai.steamstatic.com/header_logo-6f7393813c.png"
+              alt="Steam Logo"
+              style={{ height: "26px" }}
+            />
           </div>
-          <div className="flex items-center gap-6">
-            <a href={PROFILE.github} target="_blank" rel="noreferrer" className="hover:text-[#f3f3f3] transition-colors">
-              GitHub ↗
-            </a>
-            <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" className="hover:text-[#f3f3f3] transition-colors">
-              LinkedIn ↗
-            </a>
-            <a href={PROFILE.resumeUrl} target="_blank" rel="noreferrer" className="hover:text-[#f3f3f3] transition-colors">
-              Resume (PDF) ↗
+          <div>
+            &copy; 2026 Dionisius Surya Jaya. All rights reserved. Powered by Next.js & Motiva Sans. Authentic Steam
+            Community Profile architecture.
+          </div>
+          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+            <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" style={{ color: "#c6d4df" }}>
+              LinkedIn
+            </a>{" "}
+            |
+            <a href={PROFILE.github} target="_blank" rel="noreferrer" style={{ color: "#c6d4df" }}>
+              GitHub
+            </a>{" "}
+            |
+            <a href={`mailto:${PROFILE.email}`} style={{ color: "#c6d4df" }}>
+              Contact Email
             </a>
           </div>
         </div>
