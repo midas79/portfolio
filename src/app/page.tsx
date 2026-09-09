@@ -534,67 +534,6 @@ export default function SteamProfile() {
               ))}
             </div>
           </div>
-
-          {/* Level Circle & Featured Badge - Compact right column */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "8px", flexShrink: 0 }}>
-            {/* Level box */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                background: "rgba(0, 0, 0, 0.5)",
-                padding: "4px 10px",
-                borderRadius: "3px",
-                border: "1px solid rgba(255,255,255,0.08)",
-              }}
-            >
-              <span style={{ color: "#8f98a0", fontSize: "11px", textTransform: "uppercase", fontWeight: 600 }}>Level</span>
-              <div
-                style={{
-                  border: "2px solid #57cbde",
-                  borderRadius: "50%",
-                  width: "32px",
-                  height: "32px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "14px",
-                  color: "#ffffff",
-                  fontWeight: "bold",
-                  background: "rgba(0, 0, 0, 0.6)",
-                  boxShadow: "0 0 8px rgba(87, 203, 222, 0.4)",
-                }}
-              >
-                {PROFILE.level}
-              </div>
-            </div>
-
-            {/* Badge box */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                background: "rgba(0, 0, 0, 0.35)",
-                padding: "6px 10px",
-                borderRadius: "3px",
-                border: "1px solid rgba(255,255,255,0.06)",
-              }}
-            >
-              <img
-                src={PROFILE.badgeIcon}
-                alt="Badge"
-                style={{ width: "28px", height: "28px" }}
-              />
-              <div style={{ textAlign: "right" }}>
-                <div style={{ color: "#ffffff", fontSize: "11px", fontWeight: "bold", lineHeight: 1.2 }}>
-                  {PROFILE.badgeTitle}
-                </div>
-                <div style={{ color: "#8f98a0", fontSize: "10px" }}>{PROFILE.badgeXP}</div>
-              </div>
-            </div>
-          </div>
         </section>
 
         {/* Navigation Tabs to Switch Main View */}
