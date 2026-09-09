@@ -1,46 +1,27 @@
-@font-face {
-  font-family: 'Motiva Sans';
-  src: url('/assets/fonts/MotivaSans-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Motiva Sans';
-  src: url('/assets/fonts/MotivaSans-Thin.ttf') format('truetype');
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Motiva Sans';
-  src: url('/assets/fonts/MotivaSans-Medium.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Motiva Sans';
-  src: url('/assets/fonts/MotivaSans-Bold.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
+@import "tailwindcss";
 
 :root {
-  --bg-dark: #101214;
-  --bg-header: #171a21;
-  --bg-card: rgba(22, 30, 42, 0.92);
-  --bg-card-hover: rgba(30, 42, 58, 0.95);
-  --bg-card-solid: #111922;
-  --text-main: #8f98a0;
-  --text-bright: #c6d4df;
-  --text-blue: #66c0f4;
-  --text-gold: #e5c43b;
-  --online-green: #57cbde;
-  --border-color: #2a475e;
-  --btn-bg: #214b6e;
-  --btn-bg-hover: #295e8a;
+  --bg-canvas: #090a0f;
+  --bg-surface: #10121a;
+  --bg-surface-elevated: #151823;
+  --bg-surface-hover: #1c2030;
+  
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --border-accent: rgba(94, 106, 210, 0.4);
+  
+  --text-primary: #f7f8f8;
+  --text-secondary: #d0d6e0;
+  --text-tertiary: #8a8f98;
+  --text-muted: #5e6470;
+  
+  --brand-primary: #5e6ad2;
+  --brand-primary-light: #7c88f5;
+  --brand-glow: rgba(94, 106, 210, 0.25);
+  
+  --status-emerald: #10b981;
+  --status-emerald-bg: rgba(16, 185, 129, 0.12);
+  --status-emerald-border: rgba(16, 185, 129, 0.3);
 }
 
 * {
@@ -49,45 +30,140 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
 body {
-  background-color: var(--bg-dark);
-  color: var(--text-bright);
-  font-family: "Motiva Sans", -apple-system, BlinkMacSystemFont, Arial, Helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 1.5;
-  background-image:
-    radial-gradient(ellipse at 50% 0%, rgba(16, 22, 30, 0.85) 0%, rgba(10, 14, 18, 0.95) 75%, #0e1217 100%),
-    url('/assets/images/shared.akamai.steamstatic.com/ad5177e5d02bfdaa43f094d3148d37c26fb706f7.jpg');
-  background-repeat: no-repeat;
-  background-position: center top;
-  background-attachment: fixed;
-  background-size: 100% auto;
+  background-color: var(--bg-canvas);
+  color: var(--text-secondary);
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
   min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
 }
 
-a {
-  color: var(--text-bright);
-  text-decoration: none;
+/* Subtle background grid pattern & ambient glow */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(94, 106, 210, 0.15), transparent 70%),
+    radial-gradient(circle 600px at 80% 60%, rgba(16, 185, 129, 0.04), transparent 80%),
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+  pointer-events: none;
+  z-index: 0;
 }
 
-a:hover {
+/* Selection */
+::selection {
+  background: var(--brand-primary);
   color: #ffffff;
 }
 
-/* Custom Scrollbar matching Steam */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #171a21;
+  background: var(--bg-canvas);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2a475e;
+  background: #232738;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #66c0f4;
+  background: var(--brand-primary);
+}
+
+/* Linear Glass Card */
+.linear-card {
+  background: rgba(16, 18, 26, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.linear-card:hover {
+  border-color: var(--border-accent);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 20px var(--brand-glow);
+}
+
+/* Button Primary */
+.linear-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--brand-primary);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2px 10px rgba(94, 106, 210, 0.35);
+  transition: all 0.15s ease;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.linear-btn-primary:hover {
+  background: var(--brand-primary-light);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(94, 106, 210, 0.5);
+}
+
+/* Button Secondary */
+.linear-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid var(--border-subtle);
+  transition: all 0.15s ease;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.linear-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--border-strong);
+  color: #ffffff;
+}
+
+/* Tech tag / chip */
+.linear-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-tertiary);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.linear-tag:hover {
+  color: var(--text-secondary);
+  border-color: rgba(255, 255, 255, 0.12);
 }

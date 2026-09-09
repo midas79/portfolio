@@ -1,1360 +1,390 @@
 ﻿"use client";
 
 import { useState } from "react";
+import {
+  PROFILE,
+  PROJECTS,
+  EXPERIENCES,
+  CERTIFICATIONS,
+  SKILL_GROUPS,
+} from "../data/portfolio";
 
-const PROFILE = {
-  name: "Dionisius Surya Jaya",
-  alias: "dionisiussj",
-  level: 42,
-  badgeTitle: "Community Leader & ML Engineer",
-  badgeXP: "1,337 XP",
-  avatarUrl: "/assets/images/avatar_full.jpg",
-  avatarFrame: "/assets/images/shared.akamai.steamstatic.com/c447714efa9703c4c0007a8316127c12ea0d32f4.png",
-  badgeIcon: "/assets/images/shared.akamai.steamstatic.com/2def078bb9d550e4496e9b8ac1f7bca3d4b1ad99-b783dbdb84.png",
-  location: "Malang Regency, East Java, Indonesia",
-  headline: "In-Game: Visual Studio Code — Full-Stack & Machine Learning Workspace",
-  summary:
-    "I am an undergraduate Computer Science student at Universitas Brawijaya (Informatics 2022–2026) with a strong passion for programming and software development. My goal is to become a professional programmer who not only writes clean and efficient code but also builds meaningful, impactful solutions. Constantly seeking opportunities to learn new technologies, refine system architectures, and contribute to production-grade real-world projects.",
-  email: "dionisius.suryajaya@gmail.com",
-  linkedin: "https://www.linkedin.com/in/dionisiussj",
-  github: "https://github.com/midas79",
-  topSkills: [
-    "WebDev",
-    "Front-End Development",
-    "Machine Learning & NLP",
-    "Backend & APIs",
-    "Financial Planning",
-    "Geospatial WebGIS",
-  ],
-  badges: [
-    { name: "Belajar Dasar Git dengan GitHub", org: "Dicoding Indonesia", xp: "100 XP", icon: "📦" },
-    { name: "Belajar Back-End Pemula dengan JavaScript", org: "Dicoding Indonesia", xp: "250 XP", icon: "⚙️" },
-    { name: "Belajar Fundamental Front-End Web Dev", org: "Dicoding Indonesia", xp: "250 XP", icon: "🎨" },
-    { name: "Belajar Dasar Pemrograman Web", org: "Dicoding Indonesia", xp: "100 XP", icon: "🌐" },
-    { name: "Belajar Dasar Pemrograman JavaScript", org: "Dicoding Indonesia", xp: "150 XP", icon: "💻" },
-    { name: "Belajar Membuat Front-End Web untuk Pemula", org: "Dicoding Indonesia", xp: "150 XP", icon: "🚀" },
-    { name: "Belajar Membuat Aplikasi Web dengan React", org: "Dicoding Indonesia", xp: "250 XP", icon: "⚛️" },
-    { name: "Cloud Practitioner Essentials (AWS Cloud)", org: "Dicoding / AWS", xp: "150 XP", icon: "☁️" },
-    { name: "Belajar Prinsip Pemrograman SOLID", org: "Dicoding Indonesia", xp: "150 XP", icon: "🛡️" },
-    { name: "Belajar Data Analysis / Machine Learning", org: "Dicoding Indonesia", xp: "200 XP", icon: "📊" },
-    { name: "Financial Literacy 101", org: "Financial Education", xp: "150 XP", icon: "💎" },
-  ],
-  leadShowcase: {
-    title: "MEDEVA — Health Risk Stratification System",
-    genre: "Machine Learning / Clinical Predictive Diagnostics",
-    developer: "MEDEVA & Dionisius Surya Jaya",
-    publisher: "Healthcare Analytics Solutions",
-    status: "Active Research & Production Pipeline",
-    hoursPlayed: "320 hrs",
-    achievements: "18 / 18 Unlocked (100%)",
-    liveDemo: "https://medeva-demo-jbnnczbvk6ucappppedszeab.streamlit.app/",
-    githubRepo: "https://github.com/midas79",
-    description:
-      "End-to-end Machine Learning pipeline tailored for BPJS patient clinical data. Features automated data cleaning, exploratory data analysis, Natural Language Processing (Logistic Regression) for Hypertension symptom stratification, and unsupervised K-Means clustering for Diabetes Mellitus risk groups.",
-    tags: ["Python", "Scikit-Learn", "Streamlit", "Pandas", "NLP", "K-Means", "BPJS HealthTech"],
-  },
-  // Exact 4 Projects
-  allProjects: [
-    {
-      id: "medeva",
-      category: "Machine Learning",
-      title: "Medeva — Clinical Risk Stratification",
-      desc: "End-to-end ML pipeline for PROLANIS BPJS: Logistic Regression + TF-IDF NLP (Hypertension) & K-Means clustering (Diabetes Mellitus). Stateless inference with automated data-drift checks.",
-      tags: ["Python", "Scikit-Learn", "Streamlit", "K-Means", "NLP"],
-      metric: "Stateless ML Pipeline",
-      impact: "Clinical Decision Support",
-      link: "https://medeva-demo-jbnnczbvk6ucappppedszeab.streamlit.app/",
-      cta: "Launch Live Demo ↗",
-      accent: "#90ba3c",
-    },
-    {
-      id: "webgis",
-      category: "Geospatial",
-      title: "Village Digital Maps (WebGIS) — MMD FILKOM UB",
-      desc: "Digital village maps for Ngasem (Ngajum, Malang) built with ArcGIS & QGIS. Interactive Leaflet WebGIS improving administrative territorial planning and public services.",
-      tags: ["ArcGIS", "QGIS", "Leaflet.js", "Geospatial", "GeoJSON"],
-      metric: "ArcGIS & QGIS Vector Layer",
-      impact: "Public Spatial Planning",
-      link: "https://midas79.github.io/Map-Digital-Desa-Ngasem/",
-      cta: "Explore Interactive Map ↗",
-      accent: "#57cbde",
-    },
-    {
-      id: "anime31",
-      category: "Web App",
-      title: "Anime31 — Media Streaming & Catalog Platform",
-      desc: "Anime streaming and media catalog showcase featuring curated user watchlists, episode release tracking, category filtering, and responsive video player integration.",
-      tags: ["React", "REST API", "Tailwind CSS", "Media Player"],
-      metric: "Full-Featured Web App",
-      impact: "User Watchlist & Filtering",
-      link: "https://anime31.vercel.app/",
-      cta: "Launch Web App ↗",
-      accent: "#ff79c6",
-    },
-    {
-      id: "moviemate",
-      category: "Web App",
-      title: "Movie Mate — Social Cinema Watchlist",
-      desc: "Social movie tracking web application enabling cinephiles to discover trending films, curate personal watchlists, log ratings, and exchange recommendations in real time.",
-      tags: ["Next.js", "Firebase", "Tailwind CSS", "TMDB API"],
-      metric: "Realtime Firebase Store",
-      impact: "Social Film Recommendations",
-      link: "https://movie-mate-tan.vercel.app/",
-      cta: "Launch Web App ↗",
-      accent: "#ff5555",
-    },
-  ],
-  // Work & Leadership Experiences from CV
-  experiences: [
-    {
-      company: "MEDEVA",
-      role: "Machine Learning Intern",
-      period: "January 2026 - May 2026 (5 months)",
-      location: "Malang, Indonesia",
-      type: "Machine Learning & AI",
-      desc: "Architecting and training machine learning classification pipelines for health diagnostics. Processing clinical registries, engineering features for predictive scoring, and serving real-time model inferences via interactive web demos.",
-      skills: ["Python", "Scikit-Learn", "Machine Learning", "Streamlit", "Pandas", "NLP"],
-    },
-    {
-      company: "BPS Kota Malang",
-      role: "Data Analyst & Frontend Developer",
-      period: "September 2025 - November 2025 (3 months)",
-      location: "Malang, Indonesia",
-      type: "Public Sector Data Analytics",
-      desc: "Conducted statistical data validation, regional indicator trend analysis, and engineered frontend web dashboards that enable public civil servants to query complex municipal records with ease.",
-      skills: ["Data Analysis", "Frontend Development", "JavaScript", "Excel/Stats", "Tailwind CSS"],
-    },
-    {
-      company: "Coding Camp powered by DBS Foundation",
-      role: "Web Developer",
-      period: "February 2025 - June 2025 (5 months)",
-      location: "Malang, Indonesia",
-      type: "Full-Stack Web Apprenticeship",
-      desc: "Developed modern, mobile-first responsive web apps in an agile team workflow. Implemented client-side caching, component modularity, and integration with third-party RESTful services.",
-      skills: ["React.js", "Next.js", "Front-End Development", "RESTful APIs", "Git"],
-    },
-    {
-      company: "MMD FILKOM UB 2024",
-      role: "Backend Developer and IT Support",
-      period: "July 2024 - August 2024 (2 months)",
-      location: "Ngasem, East Java, Indonesia",
-      type: "WebGIS & Infrastructure Support",
-      desc: "Maintained and optimized the village official web portal for administrative stability. Developed a comprehensive digital village map using ArcGIS and QGIS, accelerating public service delivery.",
-      skills: ["Backend Support", "ArcGIS", "QGIS", "Leaflet.js", "WebGIS", "Data Geospatial"],
-    },
-    {
-      company: "BIOS Filkom UB",
-      role: "Head of Division Consumption and Health (ORSEN FILKOM 2024)",
-      period: "August 2024 - November 2024 (4 months)",
-      location: "Malang, East Java, Indonesia",
-      type: "Leadership & Healthcare Operations",
-      desc: "Assisted in managing meal distribution and health services, coordinated team operations, liaised with external vendors and medical teams, ensuring all logistics met high hygiene and safety standards.",
-      skills: ["Leadership", "Operations Management", "Healthcare Logistics", "Coordination"],
-    },
-    {
-      company: "Artropolis UB",
-      role: "Logistics Coordinator",
-      period: "September 2023 - November 2024 (1 year 3 months)",
-      location: "Malang, East Java, Indonesia",
-      type: "Logistics & Operational Planning",
-      desc: "Supported coordination and logistics planning, managed equipment inventory and distribution, and collaborated across cross-functional divisions to ensure smooth high-capacity event execution.",
-      skills: ["Inventory Management", "Logistics", "Problem Solving", "Teamwork"],
-    },
-    {
-      company: "MMD FILKOM UB 2024",
-      role: "Event Coordinator",
-      period: "July 2024 - August 2024 (2 months)",
-      location: "Ngasem, East Java, Indonesia",
-      type: "Project Planning & Stakeholder Relations",
-      desc: "Planned and organized local community programs, coordinated with village leadership and municipal authorities, and drove active community engagement.",
-      skills: ["Event Planning", "Community Relations", "Public Speaking"],
-    },
-  ],
-  education: [
-    {
-      school: "University of Brawijaya (Universitas Brawijaya)",
-      degree: "Bachelor of Computer Science, Informatics",
-      period: "July 2022 - July 2026 (Expected Graduation)",
-      details:
-        "Focus on Software Engineering, Machine Learning, Data Structures & Algorithms, Distributed Databases, and Geospatial Systems. GPA 3.58 / 4.00.",
-    },
-    {
-      school: "SMA Negeri 1 Temanggung",
-      degree: "Natural Sciences (MIPA)",
-      period: "2019 - 2022",
-      details: "Strong academic grounding in mathematics, logical reasoning, and computing fundamentals.",
-    },
-  ],
-  comments: [] as { user: string; date: string; text: string; avatar: string }[],
-};
-
-export default function SteamProfile() {
+export default function PortfolioPage() {
   const [copied, setCopied] = useState(false);
-  const [activeTab, setActiveTab] = useState<"projects" | "experience" | "badges">("projects");
-  const [comments, setComments] = useState<{ user: string; date: string; text: string; avatar: string }[]>([]);
-  const [authorName, setAuthorName] = useState("");
-  const [commentText, setCommentText] = useState("");
-  const [postStatus, setPostStatus] = useState<string | null>(null);
+  const [selectedTag, setSelectedTag] = useState<string>("All");
 
-  const copyEmail = () => {
+  // Derive unique categories automatically from project data
+  const categories = ["All", ...Array.from(new Set(PROJECTS.map((p) => p.category)))];
+
+  const filteredProjects =
+    selectedTag === "All"
+      ? PROJECTS
+      : PROJECTS.filter((p) => p.category === selectedTag);
+
+  const handleCopyEmail = () => {
     navigator.clipboard.writeText(PROFILE.email);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handlePostComment = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!commentText.trim()) return;
-    const newComment = {
-      user: authorName.trim() || "Steam Visitor",
-      date: "Just now",
-      text: commentText.trim(),
-      avatar: (authorName.trim() || "V")[0].toUpperCase(),
-    };
-    setComments([newComment, ...comments]);
-    setCommentText("");
-    setAuthorName("");
-    setPostStatus("Comment posted successfully!");
-    setTimeout(() => setPostStatus(null), 3000);
-  };
-
   return (
-    <div style={{ minHeight: "100vh" }}>
-      {/* Steam Top Header Nav */}
-      <header
-        style={{
-          background: "var(--bg-header)",
-          height: "104px",
-          display: "flex",
-          justifyContent: "center",
-          position: "relative",
-          zIndex: 10,
-          borderBottom: "1px solid rgba(0,0,0,0.5)",
-        }}
-      >
-        <div
-          style={{
-            width: "940px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            padding: "0 16px",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "40px" }}>
-            <a href="https://store.steampowered.com/" target="_blank" rel="noreferrer">
-              <img
-                src="/assets/images/community.akamai.steamstatic.com/logo_steam-e0e81271bb.svg"
-                alt="STEAM"
-                style={{ height: "36px" }}
-              />
+    <div className="relative min-h-screen text-[#d0d6e0]">
+      {/* Sticky Glass Navbar */}
+      <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#090a0f]/80 backdrop-blur-md">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+          <a
+            href="#"
+            className="flex items-center gap-2.5 font-bold text-sm tracking-tight text-white hover:opacity-80 transition-opacity"
+          >
+            <span className="w-2 h-2 rounded-full bg-[#10b981] shadow-[0_0_8px_#10b981]"></span>
+            <span>{PROFILE.name}</span>
+          </a>
+
+          <nav className="hidden md:flex items-center gap-6 text-xs font-medium text-[#8a8f98]">
+            <a href="#projects" className="hover:text-white transition-colors">
+              Projects
             </a>
-            <nav
-              style={{
-                display: "flex",
-                gap: "18px",
-                fontSize: "13px",
-                fontWeight: 600,
-                textTransform: "uppercase",
-                letterSpacing: "0.5px",
-              }}
-            >
-              <a href={PROFILE.github} target="_blank" rel="noreferrer" style={{ color: "#c6d4df" }}>
-                GitHub
-              </a>
-              <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" style={{ color: "#c6d4df" }}>
-                LinkedIn
-              </a>
-              <a href="/Dionisius_Surya_Jaya_CV.pdf" target="_blank" rel="noreferrer" style={{ color: "#66c0f4" }}>
-                Resume / CV ↗
-              </a>
-              <a href={`mailto:${PROFILE.email}`} style={{ color: "#c6d4df" }}>
-                Contact
-              </a>
-            </nav>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <a href="#experience" className="hover:text-white transition-colors">
+              Experience
+            </a>
+            <a href="#credentials" className="hover:text-white transition-colors">
+              Credentials
+            </a>
+            <a href="#skills" className="hover:text-white transition-colors">
+              Skills
+            </a>
+          </nav>
+
+          <div className="flex items-center gap-3">
             <a
-              href="/Dionisius_Surya_Jaya_CV.pdf"
+              href={PROFILE.resumeUrl}
               target="_blank"
               rel="noreferrer"
-              style={{
-                backgroundColor: "rgba(102, 192, 244, 0.15)",
-                color: "#66c0f4",
-                padding: "6px 12px",
-                fontSize: "11px",
-                fontWeight: 700,
-                borderRadius: "2px",
-                border: "1px solid rgba(102, 192, 244, 0.35)",
-                textDecoration: "none",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "4px",
-              }}
+              className="linear-btn-secondary py-1.5 px-3 text-xs"
             >
-              <span>📄 VIEW CV</span>
+              <span>Resume (PDF) ↗</span>
             </a>
             <button
-              onClick={copyEmail}
-              style={{
-                backgroundColor: "#5c7e10",
-                color: "#e5e4dc",
-                padding: "6px 14px",
-                fontSize: "11px",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "6px",
-                borderRadius: "2px",
-                border: "none",
-                cursor: "pointer",
-                fontWeight: 700,
-              }}
+              onClick={handleCopyEmail}
+              className="linear-btn-primary py-1.5 px-3 text-xs"
             >
-              <span>{copied ? "Email Copied!" : "✉ CONTACT / HIRE"}</span>
+              <span>{copied ? "Email Copied!" : "Contact"}</span>
             </button>
           </div>
         </div>
       </header>
 
-      {/* Main Steam Profile Container */}
-      <main
-        style={{
-          width: "min(960px, calc(100% - 32px))",
-          margin: "0 auto",
-          paddingTop: "32px",
-          paddingBottom: "60px",
-          position: "relative",
-        }}
-      >
-        {/* Profile Header Card */}
-        <section
-          style={{
-            background: "rgba(15, 21, 30, 0.95)",
-            backdropFilter: "blur(12px)",
-            borderRadius: "6px",
-            padding: "28px",
-            display: "flex",
-            gap: "32px",
-            alignItems: "flex-start",
-            marginBottom: "20px",
-            border: "1px solid rgba(255, 255, 255, 0.08)",
-            boxShadow: "0 8px 30px rgba(0,0,0,0.5)",
-          }}
-        >
-          {/* Avatar + Animated Frame */}
-          <div
-            style={{
-              position: "relative",
-              width: "166px",
-              height: "166px",
-              flexShrink: 0,
-            }}
-          >
-            <img
-              src={PROFILE.avatarUrl}
-              alt={PROFILE.name}
-              style={{
-                width: "166px",
-                height: "166px",
-                objectFit: "cover",
-                display: "block",
-              }}
-            />
-            <img
-              src={PROFILE.avatarFrame}
-              alt="Avatar Frame"
-              style={{
-                position: "absolute",
-                top: "-18px",
-                left: "-18px",
-                width: "202px",
-                height: "202px",
-                pointerEvents: "none",
-                zIndex: 2,
-              }}
-            />
+      {/* Main Content Area */}
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 pt-16 pb-28 space-y-24">
+        {/* Profile Hero Section */}
+        <section className="space-y-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-[#10b981]/10 text-[#10b981] border border-[#10b981]/30">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] animate-pulse"></span>
+            <span>{PROFILE.status}</span>
           </div>
 
-          {/* Profile Main Information */}
-          <div style={{ flexGrow: 1, minWidth: 0 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px", flexWrap: "wrap" }}>
-              <h1
-                style={{
-                  fontSize: "26px",
-                  color: "#ffffff",
-                  fontWeight: 400,
-                  letterSpacing: "0.3px",
-                  lineHeight: 1.2,
-                }}
-              >
-                {PROFILE.name}
-              </h1>
-              <span
-                style={{
-                  fontSize: "11px",
-                  color: "#66c0f4",
-                  background: "rgba(102, 192, 244, 0.15)",
-                  padding: "3px 8px",
-                  borderRadius: "2px",
-                  fontWeight: 500,
-                }}
-              >
-                /{PROFILE.alias}
-              </span>
-            </div>
+          <div className="space-y-3">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#f7f8f8] leading-tight">
+              {PROFILE.title}
+            </h1>
+            <p className="text-sm sm:text-base text-[#8a8f98] max-w-2xl leading-relaxed">
+              {PROFILE.bio}
+            </p>
+          </div>
 
-            {/* In-Game Status Strip */}
-            <div
-              style={{
-                color: "#90ba3c",
-                fontSize: "12px",
-                fontWeight: 500,
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                marginBottom: "10px",
-                lineHeight: 1.4,
-              }}
+          {/* Quick Academic & Geographic Badges */}
+          <div className="flex flex-wrap gap-2 pt-2 text-xs font-mono text-[#8a8f98]">
+            <span className="linear-tag">📍 {PROFILE.location}</span>
+            <span className="linear-tag">🎓 {PROFILE.university}</span>
+            <span className="linear-tag">⚡ GPA {PROFILE.gpa}</span>
+            <span className="linear-tag">📅 {PROFILE.graduation}</span>
+          </div>
+
+          {/* Quick Channels */}
+          <div className="flex flex-wrap items-center gap-4 pt-2 text-xs">
+            <a
+              href={PROFILE.github}
+              target="_blank"
+              rel="noreferrer"
+              className="text-[#8a8f98] hover:text-white transition-colors flex items-center gap-1.5"
             >
-              <span
-                style={{
-                  width: "8px",
-                  height: "8px",
-                  borderRadius: "50%",
-                  backgroundColor: "#90ba3c",
-                  display: "inline-block",
-                  flexShrink: 0,
-                  boxShadow: "0 0 6px #90ba3c",
-                }}
-              ></span>
-              <span>{PROFILE.headline}</span>
-            </div>
-
-            <div style={{ color: "#8f98a0", fontSize: "12px", marginBottom: "16px", lineHeight: 1.6 }}>
-              <div>📍 {PROFILE.location}</div>
-              <div>🎓 Universitas Brawijaya (Informatics) — GPA 3.58 / 4.00</div>
-            </div>
-
-            <div
-              style={{
-                background: "rgba(0, 0, 0, 0.35)",
-                border: "1px solid rgba(255, 255, 255, 0.04)",
-                borderLeft: "3px solid #66c0f4",
-                borderRadius: "3px",
-                padding: "12px 16px",
-                marginBottom: "16px",
-              }}
+              <span>GitHub</span>
+              <span>↗</span>
+            </a>
+            <span className="text-white/20">/</span>
+            <a
+              href={PROFILE.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              className="text-[#8a8f98] hover:text-white transition-colors flex items-center gap-1.5"
             >
-              <p
-                style={{
-                  color: "#c6d4df",
-                  fontSize: "13px",
-                  lineHeight: 1.65,
-                  margin: 0,
-                  letterSpacing: "0.01em",
-                }}
-              >
-                {PROFILE.summary}
-              </p>
-            </div>
-
-            {/* Specialization Tags */}
-            <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-              {PROFILE.topSkills.map((sk) => (
-                <span
-                  key={sk}
-                  style={{
-                    fontSize: "11px",
-                    background: "rgba(102, 192, 244, 0.12)",
-                    color: "#a8d8f8",
-                    padding: "4px 10px",
-                    borderRadius: "2px",
-                    border: "1px solid rgba(102, 192, 244, 0.3)",
-                    fontWeight: 500,
-                  }}
-                >
-                  {sk}
-                </span>
-              ))}
-            </div>
+              <span>LinkedIn</span>
+              <span>↗</span>
+            </a>
+            <span className="text-white/20">/</span>
+            <button
+              onClick={handleCopyEmail}
+              className="text-[#8a8f98] hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
+            >
+              <span>{PROFILE.email}</span>
+              <span>📋</span>
+            </button>
           </div>
         </section>
 
-        {/* Navigation Tabs to Switch Main View */}
-        <div
-          style={{
-            display: "flex",
-            gap: "8px",
-            marginBottom: "18px",
-            borderBottom: "1px solid rgba(102, 192, 244, 0.25)",
-            paddingBottom: "10px",
-            overflowX: "auto",
-          }}
-        >
-          {[
-            { id: "projects" as const, label: `FEATURED PROJECTS (${PROFILE.allProjects.length})` },
-            { id: "experience" as const, label: `CAREER EXPERIENCE (${PROFILE.experiences.length})` },
-            { id: "badges" as const, label: `BADGES & CERTS (${PROFILE.badges.length})` },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              style={{
-                padding: "10px 18px",
-                fontSize: "12px",
-                fontWeight: 700,
-                letterSpacing: "0.5px",
-                textTransform: "uppercase",
-                background:
-                  activeTab === tab.id
-                    ? "linear-gradient(180deg, #2a475e 0%, #192837 100%)"
-                    : "rgba(18, 26, 36, 0.95)",
-                color: activeTab === tab.id ? "#ffffff" : "#8f98a0",
-                border:
-                  activeTab === tab.id
-                    ? "1px solid #66c0f4"
-                    : "1px solid rgba(255, 255, 255, 0.08)",
-                borderBottom: activeTab === tab.id ? "3px solid #66c0f4" : "3px solid transparent",
-                cursor: "pointer",
-                borderRadius: "3px 3px 0 0",
-                boxShadow:
-                  activeTab === tab.id
-                    ? "0 4px 12px rgba(0, 0, 0, 0.4), 0 0 10px rgba(102, 192, 244, 0.25)"
-                    : "none",
-                whiteSpace: "nowrap",
-                transition: "all 0.15s ease",
-              }}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Content Layout: 1fr left column + 280px right column */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 280px",
-            gap: "16px",
-          }}
-        >
-          {/* Left Column Content */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-            {/* TAB 1: PROJECTS (Exact 4 Portfolio Projects) */}
-            {activeTab === "projects" && (
-              <section
-                style={{
-                  background: "rgba(20, 27, 38, 0.96)",
-                  borderRadius: "4px",
-                  padding: "20px",
-                  border: "1px solid rgba(102, 192, 244, 0.2)",
-                  boxShadow: "0 6px 20px rgba(0, 0, 0, 0.55)",
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: "14px",
-                    color: "#66c0f4",
-                    textTransform: "uppercase",
-                    letterSpacing: "1px",
-                    fontWeight: 700,
-                    marginBottom: "16px",
-                    paddingBottom: "8px",
-                    borderBottom: "1px solid rgba(102, 192, 244, 0.2)",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <span>Software Portfolio Projects ({PROFILE.allProjects.length})</span>
-                  <span style={{ fontSize: "11px", color: "var(--online-green)", fontWeight: "normal" }}>All Shipped Works</span>
-                </div>
-
-                <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-                  {PROFILE.allProjects.map((proj) => (
-                    <div
-                      key={proj.id}
-                      style={{
-                        background: "rgba(10, 15, 23, 0.92)",
-                        borderRadius: "3px",
-                        padding: "16px",
-                        border: "1px solid rgba(66, 85, 106, 0.45)",
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "10px",
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "flex-start",
-                          flexWrap: "wrap",
-                          gap: "6px",
-                        }}
-                      >
-                        <div>
-                          <div style={{ fontSize: "15px", color: "#ffffff", fontWeight: "bold" }}>
-                            {proj.title}
-                          </div>
-                          <span
-                            style={{
-                              fontSize: "10px",
-                              color: proj.accent,
-                              border: `1px solid ${proj.accent}60`,
-                              background: `${proj.accent}15`,
-                              padding: "2px 6px",
-                              borderRadius: "2px",
-                              marginTop: "4px",
-                              display: "inline-block",
-                              fontWeight: 600,
-                            }}
-                          >
-                            {proj.category}
-                          </span>
-                        </div>
-
-                        <div style={{ textAlign: "right" }}>
-                          <div style={{ fontSize: "12px", color: "#90ba3c", fontFamily: "monospace", fontWeight: "bold" }}>
-                            {proj.metric}
-                          </div>
-                          <div style={{ fontSize: "11px", color: "#8f98a0" }}>{proj.impact}</div>
-                        </div>
-                      </div>
-
-                      <p style={{ fontSize: "13px", color: "#c6d4df", lineHeight: "1.6" }}>{proj.desc}</p>
-
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          flexWrap: "wrap",
-                          gap: "8px",
-                          marginTop: "4px",
-                          paddingTop: "8px",
-                          borderTop: "1px solid rgba(255,255,255,0.06)",
-                        }}
-                      >
-                        <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
-                          {proj.tags.map((t) => (
-                            <span
-                              key={t}
-                              style={{
-                                fontSize: "10px",
-                                background: "rgba(0,0,0,0.6)",
-                                color: "#8f98a0",
-                                padding: "2px 8px",
-                                borderRadius: "2px",
-                                border: "1px solid rgba(255,255,255,0.06)",
-                              }}
-                            >
-                              #{t}
-                            </span>
-                          ))}
-                        </div>
-
-                        <a
-                          href={proj.link}
-                          target="_blank"
-                          rel="noreferrer"
-                          style={{
-                            fontSize: "12px",
-                            color: "#ffffff",
-                            backgroundColor: "var(--btn-bg)",
-                            padding: "6px 14px",
-                            borderRadius: "2px",
-                            fontWeight: 600,
-                            boxShadow: "0 2px 6px rgba(0,0,0,0.4)",
-                          }}
-                        >
-                          {proj.cta}
-                        </a>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
-
-            {/* TAB 2: CAREER EXPERIENCES */}
-            {activeTab === "experience" && (
-              <section
-                style={{
-                  background: "rgba(20, 27, 38, 0.96)",
-                  borderRadius: "4px",
-                  padding: "20px",
-                  border: "1px solid rgba(102, 192, 244, 0.2)",
-                  boxShadow: "0 6px 20px rgba(0, 0, 0, 0.55)",
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: "14px",
-                    color: "#66c0f4",
-                    textTransform: "uppercase",
-                    letterSpacing: "1px",
-                    fontWeight: 700,
-                    marginBottom: "16px",
-                    paddingBottom: "8px",
-                    borderBottom: "1px solid rgba(102, 192, 244, 0.2)",
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <span>Work & Leadership Experience ({PROFILE.experiences.length})</span>
-                  <span style={{ fontSize: "11px", color: "#8f98a0", fontWeight: "normal" }}>Internships & Key Initiatives</span>
-                </div>
-
-                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                  {PROFILE.experiences.map((exp, idx) => (
-                    <div
-                      key={idx}
-                      style={{
-                        background: "rgba(10, 15, 23, 0.92)",
-                        borderRadius: "3px",
-                        padding: "16px",
-                        border: "1px solid rgba(66, 85, 106, 0.4)",
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "flex-start",
-                          marginBottom: "6px",
-                        }}
-                      >
-                        <div>
-                          <span style={{ fontSize: "15px", color: "#ffffff", fontWeight: "bold" }}>
-                            {exp.role}
-                          </span>{" "}
-                          <span style={{ color: "#66c0f4", fontSize: "13px", fontWeight: 600 }}>@ {exp.company}</span>
-                        </div>
-                        <span style={{ fontSize: "12px", color: "#8f98a0", fontFamily: "monospace" }}>
-                          {exp.period}
-                        </span>
-                      </div>
-
-                      <div style={{ fontSize: "11px", color: "#90ba3c", marginBottom: "8px", fontWeight: 500 }}>
-                        📍 {exp.location} &nbsp;•&nbsp; {exp.type}
-                      </div>
-
-                      <p style={{ fontSize: "13px", color: "#c6d4df", lineHeight: "1.6", marginBottom: "10px" }}>
-                        {exp.desc}
-                      </p>
-
-                      <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-                        {exp.skills.map((s) => (
-                          <span
-                            key={s}
-                            style={{
-                              fontSize: "11px",
-                              background: "rgba(102, 192, 244, 0.12)",
-                              color: "#66c0f4",
-                              padding: "3px 8px",
-                              borderRadius: "2px",
-                              border: "1px solid rgba(102, 192, 244, 0.25)",
-                              fontWeight: 500,
-                            }}
-                          >
-                            {s}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
-
-            {/* TAB: BADGES & CERTIFICATIONS */}
-            {activeTab === "badges" && (
-              <section
-                style={{
-                  background: "rgba(20, 27, 38, 0.96)",
-                  borderRadius: "4px",
-                  padding: "20px",
-                  border: "1px solid rgba(102, 192, 244, 0.2)",
-                  boxShadow: "0 6px 20px rgba(0, 0, 0, 0.55)",
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: "14px",
-                    color: "#66c0f4",
-                    textTransform: "uppercase",
-                    letterSpacing: "1px",
-                    fontWeight: 700,
-                    marginBottom: "16px",
-                    paddingBottom: "8px",
-                    borderBottom: "1px solid rgba(102, 192, 244, 0.2)",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <span>Badges & Industry Certifications ({PROFILE.badges.length})</span>
-                  <span style={{ fontSize: "11px", color: "var(--online-green)", fontWeight: "normal" }}>All Verified Badges</span>
-                </div>
-
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "14px" }}>
-                  {PROFILE.badges.map((b, i) => (
-                    <div
-                      key={i}
-                      style={{
-                        background: "rgba(10, 15, 23, 0.92)",
-                        borderRadius: "3px",
-                        padding: "16px",
-                        border: "1px solid rgba(66, 85, 106, 0.4)",
-                        display: "flex",
-                        gap: "14px",
-                        alignItems: "center",
-                      }}
-                    >
-                      <div
-                        style={{
-                          width: "52px",
-                          height: "52px",
-                          background: "rgba(33, 75, 110, 0.35)",
-                          border: "1px solid rgba(102, 192, 244, 0.3)",
-                          borderRadius: "4px",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: "26px",
-                          flexShrink: 0,
-                          boxShadow: "0 0 10px rgba(102, 192, 244, 0.15)",
-                        }}
-                      >
-                        {b.icon}
-                      </div>
-                      <div style={{ flexGrow: 1, minWidth: 0 }}>
-                        <div style={{ color: "#ffffff", fontSize: "13px", fontWeight: "bold", lineHeight: 1.3 }}>
-                          {b.name}
-                        </div>
-                        <div style={{ color: "#8f98a0", fontSize: "11px", marginTop: "2px" }}>
-                          Issuer: {b.org}
-                        </div>
-                        <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "6px" }}>
-                          <span style={{ color: "var(--text-gold)", fontSize: "11px", fontWeight: "bold", background: "rgba(229, 196, 59, 0.1)", padding: "1px 6px", borderRadius: "2px", border: "1px solid rgba(229, 196, 59, 0.25)" }}>
-                            ★ {b.xp}
-                          </span>
-                          <span style={{ color: "#57cbde", fontSize: "10px" }}>Verified Credential</span>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
-
-            {/* Steam Comments Section (Interactive User Commenting) */}
-            <section
-              style={{
-                background: "rgba(20, 27, 38, 0.96)",
-                borderRadius: "4px",
-                padding: "20px",
-                border: "1px solid rgba(102, 192, 244, 0.2)",
-                boxShadow: "0 6px 20px rgba(0, 0, 0, 0.55)",
-              }}
-            >
-              <div
-                style={{
-                  fontSize: "14px",
-                  color: "#66c0f4",
-                  textTransform: "uppercase",
-                  letterSpacing: "1px",
-                  fontWeight: 700,
-                  marginBottom: "16px",
-                  paddingBottom: "8px",
-                  borderBottom: "1px solid rgba(102, 192, 244, 0.2)",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <span>Comments ({comments.length})</span>
-                <span style={{ fontSize: "11px", color: "#8f98a0", fontWeight: "normal" }}>Public Steam Wall</span>
-              </div>
-
-              {/* Comment Input Form */}
-              <form onSubmit={handlePostComment} style={{ marginBottom: comments.length > 0 ? "20px" : "0" }}>
-                <div
-                  style={{
-                    background: "rgba(10, 15, 23, 0.92)",
-                    padding: "16px",
-                    borderRadius: "3px",
-                    border: "1px solid rgba(66, 85, 106, 0.45)",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "12px",
-                  }}
-                >
-                  <input
-                    type="text"
-                    placeholder="Your Name / Steam Handle (e.g. John Doe)"
-                    value={authorName}
-                    onChange={(e) => setAuthorName(e.target.value)}
-                    style={{
-                      width: "100%",
-                      maxWidth: "320px",
-                      background: "rgba(0, 0, 0, 0.6)",
-                      border: "1px solid rgba(102, 192, 244, 0.25)",
-                      borderRadius: "2px",
-                      padding: "8px 12px",
-                      color: "#ffffff",
-                      fontSize: "12px",
-                      outline: "none",
-                    }}
-                  />
-                  <textarea
-                    placeholder="Write a comment (+rep, message, recommendation)..."
-                    value={commentText}
-                    onChange={(e) => setCommentText(e.target.value)}
-                    rows={3}
-                    required
-                    style={{
-                      width: "100%",
-                      background: "rgba(0, 0, 0, 0.6)",
-                      border: "1px solid rgba(102, 192, 244, 0.25)",
-                      borderRadius: "2px",
-                      padding: "10px 12px",
-                      color: "#ffffff",
-                      fontSize: "12px",
-                      resize: "vertical",
-                      outline: "none",
-                      fontFamily: "inherit",
-                    }}
-                  />
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "8px" }}>
-                    {postStatus ? (
-                      <span style={{ color: "#90ba3c", fontSize: "12px", fontWeight: 600 }}>{postStatus}</span>
-                    ) : (
-                      <span style={{ color: "#8f98a0", fontSize: "11px" }}>Comments appear instantly on profile wall</span>
-                    )}
-                    <button
-                      type="submit"
-                      style={{
-                        backgroundColor: "var(--btn-bg)",
-                        color: "#ffffff",
-                        padding: "8px 20px",
-                        borderRadius: "2px",
-                        border: "none",
-                        fontSize: "12px",
-                        fontWeight: 600,
-                        cursor: "pointer",
-                        boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
-                      }}
-                    >
-                      Post Comment ↵
-                    </button>
-                  </div>
-                </div>
-              </form>
-
-              {/* Empty state or comments list */}
-              {comments.length === 0 ? (
-                <div
-                  style={{
-                    padding: "24px",
-                    textAlign: "center",
-                    color: "#8f98a0",
-                    fontSize: "13px",
-                    fontStyle: "italic",
-                  }}
-                >
-                  No comments yet. Be the first to leave a message or recommendation above!
-                </div>
-              ) : (
-                <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "16px" }}>
-                  {comments.map((cm, idx) => (
-                    <div
-                      key={idx}
-                      style={{
-                        display: "flex",
-                        gap: "12px",
-                        background: "rgba(10, 15, 23, 0.9)",
-                        padding: "12px 14px",
-                        borderRadius: "2px",
-                        border: "1px solid rgba(66, 85, 106, 0.3)",
-                      }}
-                    >
-                      <div
-                        style={{
-                          width: "34px",
-                          height: "34px",
-                          background: "#2a475e",
-                          borderRadius: "2px",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          color: "#ffffff",
-                          fontWeight: "bold",
-                          fontSize: "13px",
-                          flexShrink: 0,
-                          border: "1px solid rgba(102, 192, 244, 0.3)",
-                        }}
-                      >
-                        {cm.avatar}
-                      </div>
-                      <div style={{ flexGrow: 1, minWidth: 0 }}>
-                        <div style={{ display: "flex", justifyContent: "space-between" }}>
-                          <span style={{ color: "#ffffff", fontWeight: "bold", fontSize: "12px" }}>
-                            {cm.user}
-                          </span>
-                          <span style={{ color: "#8f98a0", fontSize: "10px" }}>{cm.date}</span>
-                        </div>
-                        <p style={{ color: "#c6d4df", fontSize: "12px", marginTop: "4px", fontFamily: "monospace", wordBreak: "break-word" }}>
-                          {cm.text}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </section>
-          </div>
-
-          {/* Right Column / Sidebar */}
-          <aside style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-            {/* Online Status Widget */}
-            <div
-              style={{
-                background: "rgba(20, 27, 38, 0.96)",
-                borderRadius: "4px",
-                padding: "16px",
-                border: "1px solid rgba(102, 192, 244, 0.2)",
-                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.5)",
-              }}
-            >
-              <div
-                style={{
-                  fontSize: "16px",
-                  color: "var(--online-green)",
-                  fontWeight: 600,
-                  marginBottom: "4px",
-                }}
-              >
-                Currently Online
-              </div>
-              <div style={{ fontSize: "12px", color: "#c6d4df", marginBottom: "8px" }}>
-                Open to Full-Time / Internship Roles
-              </div>
-              <div
-                style={{
-                  fontSize: "11px",
-                  color: "#66c0f4",
-                  background: "rgba(10, 15, 23, 0.9)",
-                  padding: "8px 10px",
-                  borderRadius: "2px",
-                  fontFamily: "monospace",
-                  wordBreak: "break-all",
-                  border: "1px solid rgba(102, 192, 244, 0.2)",
-                }}
-              >
-                {PROFILE.email}
-              </div>
+        {/* Scalable Projects Directory */}
+        <section id="projects" className="space-y-8 scroll-mt-20">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.08] pb-4">
+            <div>
+              <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+                <span>Projects Directory</span>
+                <span className="text-xs font-mono px-2 py-0.5 rounded bg-white/[0.06] text-[#8a8f98]">
+                  {PROJECTS.length}
+                </span>
+              </h2>
+              <p className="text-xs text-[#8a8f98] mt-1">
+                Open catalog of software applications, ML pipelines, and geospatial systems.
+              </p>
             </div>
 
-            {/* Badges & Certifications Showcase */}
-            <div
-              style={{
-                background: "rgba(20, 27, 38, 0.96)",
-                borderRadius: "4px",
-                padding: "16px",
-                border: "1px solid rgba(102, 192, 244, 0.2)",
-                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.5)",
-              }}
-            >
-              <div
-                style={{
-                  fontSize: "13px",
-                  color: "#66c0f4",
-                  textTransform: "uppercase",
-                  letterSpacing: "1px",
-                  fontWeight: 700,
-                  marginBottom: "12px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                <span>Badges & Certs</span>
-                <span style={{ color: "#ffffff" }}>{PROFILE.badges.length}</span>
-              </div>
-
-              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                {PROFILE.badges.map((b, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      fontSize: "12px",
-                      background: "rgba(10, 15, 23, 0.9)",
-                      padding: "8px 10px",
-                      borderRadius: "2px",
-                      border: "1px solid rgba(66, 85, 106, 0.35)",
-                    }}
-                  >
-                    <div style={{ display: "flex", alignItems: "center", gap: "8px", overflow: "hidden" }}>
-                      <span style={{ fontSize: "16px" }}>{b.icon}</span>
-                      <div style={{ overflow: "hidden" }}>
-                        <div style={{ color: "#ffffff", fontSize: "11px", fontWeight: "bold", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                          {b.name}
-                        </div>
-                        <div style={{ color: "#8f98a0", fontSize: "10px" }}>{b.org}</div>
-                      </div>
-                    </div>
-                    <span style={{ color: "var(--text-gold)", fontSize: "10px", fontWeight: "bold", marginLeft: "6px" }}>
-                      {b.xp}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Tech Inventory Widget */}
-            <div
-              style={{
-                background: "rgba(20, 27, 38, 0.96)",
-                borderRadius: "4px",
-                padding: "16px",
-                border: "1px solid rgba(102, 192, 244, 0.2)",
-                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.5)",
-              }}
-            >
-              <div
-                style={{
-                  fontSize: "13px",
-                  color: "#66c0f4",
-                  textTransform: "uppercase",
-                  letterSpacing: "1px",
-                  fontWeight: 700,
-                  marginBottom: "10px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                <span>Tech Inventory</span>
-                <span style={{ color: "#ffffff" }}>18 Items</span>
-              </div>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
-                {[
-                  "React.js",
-                  "Next.js",
-                  "Tailwind CSS",
-                  "TypeScript",
-                  "Python",
-                  "Scikit-Learn",
-                  "Pandas",
-                  "Node.js",
-                  "Express.js",
-                  "Laravel",
-                  "PostgreSQL",
-                  "MySQL",
-                  "SQLite",
-                  "Docker",
-                  "ArcGIS",
-                  "QGIS",
-                  "Leaflet.js",
-                  "Git & GitHub",
-                ].map((tech) => (
-                  <span
-                    key={tech}
-                    style={{
-                      fontSize: "11px",
-                      background: "rgba(10, 15, 23, 0.9)",
-                      color: "#c6d4df",
-                      padding: "3px 8px",
-                      borderRadius: "2px",
-                      border: "1px solid rgba(102, 192, 244, 0.2)",
-                    }}
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Education Lore */}
-            <div
-              style={{
-                background: "rgba(20, 27, 38, 0.96)",
-                borderRadius: "4px",
-                padding: "16px",
-                border: "1px solid rgba(102, 192, 244, 0.2)",
-                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.5)",
-              }}
-            >
-              <div
-                style={{
-                  fontSize: "13px",
-                  color: "#66c0f4",
-                  textTransform: "uppercase",
-                  letterSpacing: "1px",
-                  fontWeight: 700,
-                  marginBottom: "10px",
-                }}
-              >
-                Education Lore
-              </div>
-              {PROFILE.education.map((edu, idx) => (
-                <div
-                  key={idx}
-                  style={{
-                    padding: "8px 0",
-                    borderBottom: idx < PROFILE.education.length - 1 ? "1px solid rgba(255,255,255,0.06)" : "none",
-                  }}
+            {/* Dynamic Category Filter */}
+            <div className="flex flex-wrap gap-1.5">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedTag(cat)}
+                  className={`text-xs px-2.5 py-1 rounded transition-colors ${
+                    selectedTag === cat
+                      ? "bg-[#5e6ad2] text-white font-medium shadow-[0_0_12px_rgba(94,106,210,0.4)]"
+                      : "bg-white/[0.04] text-[#8a8f98] hover:text-white hover:bg-white/[0.08]"
+                  }`}
                 >
-                  <div style={{ color: "#ffffff", fontWeight: "bold", fontSize: "12px" }}>
-                    {edu.school}
-                  </div>
-                  <div style={{ color: "#66c0f4", fontSize: "11px" }}>{edu.degree}</div>
-                  <div style={{ color: "#8f98a0", fontSize: "10px", marginTop: "2px" }}>
-                    {edu.period}
-                  </div>
-                </div>
+                  {cat}
+                </button>
               ))}
             </div>
+          </div>
 
-            {/* Quick Links */}
-            <div
-              style={{
-                background: "rgba(20, 27, 38, 0.96)",
-                borderRadius: "4px",
-                padding: "16px",
-                border: "1px solid rgba(102, 192, 244, 0.2)",
-                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.5)",
-              }}
-            >
+          {/* Dynamic Grid: Adapts seamlessly to 4, 10, or 50 projects */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {filteredProjects.map((proj) => (
               <div
-                style={{
-                  fontSize: "13px",
-                  color: "#66c0f4",
-                  textTransform: "uppercase",
-                  letterSpacing: "1px",
-                  fontWeight: 700,
-                  marginBottom: "10px",
-                }}
+                key={proj.id}
+                className="linear-card p-6 flex flex-col justify-between group"
               >
-                Quick Links
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <span className="text-xs font-medium px-2 py-0.5 rounded bg-[#5e6ad2]/15 text-[#7c88f5] border border-[#5e6ad2]/30">
+                      {proj.category}
+                    </span>
+                    <span className="text-xs font-mono text-[#5e6470]">{proj.year}</span>
+                  </div>
+
+                  <h3 className="text-base font-bold text-white group-hover:text-[#7c88f5] transition-colors mb-2">
+                    {proj.title}
+                  </h3>
+
+                  <p className="text-xs text-[#8a8f98] leading-relaxed mb-4">
+                    {proj.description}
+                  </p>
+
+                  <div className="text-[11px] font-mono text-[#5e6470] bg-black/40 px-2.5 py-1 rounded border border-white/[0.04] mb-4">
+                    {proj.architecture}
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    {proj.tags.map((tag) => (
+                      <span key={tag} className="linear-tag">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center gap-2 pt-2 border-t border-white/[0.04]">
+                    {proj.links.live && (
+                      <a
+                        href={proj.links.live}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="linear-btn-primary py-1 px-3 text-xs"
+                      >
+                        Live Demo ↗
+                      </a>
+                    )}
+                    {proj.links.github && (
+                      <a
+                        href={proj.links.github}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="linear-btn-secondary py-1 px-3 text-xs"
+                      >
+                        Repository ↗
+                      </a>
+                    )}
+                  </div>
+                </div>
               </div>
-              <ul style={{ listStyle: "none", fontSize: "12px" }}>
-                <li style={{ marginBottom: "8px" }}>
-                  <a
-                    href="/Dionisius_Surya_Jaya_CV.pdf"
-                    target="_blank"
-                    rel="noreferrer"
-                    style={{ display: "flex", justifyContent: "space-between", color: "#66c0f4", fontWeight: 600 }}
-                  >
-                    <span>Download / View CV</span>
-                    <span>📄 ↗</span>
-                  </a>
-                </li>
-                <li style={{ marginBottom: "8px" }}>
-                  <a
-                    href={PROFILE.linkedin}
-                    target="_blank"
-                    rel="noreferrer"
-                    style={{ display: "flex", justifyContent: "space-between", color: "#c6d4df" }}
-                  >
-                    <span>LinkedIn Profile</span>
-                    <span style={{ color: "#66c0f4" }}>↗</span>
-                  </a>
-                </li>
-                <li style={{ marginBottom: "8px" }}>
-                  <a
-                    href={PROFILE.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    style={{ display: "flex", justifyContent: "space-between", color: "#c6d4df" }}
-                  >
-                    <span>GitHub Repositories</span>
-                    <span style={{ color: "#66c0f4" }}>↗</span>
-                  </a>
-                </li>
-                <li style={{ marginBottom: "8px" }}>
-                  <button
-                    onClick={copyEmail}
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      color: "#c6d4df",
-                      background: "none",
-                      border: "none",
-                      padding: 0,
-                      width: "100%",
-                      cursor: "pointer",
-                      fontSize: "12px",
-                      textAlign: "left",
-                    }}
-                  >
-                    <span>Direct Email</span>
-                    <span style={{ color: "#66c0f4" }}>{copied ? "Copied!" : "📋"}</span>
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </aside>
-        </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Career Experience Timeline */}
+        <section id="experience" className="space-y-8 scroll-mt-20">
+          <div className="border-b border-white/[0.08] pb-4">
+            <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+              <span>Work & Leadership Experience</span>
+              <span className="text-xs font-mono px-2 py-0.5 rounded bg-white/[0.06] text-[#8a8f98]">
+                {EXPERIENCES.length}
+              </span>
+            </h2>
+            <p className="text-xs text-[#8a8f98] mt-1">
+              Internships, engineering apprenticeships, and university organizations.
+            </p>
+          </div>
+
+          <div className="relative border-l border-white/[0.1] pl-6 ml-2 space-y-10">
+            {EXPERIENCES.map((exp) => (
+              <div key={exp.id} className="relative group">
+                {/* Timeline node dot */}
+                <div className="absolute -left-[31px] top-1.5 w-2.5 h-2.5 rounded-full bg-[#1c2030] border border-white/20 group-hover:border-[#5e6ad2] group-hover:bg-[#5e6ad2] transition-colors"></div>
+
+                <div className="linear-card p-5 space-y-3">
+                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                    <div>
+                      <h3 className="text-sm font-bold text-white">
+                        {exp.role}{" "}
+                        <span className="text-[#5e6ad2] font-semibold">
+                          @ {exp.company}
+                        </span>
+                      </h3>
+                      <div className="text-xs text-[#5e6470] mt-0.5">
+                        📍 {exp.location} · {exp.type}
+                      </div>
+                    </div>
+                    <span className="text-xs font-mono text-[#8a8f98] whitespace-nowrap">
+                      {exp.period}
+                    </span>
+                  </div>
+
+                  <ul className="space-y-1.5 text-xs text-[#8a8f98] list-disc list-inside leading-relaxed">
+                    {exp.description.map((item, idx) => (
+                      <li key={idx} className="marker:text-[#5e6ad2]">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="flex flex-wrap gap-1.5 pt-2">
+                    {exp.skills.map((sk) => (
+                      <span key={sk} className="linear-tag text-[10px]">
+                        {sk}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Verified Credentials & Certifications */}
+        <section id="credentials" className="space-y-8 scroll-mt-20">
+          <div className="border-b border-white/[0.08] pb-4">
+            <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+              <span>Verified Certifications</span>
+              <span className="text-xs font-mono px-2 py-0.5 rounded bg-white/[0.06] text-[#8a8f98]">
+                {CERTIFICATIONS.length}
+              </span>
+            </h2>
+            <p className="text-xs text-[#8a8f98] mt-1">
+              Professional credentials in Frontend, Backend, Machine Learning, and Cloud Architecture.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            {CERTIFICATIONS.map((cert) => (
+              <div
+                key={cert.id}
+                className="linear-card p-4 flex flex-col justify-between hover:border-white/20"
+              >
+                <div>
+                  <span className="text-[10px] font-mono text-[#5e6470] uppercase">
+                    {cert.category}
+                  </span>
+                  <h3 className="text-xs font-bold text-white mt-1 leading-snug">
+                    {cert.title}
+                  </h3>
+                </div>
+
+                <div className="flex items-center justify-between text-[11px] text-[#8a8f98] pt-3 mt-2 border-t border-white/[0.04]">
+                  <span>{cert.issuer}</span>
+                  {cert.year && <span className="font-mono text-[#5e6470]">{cert.year}</span>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Technical Skills Directory */}
+        <section id="skills" className="space-y-8 scroll-mt-20">
+          <div className="border-b border-white/[0.08] pb-4">
+            <h2 className="text-xl font-bold text-white tracking-tight">
+              Technical Arsenal
+            </h2>
+            <p className="text-xs text-[#8a8f98] mt-1">
+              Core technologies, modeling frameworks, and toolsets utilized across projects.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            {SKILL_GROUPS.map((grp) => (
+              <div key={grp.group} className="linear-card p-5 space-y-3">
+                <h3 className="text-xs font-bold text-white uppercase tracking-wider text-[#5e6ad2]">
+                  {grp.group}
+                </h3>
+                <div className="flex flex-wrap gap-1.5">
+                  {grp.items.map((it) => (
+                    <span key={it} className="linear-tag">
+                      {it}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
       </main>
 
-      {/* Steam Footer */}
-      <footer
-        style={{
-          background: "#000000",
-          color: "#8b929a",
-          padding: "32px 0",
-          fontSize: "12px",
-          borderTop: "1px solid #363c44",
-        }}
-      >
-        <div
-          style={{
-            width: "940px",
-            margin: "0 auto",
-            display: "flex",
-            flexDirection: "column",
-            gap: "16px",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              borderBottom: "1px solid #363c44",
-              paddingBottom: "16px",
-            }}
-          >
-            <img
-              src="/assets/images/community.akamai.steamstatic.com/footerLogo_valve_new-58413ab1ee.png"
-              alt="Valve Logo"
-              style={{ height: "26px" }}
-            />
-            <img
-              src="/assets/images/community.akamai.steamstatic.com/header_logo-6f7393813c.png"
-              alt="Steam Logo"
-              style={{ height: "26px" }}
-            />
-          </div>
-          <div>
-            &copy; 2026 Dionisius Surya Jaya. All rights reserved. Powered by Next.js & Motiva Sans. Authentic Steam
-            Community Profile architecture.
-          </div>
-          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-            <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" style={{ color: "#c6d4df" }}>
-              LinkedIn
-            </a>{" "}
-            |
-            <a href={PROFILE.github} target="_blank" rel="noreferrer" style={{ color: "#c6d4df" }}>
+      {/* Minimal Linear Footer */}
+      <footer className="border-t border-white/[0.08] bg-[#090a0f] py-8 text-xs text-[#5e6470]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p>© {new Date().getFullYear()} Dionisius Surya Jaya. All rights reserved.</p>
+          <div className="flex items-center gap-4">
+            <a
+              href={PROFILE.resumeUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              Resume PDF
+            </a>
+            <a
+              href={PROFILE.github}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-white transition-colors"
+            >
               GitHub
-            </a>{" "}
-            |
-            <a href={`mailto:${PROFILE.email}`} style={{ color: "#c6d4df" }}>
-              Contact Email
+            </a>
+            <a
+              href={PROFILE.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              LinkedIn
             </a>
           </div>
         </div>
