@@ -61,8 +61,8 @@ const PROFILE = {
       title: "Medeva — Clinical Risk Stratification",
       desc: "End-to-end ML pipeline for PROLANIS BPJS: Logistic Regression + TF-IDF NLP (Hypertension) & K-Means clustering (Diabetes Mellitus). Stateless inference with automated data-drift checks.",
       tags: ["Python", "Scikit-Learn", "Streamlit", "K-Means", "NLP"],
-      hours: "320.0 hrs",
-      achievements: "18 / 18 (100%)",
+      metric: "Stateless ML Pipeline",
+      impact: "Clinical Decision Support",
       link: "https://medeva-demo-jbnnczbvk6ucappppedszeab.streamlit.app/",
       cta: "Launch Live Demo ↗",
       accent: "#90ba3c",
@@ -73,8 +73,8 @@ const PROFILE = {
       title: "Village Digital Maps (WebGIS) — MMD FILKOM UB",
       desc: "Digital village maps for Ngasem (Ngajum, Malang) built with ArcGIS & QGIS. Interactive Leaflet WebGIS improving administrative territorial planning and public services.",
       tags: ["ArcGIS", "QGIS", "Leaflet.js", "Geospatial", "GeoJSON"],
-      hours: "184.2 hrs",
-      achievements: "12 / 12 (100%)",
+      metric: "ArcGIS & QGIS Vector Layer",
+      impact: "Public Spatial Planning",
       link: "https://midas79.github.io/Map-Digital-Desa-Ngasem/",
       cta: "Explore Interactive Map ↗",
       accent: "#57cbde",
@@ -85,8 +85,8 @@ const PROFILE = {
       title: "Anime31 — Media Streaming & Catalog Platform",
       desc: "Anime streaming and media catalog showcase featuring curated user watchlists, episode release tracking, category filtering, and responsive video player integration.",
       tags: ["React", "REST API", "Tailwind CSS", "Media Player"],
-      hours: "112.4 hrs",
-      achievements: "8 / 8 (100%)",
+      metric: "Full-Featured Web App",
+      impact: "User Watchlist & Filtering",
       link: "https://anime31.vercel.app/",
       cta: "Launch Web App ↗",
       accent: "#ff79c6",
@@ -97,8 +97,8 @@ const PROFILE = {
       title: "Movie Mate — Social Cinema Watchlist",
       desc: "Social movie tracking web application enabling cinephiles to discover trending films, curate personal watchlists, log ratings, and exchange recommendations in real time.",
       tags: ["Next.js", "Firebase", "Tailwind CSS", "TMDB API"],
-      hours: "98.5 hrs",
-      achievements: "10 / 10 (100%)",
+      metric: "Realtime Firebase Store",
+      impact: "Social Film Recommendations",
       link: "https://movie-mate-tan.vercel.app/",
       cta: "Launch Web App ↗",
       accent: "#ff5555",
@@ -111,8 +111,7 @@ const PROFILE = {
       role: "Machine Learning Intern",
       period: "January 2026 - May 2026 (5 months)",
       location: "Malang, Indonesia",
-      type: "Internship · Machine Learning & AI",
-      hours: "320 hrs on record",
+      type: "Machine Learning & AI",
       desc: "Architecting and training machine learning classification pipelines for health diagnostics. Processing clinical registries, engineering features for predictive scoring, and serving real-time model inferences via interactive web demos.",
       skills: ["Python", "Scikit-Learn", "Machine Learning", "Streamlit", "Pandas", "NLP"],
     },
@@ -121,8 +120,7 @@ const PROFILE = {
       role: "Data Analyst & Frontend Developer",
       period: "September 2025 - November 2025 (3 months)",
       location: "Malang, Indonesia",
-      type: "Contract · Public Sector Analytics",
-      hours: "182 hrs on record",
+      type: "Public Sector Data Analytics",
       desc: "Conducted statistical data validation, regional indicator trend analysis, and engineered frontend web dashboards that enable public civil servants to query complex municipal records with ease.",
       skills: ["Data Analysis", "Frontend Development", "JavaScript", "Excel/Stats", "Tailwind CSS"],
     },
@@ -131,8 +129,7 @@ const PROFILE = {
       role: "Web Developer",
       period: "February 2025 - June 2025 (5 months)",
       location: "Malang, Indonesia",
-      type: "Intensive Apprenticeship",
-      hours: "210 hrs on record",
+      type: "Full-Stack Web Apprenticeship",
       desc: "Developed modern, mobile-first responsive web apps in an agile team workflow. Implemented client-side caching, component modularity, and integration with third-party RESTful services.",
       skills: ["React.js", "Next.js", "Front-End Development", "RESTful APIs", "Git"],
     },
@@ -141,8 +138,7 @@ const PROFILE = {
       role: "Backend Developer and IT Support",
       period: "July 2024 - August 2024 (2 months)",
       location: "Ngasem, East Java, Indonesia",
-      type: "Community Tech Initiative",
-      hours: "110 hrs on record",
+      type: "WebGIS & Infrastructure Support",
       desc: "Maintained and optimized the village official web portal for administrative stability. Developed a comprehensive digital village map using ArcGIS and QGIS, accelerating public service delivery.",
       skills: ["Backend Support", "ArcGIS", "QGIS", "Leaflet.js", "WebGIS", "Data Geospatial"],
     },
@@ -151,8 +147,7 @@ const PROFILE = {
       role: "Head of Division Consumption and Health (ORSEN FILKOM 2024)",
       period: "August 2024 - November 2024 (4 months)",
       location: "Malang, East Java, Indonesia",
-      type: "Organizational Leadership",
-      hours: "95 hrs on record",
+      type: "Leadership & Healthcare Operations",
       desc: "Assisted in managing meal distribution and health services, coordinated team operations, liaised with external vendors and medical teams, ensuring all logistics met high hygiene and safety standards.",
       skills: ["Leadership", "Operations Management", "Healthcare Logistics", "Coordination"],
     },
@@ -161,8 +156,7 @@ const PROFILE = {
       role: "Logistics Coordinator",
       period: "September 2023 - November 2024 (1 year 3 months)",
       location: "Malang, East Java, Indonesia",
-      type: "Logistics & Event Operations",
-      hours: "160 hrs on record",
+      type: "Logistics & Operational Planning",
       desc: "Supported coordination and logistics planning, managed equipment inventory and distribution, and collaborated across cross-functional divisions to ensure smooth high-capacity event execution.",
       skills: ["Inventory Management", "Logistics", "Problem Solving", "Teamwork"],
     },
@@ -171,8 +165,7 @@ const PROFILE = {
       role: "Event Coordinator",
       period: "July 2024 - August 2024 (2 months)",
       location: "Ngasem, East Java, Indonesia",
-      type: "Community Engagement",
-      hours: "80 hrs on record",
+      type: "Project Planning & Stakeholder Relations",
       desc: "Planned and organized local community programs, coordinated with village leadership and municipal authorities, and drove active community engagement.",
       skills: ["Event Planning", "Community Relations", "Public Speaking"],
     },
@@ -259,33 +252,54 @@ export default function SteamProfile() {
             <nav
               style={{
                 display: "flex",
-                gap: "16px",
-                fontSize: "14px",
-                fontWeight: 500,
+                gap: "18px",
+                fontSize: "13px",
+                fontWeight: 600,
                 textTransform: "uppercase",
+                letterSpacing: "0.5px",
               }}
             >
-              <a href={PROFILE.github} target="_blank" rel="noreferrer" style={{ color: "#b8b6b4" }}>
-                Store / GitHub
+              <a href={PROFILE.github} target="_blank" rel="noreferrer" style={{ color: "#c6d4df" }}>
+                GitHub
               </a>
-              <a href="#" style={{ color: "#1a9fff" }}>
-                Community
-              </a>
-              <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" style={{ color: "#b8b6b4" }}>
+              <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" style={{ color: "#c6d4df" }}>
                 LinkedIn
               </a>
-              <a href={`mailto:${PROFILE.email}`} style={{ color: "#b8b6b4" }}>
+              <a href="/Dionisius_Surya_Jaya_CV.pdf" target="_blank" rel="noreferrer" style={{ color: "#66c0f4" }}>
+                Resume / CV ↗
+              </a>
+              <a href={`mailto:${PROFILE.email}`} style={{ color: "#c6d4df" }}>
                 Contact
               </a>
             </nav>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <a
+              href="/Dionisius_Surya_Jaya_CV.pdf"
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                backgroundColor: "rgba(102, 192, 244, 0.15)",
+                color: "#66c0f4",
+                padding: "6px 12px",
+                fontSize: "11px",
+                fontWeight: 700,
+                borderRadius: "2px",
+                border: "1px solid rgba(102, 192, 244, 0.35)",
+                textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "4px",
+              }}
+            >
+              <span>📄 VIEW CV</span>
+            </a>
             <button
               onClick={copyEmail}
               style={{
                 backgroundColor: "#5c7e10",
                 color: "#e5e4dc",
-                padding: "6px 12px",
+                padding: "6px 14px",
                 fontSize: "11px",
                 display: "inline-flex",
                 alignItems: "center",
@@ -293,14 +307,11 @@ export default function SteamProfile() {
                 borderRadius: "2px",
                 border: "none",
                 cursor: "pointer",
-                fontWeight: 600,
+                fontWeight: 700,
               }}
             >
-              <span>{copied ? "Email Copied!" : "Install Steam / Contact Me"}</span>
+              <span>{copied ? "Email Copied!" : "✉ CONTACT / HIRE"}</span>
             </button>
-            <span style={{ color: "#b8b6b4", fontSize: "12px" }}>login</span>
-            <span style={{ color: "#8f98a0" }}>|</span>
-            <span style={{ color: "#b8b6b4", fontSize: "12px" }}>language</span>
           </div>
         </div>
       </header>
@@ -605,9 +616,9 @@ export default function SteamProfile() {
 
                         <div style={{ textAlign: "right" }}>
                           <div style={{ fontSize: "12px", color: "#90ba3c", fontFamily: "monospace", fontWeight: "bold" }}>
-                            {proj.hours} on record
+                            {proj.metric}
                           </div>
-                          <div style={{ fontSize: "10px", color: "#8f98a0" }}>{proj.achievements}</div>
+                          <div style={{ fontSize: "11px", color: "#8f98a0" }}>{proj.impact}</div>
                         </div>
                       </div>
 
@@ -691,8 +702,8 @@ export default function SteamProfile() {
                     justifyContent: "space-between",
                   }}
                 >
-                  <span>Career Experience & Quest Log ({PROFILE.experiences.length})</span>
-                  <span style={{ fontSize: "11px", color: "#8f98a0", fontWeight: "normal" }}>Work & Leadership Roles</span>
+                  <span>Work & Leadership Experience ({PROFILE.experiences.length})</span>
+                  <span style={{ fontSize: "11px", color: "#8f98a0", fontWeight: "normal" }}>Internships & Key Initiatives</span>
                 </div>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
@@ -726,7 +737,7 @@ export default function SteamProfile() {
                       </div>
 
                       <div style={{ fontSize: "11px", color: "#90ba3c", marginBottom: "8px", fontWeight: 500 }}>
-                        📍 {exp.location} &nbsp;•&nbsp; {exp.type} &nbsp;•&nbsp; {exp.hours}
+                        📍 {exp.location} &nbsp;•&nbsp; {exp.type}
                       </div>
 
                       <p style={{ fontSize: "13px", color: "#c6d4df", lineHeight: "1.6", marginBottom: "10px" }}>
@@ -1231,6 +1242,17 @@ export default function SteamProfile() {
                 Quick Links
               </div>
               <ul style={{ listStyle: "none", fontSize: "12px" }}>
+                <li style={{ marginBottom: "8px" }}>
+                  <a
+                    href="/Dionisius_Surya_Jaya_CV.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ display: "flex", justifyContent: "space-between", color: "#66c0f4", fontWeight: 600 }}
+                  >
+                    <span>Download / View CV</span>
+                    <span>📄 ↗</span>
+                  </a>
+                </li>
                 <li style={{ marginBottom: "8px" }}>
                   <a
                     href={PROFILE.linkedin}
