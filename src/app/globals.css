@@ -74,6 +74,169 @@ a:hover {
   color: #ffffff;
 }
 
+/* ===== LIGHTWEIGHT CSS-ONLY MOTION (GPU-friendly: transform/opacity only) ===== */
+
+/* Profile card + panels fade-lift on load */
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise-in {
+  animation: riseIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Staggered list items — use CSS var --i to control delay per item */
+.stagger-item {
+  animation: riseIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 60ms);
+}
+
+/* Pulsing online status dot (hardware-accelerated scale) */
+@keyframes statusPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(144, 186, 60, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(144, 186, 60, 0);
+  }
+}
+
+.status-dot {
+  animation: statusPulse 2.4s ease-out infinite;
+}
+
+/* Smooth card hover lift — transform only, no reflow */
+.card-lift {
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===== RESPONSIVE STEAM LAYOUT & MOTION ===== */
+
+.steam-header-inner {
+  width: min(940px, 100%);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+}
+
+@media (max-width: 768px) {
+  .steam-header-inner {
+    flex-direction: column;
+    height: auto;
+    padding: 12px 16px;
+    gap: 12px;
+  }
+}
+
+.steam-main-container {
+  width: min(960px, calc(100% - 24px));
+  margin: 0 auto;
+  padding-top: 24px;
+  padding-bottom: 60px;
+  position: relative;
+}
+
+@media (max-width: 640px) {
+  .steam-main-container {
+    width: calc(100% - 16px);
+    padding-top: 16px;
+  }
+}
+
+.steam-profile-card {
+  background: rgba(15, 21, 30, 0.95);
+  backdrop-filter: blur(12px);
+  border-radius: 6px;
+  padding: 28px;
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+  .steam-profile-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 16px;
+    gap: 20px;
+  }
+
+  .steam-profile-card .status-strip {
+    justify-content: center;
+  }
+
+  .steam-profile-card .meta-lines {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .steam-profile-card .tag-wrap {
+    justify-content: center;
+  }
+}
+
+.steam-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 16px;
+}
+
+@media (max-width: 820px) {
+  .steam-main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.steam-footer-inner {
+  width: min(940px, calc(100% - 32px));
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Tab button hover micro-interaction */
+.tab-btn {
+  transition: all 0.15s ease;
+}
+
+.tab-btn:hover {
+  background: rgba(42, 71, 94, 0.6) !important;
+  color: #ffffff !important;
+}
+
 /* Custom Scrollbar matching Steam */
 ::-webkit-scrollbar {
   width: 10px;

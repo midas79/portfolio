@@ -1,6 +1,51 @@
 ﻿"use client";
 
 import { useState } from "react";
+import {
+  MapPin,
+  GraduationCap,
+  ExternalLink,
+  FileText,
+  Mail,
+  Star,
+  MessageSquare,
+  Copy,
+  Check,
+  Send,
+  GitBranch,
+  Server,
+  Layout,
+  Globe,
+  Code2,
+  Terminal,
+  Cpu,
+  Cloud,
+  ShieldCheck,
+  BarChart2,
+  Coins,
+  Sparkles,
+} from "lucide-react";
+
+interface Badge {
+  name: string;
+  org: string;
+  xp: string;
+  iconType: string;
+}
+
+const BADGE_ICONS: Record<string, React.ReactNode> = {
+  git: <GitBranch size={22} className="text-[#66c0f4]" />,
+  backend: <Server size={22} className="text-[#90ba3c]" />,
+  frontend: <Layout size={22} className="text-[#57cbde]" />,
+  web: <Globe size={22} className="text-[#66c0f4]" />,
+  js: <Code2 size={22} className="text-[#ffd700]" />,
+  fe_beginner: <Terminal size={22} className="text-[#57cbde]" />,
+  react: <Cpu size={22} className="text-[#61dafb]" />,
+  cloud: <Cloud size={22} className="text-[#ff9900]" />,
+  solid: <ShieldCheck size={22} className="text-[#22c55e]" />,
+  ml: <BarChart2 size={22} className="text-[#a855f7]" />,
+  finance: <Coins size={22} className="text-[#eab308]" />,
+};
 
 const PROFILE = {
   name: "Dionisius Surya Jaya",
@@ -27,17 +72,17 @@ const PROFILE = {
     "Geospatial WebGIS",
   ],
   badges: [
-    { name: "Belajar Dasar Git dengan GitHub", org: "Dicoding Indonesia", xp: "100 XP", icon: "📦" },
-    { name: "Belajar Back-End Pemula dengan JavaScript", org: "Dicoding Indonesia", xp: "250 XP", icon: "⚙️" },
-    { name: "Belajar Fundamental Front-End Web Dev", org: "Dicoding Indonesia", xp: "250 XP", icon: "🎨" },
-    { name: "Belajar Dasar Pemrograman Web", org: "Dicoding Indonesia", xp: "100 XP", icon: "🌐" },
-    { name: "Belajar Dasar Pemrograman JavaScript", org: "Dicoding Indonesia", xp: "150 XP", icon: "💻" },
-    { name: "Belajar Membuat Front-End Web untuk Pemula", org: "Dicoding Indonesia", xp: "150 XP", icon: "🚀" },
-    { name: "Belajar Membuat Aplikasi Web dengan React", org: "Dicoding Indonesia", xp: "250 XP", icon: "⚛️" },
-    { name: "Cloud Practitioner Essentials (AWS Cloud)", org: "Dicoding / AWS", xp: "150 XP", icon: "☁️" },
-    { name: "Belajar Prinsip Pemrograman SOLID", org: "Dicoding Indonesia", xp: "150 XP", icon: "🛡️" },
-    { name: "Belajar Data Analysis / Machine Learning", org: "Dicoding Indonesia", xp: "200 XP", icon: "📊" },
-    { name: "Financial Literacy 101", org: "Financial Education", xp: "150 XP", icon: "💎" },
+    { name: "Belajar Dasar Git dengan GitHub", org: "Dicoding Indonesia", xp: "100 XP", iconType: "git" },
+    { name: "Belajar Back-End Pemula dengan JavaScript", org: "Dicoding Indonesia", xp: "250 XP", iconType: "backend" },
+    { name: "Belajar Fundamental Front-End Web Dev", org: "Dicoding Indonesia", xp: "250 XP", iconType: "frontend" },
+    { name: "Belajar Dasar Pemrograman Web", org: "Dicoding Indonesia", xp: "100 XP", iconType: "web" },
+    { name: "Belajar Dasar Pemrograman JavaScript", org: "Dicoding Indonesia", xp: "150 XP", iconType: "js" },
+    { name: "Belajar Membuat Front-End Web untuk Pemula", org: "Dicoding Indonesia", xp: "150 XP", iconType: "fe_beginner" },
+    { name: "Belajar Membuat Aplikasi Web dengan React", org: "Dicoding Indonesia", xp: "250 XP", iconType: "react" },
+    { name: "Cloud Practitioner Essentials (AWS Cloud)", org: "Dicoding / AWS", xp: "150 XP", iconType: "cloud" },
+    { name: "Belajar Prinsip Pemrograman SOLID", org: "Dicoding Indonesia", xp: "150 XP", iconType: "solid" },
+    { name: "Belajar Data Analysis / Machine Learning", org: "Dicoding Indonesia", xp: "200 XP", iconType: "ml" },
+    { name: "Financial Literacy 101", org: "Financial Education", xp: "150 XP", iconType: "finance" },
   ],
   leadShowcase: {
     title: "MEDEVA — Health Risk Stratification System",
@@ -64,7 +109,7 @@ const PROFILE = {
       metric: "Stateless ML Pipeline",
       impact: "Clinical Decision Support",
       link: "https://medeva-demo-jbnnczbvk6ucappppedszeab.streamlit.app/",
-      cta: "Launch Live Demo ↗",
+      cta: "Launch Live Demo",
       accent: "#90ba3c",
     },
     {
@@ -76,7 +121,7 @@ const PROFILE = {
       metric: "ArcGIS & QGIS Vector Layer",
       impact: "Public Spatial Planning",
       link: "https://midas79.github.io/Map-Digital-Desa-Ngasem/",
-      cta: "Explore Interactive Map ↗",
+      cta: "Explore Interactive Map",
       accent: "#57cbde",
     },
     {
@@ -88,7 +133,7 @@ const PROFILE = {
       metric: "Full-Featured Web App",
       impact: "User Watchlist & Filtering",
       link: "https://anime31.vercel.app/",
-      cta: "Launch Web App ↗",
+      cta: "Launch Web App",
       accent: "#ff79c6",
     },
     {
@@ -100,7 +145,7 @@ const PROFILE = {
       metric: "Realtime Firebase Store",
       impact: "Social Film Recommendations",
       link: "https://movie-mate-tan.vercel.app/",
-      cta: "Launch Web App ↗",
+      cta: "Launch Web App",
       accent: "#ff5555",
     },
   ],
@@ -224,39 +269,35 @@ export default function SteamProfile() {
       <header
         style={{
           background: "var(--bg-header)",
-          height: "104px",
+          minHeight: "80px",
           display: "flex",
           justifyContent: "center",
+          alignItems: "center",
           position: "relative",
           zIndex: 10,
           borderBottom: "1px solid rgba(0,0,0,0.5)",
+          padding: "10px 0",
         }}
       >
-        <div
-          style={{
-            width: "940px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            padding: "0 16px",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "40px" }}>
+        <div className="steam-header-inner">
+          <div style={{ display: "flex", alignItems: "center", gap: "24px", flexWrap: "wrap", justifyContent: "center" }}>
             <a href="https://store.steampowered.com/" target="_blank" rel="noreferrer">
               <img
                 src="/assets/images/community.akamai.steamstatic.com/logo_steam-e0e81271bb.svg"
                 alt="STEAM"
-                style={{ height: "36px" }}
+                style={{ height: "32px" }}
               />
             </a>
             <nav
               style={{
                 display: "flex",
-                gap: "18px",
+                gap: "16px",
                 fontSize: "13px",
                 fontWeight: 600,
                 textTransform: "uppercase",
                 letterSpacing: "0.5px",
+                flexWrap: "wrap",
+                justifyContent: "center",
               }}
             >
               <a href={PROFILE.github} target="_blank" rel="noreferrer" style={{ color: "#c6d4df" }}>
@@ -265,15 +306,21 @@ export default function SteamProfile() {
               <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" style={{ color: "#c6d4df" }}>
                 LinkedIn
               </a>
-              <a href="/Dionisius_Surya_Jaya_CV.pdf" target="_blank" rel="noreferrer" style={{ color: "#66c0f4" }}>
-                Resume / CV ↗
+              <a
+                href="/Dionisius_Surya_Jaya_CV.pdf"
+                target="_blank"
+                rel="noreferrer"
+                style={{ color: "#66c0f4", display: "inline-flex", alignItems: "center", gap: "4px" }}
+              >
+                <span>Resume / CV</span>
+                <ExternalLink size={12} />
               </a>
               <a href={`mailto:${PROFILE.email}`} style={{ color: "#c6d4df" }}>
                 Contact
               </a>
             </nav>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap", justifyContent: "center" }}>
             <a
               href="/Dionisius_Surya_Jaya_CV.pdf"
               target="_blank"
@@ -289,10 +336,11 @@ export default function SteamProfile() {
                 textDecoration: "none",
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "4px",
+                gap: "6px",
               }}
             >
-              <span>📄 VIEW CV</span>
+              <FileText size={13} />
+              <span>VIEW CV</span>
             </a>
             <button
               onClick={copyEmail}
@@ -310,37 +358,17 @@ export default function SteamProfile() {
                 fontWeight: 700,
               }}
             >
-              <span>{copied ? "Email Copied!" : "✉ CONTACT / HIRE"}</span>
+              {copied ? <Check size={13} /> : <Mail size={13} />}
+              <span>{copied ? "Email Copied!" : "CONTACT / HIRE"}</span>
             </button>
           </div>
         </div>
       </header>
 
       {/* Main Steam Profile Container */}
-      <main
-        style={{
-          width: "min(960px, calc(100% - 32px))",
-          margin: "0 auto",
-          paddingTop: "32px",
-          paddingBottom: "60px",
-          position: "relative",
-        }}
-      >
+      <main className="steam-main-container">
         {/* Profile Header Card */}
-        <section
-          style={{
-            background: "rgba(15, 21, 30, 0.95)",
-            backdropFilter: "blur(12px)",
-            borderRadius: "6px",
-            padding: "28px",
-            display: "flex",
-            gap: "32px",
-            alignItems: "flex-start",
-            marginBottom: "20px",
-            border: "1px solid rgba(255, 255, 255, 0.08)",
-            boxShadow: "0 8px 30px rgba(0,0,0,0.5)",
-          }}
-        >
+        <section className="steam-profile-card rise-in">
           {/* Avatar + Animated Frame */}
           <div
             style={{
@@ -376,7 +404,7 @@ export default function SteamProfile() {
           </div>
 
           {/* Profile Main Information */}
-          <div style={{ flexGrow: 1, minWidth: 0 }}>
+          <div style={{ flexGrow: 1, minWidth: 0, width: "100%" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px", flexWrap: "wrap" }}>
               <h1
                 style={{
@@ -405,6 +433,7 @@ export default function SteamProfile() {
 
             {/* In-Game Status Strip */}
             <div
+              className="status-strip"
               style={{
                 color: "#90ba3c",
                 fontSize: "12px",
@@ -417,6 +446,7 @@ export default function SteamProfile() {
               }}
             >
               <span
+                className="status-dot"
                 style={{
                   width: "8px",
                   height: "8px",
@@ -424,15 +454,20 @@ export default function SteamProfile() {
                   backgroundColor: "#90ba3c",
                   display: "inline-block",
                   flexShrink: 0,
-                  boxShadow: "0 0 6px #90ba3c",
                 }}
               ></span>
               <span>{PROFILE.headline}</span>
             </div>
 
-            <div style={{ color: "#8f98a0", fontSize: "12px", marginBottom: "16px", lineHeight: 1.6 }}>
-              <div>📍 {PROFILE.location}</div>
-              <div>🎓 Universitas Brawijaya (Informatics) — GPA 3.58 / 4.00</div>
+            <div className="meta-lines" style={{ color: "#8f98a0", fontSize: "12px", marginBottom: "16px", lineHeight: 1.6 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                <MapPin size={13} className="text-[#66c0f4]" />
+                <span>{PROFILE.location}</span>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "2px" }}>
+                <GraduationCap size={13} className="text-[#66c0f4]" />
+                <span>Universitas Brawijaya (Informatics) — GPA 3.58 / 4.00</span>
+              </div>
             </div>
 
             <div
@@ -443,6 +478,7 @@ export default function SteamProfile() {
                 borderRadius: "3px",
                 padding: "12px 16px",
                 marginBottom: "16px",
+                textAlign: "left",
               }}
             >
               <p
@@ -459,7 +495,7 @@ export default function SteamProfile() {
             </div>
 
             {/* Specialization Tags */}
-            <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+            <div className="tag-wrap" style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
               {PROFILE.topSkills.map((sk) => (
                 <span
                   key={sk}
@@ -499,6 +535,7 @@ export default function SteamProfile() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
+              className="tab-btn"
               style={{
                 padding: "10px 18px",
                 fontSize: "12px",
@@ -530,19 +567,14 @@ export default function SteamProfile() {
           ))}
         </div>
 
-        {/* Content Layout: 1fr left column + 280px right column */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 280px",
-            gap: "16px",
-          }}
-        >
+        {/* Content Layout: Responsive Main Grid (1fr 280px on desktop, 1fr on mobile) */}
+        <div className="steam-main-grid">
           {/* Left Column Content */}
           <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             {/* TAB 1: PROJECTS (Exact 4 Portfolio Projects) */}
             {activeTab === "projects" && (
               <section
+                className="rise-in"
                 style={{
                   background: "rgba(20, 27, 38, 0.96)",
                   borderRadius: "4px",
@@ -571,18 +603,22 @@ export default function SteamProfile() {
                 </div>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-                  {PROFILE.allProjects.map((proj) => (
+                  {PROFILE.allProjects.map((proj, idx) => (
                     <div
                       key={proj.id}
-                      style={{
-                        background: "rgba(10, 15, 23, 0.92)",
-                        borderRadius: "3px",
-                        padding: "16px",
-                        border: "1px solid rgba(66, 85, 106, 0.45)",
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "10px",
-                      }}
+                      className="stagger-item card-lift"
+                      style={
+                        {
+                          "--i": idx,
+                          background: "rgba(10, 15, 23, 0.92)",
+                          borderRadius: "3px",
+                          padding: "16px",
+                          border: "1px solid rgba(66, 85, 106, 0.45)",
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "10px",
+                        } as React.CSSProperties
+                      }
                     >
                       <div
                         style={{
@@ -666,9 +702,13 @@ export default function SteamProfile() {
                             borderRadius: "2px",
                             fontWeight: 600,
                             boxShadow: "0 2px 6px rgba(0,0,0,0.4)",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "6px",
                           }}
                         >
-                          {proj.cta}
+                          <span>{proj.cta}</span>
+                          <ExternalLink size={12} />
                         </a>
                       </div>
                     </div>
@@ -680,6 +720,7 @@ export default function SteamProfile() {
             {/* TAB 2: CAREER EXPERIENCES */}
             {activeTab === "experience" && (
               <section
+                className="rise-in"
                 style={{
                   background: "rgba(20, 27, 38, 0.96)",
                   borderRadius: "4px",
@@ -710,12 +751,16 @@ export default function SteamProfile() {
                   {PROFILE.experiences.map((exp, idx) => (
                     <div
                       key={idx}
-                      style={{
-                        background: "rgba(10, 15, 23, 0.92)",
-                        borderRadius: "3px",
-                        padding: "16px",
-                        border: "1px solid rgba(66, 85, 106, 0.4)",
-                      }}
+                      className="stagger-item card-lift"
+                      style={
+                        {
+                          "--i": idx,
+                          background: "rgba(10, 15, 23, 0.92)",
+                          borderRadius: "3px",
+                          padding: "16px",
+                          border: "1px solid rgba(66, 85, 106, 0.4)",
+                        } as React.CSSProperties
+                      }
                     >
                       <div
                         style={{
@@ -736,8 +781,9 @@ export default function SteamProfile() {
                         </span>
                       </div>
 
-                      <div style={{ fontSize: "11px", color: "#90ba3c", marginBottom: "8px", fontWeight: 500 }}>
-                        📍 {exp.location} &nbsp;•&nbsp; {exp.type}
+                      <div style={{ fontSize: "11px", color: "#90ba3c", marginBottom: "8px", fontWeight: 500, display: "flex", alignItems: "center", gap: "4px" }}>
+                        <MapPin size={11} />
+                        <span>{exp.location} &nbsp;•&nbsp; {exp.type}</span>
                       </div>
 
                       <p style={{ fontSize: "13px", color: "#c6d4df", lineHeight: "1.6", marginBottom: "10px" }}>
@@ -771,6 +817,7 @@ export default function SteamProfile() {
             {/* TAB: BADGES & CERTIFICATIONS */}
             {activeTab === "badges" && (
               <section
+                className="rise-in"
                 style={{
                   background: "rgba(20, 27, 38, 0.96)",
                   borderRadius: "4px",
@@ -802,15 +849,19 @@ export default function SteamProfile() {
                   {PROFILE.badges.map((b, i) => (
                     <div
                       key={i}
-                      style={{
-                        background: "rgba(10, 15, 23, 0.92)",
-                        borderRadius: "3px",
-                        padding: "16px",
-                        border: "1px solid rgba(66, 85, 106, 0.4)",
-                        display: "flex",
-                        gap: "14px",
-                        alignItems: "center",
-                      }}
+                      className="stagger-item card-lift"
+                      style={
+                        {
+                          "--i": i,
+                          background: "rgba(10, 15, 23, 0.92)",
+                          borderRadius: "3px",
+                          padding: "16px",
+                          border: "1px solid rgba(66, 85, 106, 0.4)",
+                          display: "flex",
+                          gap: "14px",
+                          alignItems: "center",
+                        } as React.CSSProperties
+                      }
                     >
                       <div
                         style={{
@@ -822,12 +873,11 @@ export default function SteamProfile() {
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          fontSize: "26px",
                           flexShrink: 0,
                           boxShadow: "0 0 10px rgba(102, 192, 244, 0.15)",
                         }}
                       >
-                        {b.icon}
+                        {BADGE_ICONS[b.iconType] || <Sparkles size={22} className="text-[#66c0f4]" />}
                       </div>
                       <div style={{ flexGrow: 1, minWidth: 0 }}>
                         <div style={{ color: "#ffffff", fontSize: "13px", fontWeight: "bold", lineHeight: 1.3 }}>
@@ -837,8 +887,9 @@ export default function SteamProfile() {
                           Issuer: {b.org}
                         </div>
                         <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "6px" }}>
-                          <span style={{ color: "var(--text-gold)", fontSize: "11px", fontWeight: "bold", background: "rgba(229, 196, 59, 0.1)", padding: "1px 6px", borderRadius: "2px", border: "1px solid rgba(229, 196, 59, 0.25)" }}>
-                            ★ {b.xp}
+                          <span style={{ color: "var(--text-gold)", fontSize: "11px", fontWeight: "bold", background: "rgba(229, 196, 59, 0.1)", padding: "2px 6px", borderRadius: "2px", border: "1px solid rgba(229, 196, 59, 0.25)", display: "inline-flex", alignItems: "center", gap: "3px" }}>
+                            <Star size={10} fill="currentColor" />
+                            <span>{b.xp}</span>
                           </span>
                           <span style={{ color: "#57cbde", fontSize: "10px" }}>Verified Credential</span>
                         </div>
@@ -874,7 +925,10 @@ export default function SteamProfile() {
                   alignItems: "center",
                 }}
               >
-                <span>Comments ({comments.length})</span>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                  <MessageSquare size={14} />
+                  <span>Comments ({comments.length})</span>
+                </span>
                 <span style={{ fontSize: "11px", color: "#8f98a0", fontWeight: "normal" }}>Public Steam Wall</span>
               </div>
 
@@ -945,9 +999,13 @@ export default function SteamProfile() {
                         fontWeight: 600,
                         cursor: "pointer",
                         boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "6px",
                       }}
                     >
-                      Post Comment ↵
+                      <Send size={12} />
+                      <span>Post Comment</span>
                     </button>
                   </div>
                 </div>
@@ -1099,7 +1157,9 @@ export default function SteamProfile() {
                     }}
                   >
                     <div style={{ display: "flex", alignItems: "center", gap: "8px", overflow: "hidden" }}>
-                      <span style={{ fontSize: "16px" }}>{b.icon}</span>
+                      <div style={{ width: "18px", height: "18px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                        {BADGE_ICONS[b.iconType] || <Sparkles size={14} className="text-[#66c0f4]" />}
+                      </div>
                       <div style={{ overflow: "hidden" }}>
                         <div style={{ color: "#ffffff", fontSize: "11px", fontWeight: "bold", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                           {b.name}
@@ -1247,10 +1307,13 @@ export default function SteamProfile() {
                     href="/Dionisius_Surya_Jaya_CV.pdf"
                     target="_blank"
                     rel="noreferrer"
-                    style={{ display: "flex", justifyContent: "space-between", color: "#66c0f4", fontWeight: 600 }}
+                    style={{ display: "flex", justifyContent: "space-between", alignItems: "center", color: "#66c0f4", fontWeight: 600 }}
                   >
-                    <span>Download / View CV</span>
-                    <span>📄 ↗</span>
+                    <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                      <FileText size={13} />
+                      <span>Download / View CV</span>
+                    </span>
+                    <ExternalLink size={12} />
                   </a>
                 </li>
                 <li style={{ marginBottom: "8px" }}>
@@ -1258,10 +1321,10 @@ export default function SteamProfile() {
                     href={PROFILE.linkedin}
                     target="_blank"
                     rel="noreferrer"
-                    style={{ display: "flex", justifyContent: "space-between", color: "#c6d4df" }}
+                    style={{ display: "flex", justifyContent: "space-between", alignItems: "center", color: "#c6d4df" }}
                   >
                     <span>LinkedIn Profile</span>
-                    <span style={{ color: "#66c0f4" }}>↗</span>
+                    <ExternalLink size={12} className="text-[#66c0f4]" />
                   </a>
                 </li>
                 <li style={{ marginBottom: "8px" }}>
@@ -1269,10 +1332,10 @@ export default function SteamProfile() {
                     href={PROFILE.github}
                     target="_blank"
                     rel="noreferrer"
-                    style={{ display: "flex", justifyContent: "space-between", color: "#c6d4df" }}
+                    style={{ display: "flex", justifyContent: "space-between", alignItems: "center", color: "#c6d4df" }}
                   >
                     <span>GitHub Repositories</span>
-                    <span style={{ color: "#66c0f4" }}>↗</span>
+                    <ExternalLink size={12} className="text-[#66c0f4]" />
                   </a>
                 </li>
                 <li style={{ marginBottom: "8px" }}>
@@ -1281,6 +1344,7 @@ export default function SteamProfile() {
                     style={{
                       display: "flex",
                       justifyContent: "space-between",
+                      alignItems: "center",
                       color: "#c6d4df",
                       background: "none",
                       border: "none",
@@ -1291,8 +1355,13 @@ export default function SteamProfile() {
                       textAlign: "left",
                     }}
                   >
-                    <span>Direct Email</span>
-                    <span style={{ color: "#66c0f4" }}>{copied ? "Copied!" : "📋"}</span>
+                    <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                      <Mail size={13} />
+                      <span>Direct Email</span>
+                    </span>
+                    <span style={{ color: "#66c0f4" }}>
+                      {copied ? <Check size={13} /> : <Copy size={13} />}
+                    </span>
                   </button>
                 </li>
               </ul>
@@ -1311,15 +1380,7 @@ export default function SteamProfile() {
           borderTop: "1px solid #363c44",
         }}
       >
-        <div
-          style={{
-            width: "940px",
-            margin: "0 auto",
-            display: "flex",
-            flexDirection: "column",
-            gap: "16px",
-          }}
-        >
+        <div className="steam-footer-inner">
           <div
             style={{
               display: "flex",
