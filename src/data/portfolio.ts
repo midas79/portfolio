@@ -110,6 +110,20 @@ export const PROJECTS: ProjectItem[] = [
       github: "https://github.com/midas79",
     },
   },
+  {
+    id: "edenerde",
+    title: "EdenErde — Sustainable Furniture E-Commerce",
+    category: "Full-Stack",
+    year: "2025",
+    description:
+      "High-performance e-commerce platform for home furniture. Features real-time content management via Sanity v6, secure Stripe payment processing, and a persistent shopping cart system. Optimized with Next.js 15 and React 19 for maximum speed and SEO.",
+    architecture: "Next.js 15 · Sanity v6 · Stripe · Tailwind CSS · use-shopping-cart",
+    tags: ["Next.js", "React 19", "Sanity CMS", "Stripe", "TypeScript", "Tailwind CSS"],
+    links: {
+      live: "https://eden-erde.vercel.app/",
+      github: "https://github.com/midas79/eden-erde",
+    },
+  },
 ];
 
 export const EXPERIENCES: ExperienceItem[] = [
