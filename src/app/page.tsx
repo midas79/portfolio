@@ -259,12 +259,32 @@ const PROFILE = {
 
 export default function SteamProfile() {
   const [copied, setCopied] = useState(false);
-  const [activeTab, setActiveTab] = useState<"projects" | "experience" | "reviews">("projects");
+  const [activeTab, setActiveTab] = useState<"projects" | "experience" | "badges" | "reviews">("projects");
+  const [comments, setComments] = useState(PROFILE.comments);
+  const [authorName, setAuthorName] = useState("");
+  const [commentText, setCommentText] = useState("");
+  const [postStatus, setPostStatus] = useState<string | null>(null);
 
   const copyEmail = () => {
     navigator.clipboard.writeText(PROFILE.email);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handlePostComment = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!commentText.trim()) return;
+    const newComment = {
+      user: authorName.trim() || "Steam Visitor",
+      date: "Just now",
+      text: commentText.trim(),
+      avatar: (authorName.trim() || "V")[0].toUpperCase(),
+    };
+    setComments([newComment, ...comments]);
+    setCommentText("");
+    setAuthorName("");
+    setPostStatus("Comment posted successfully!");
+    setTimeout(() => setPostStatus(null), 3000);
   };
 
   return (
@@ -510,47 +530,63 @@ export default function SteamProfile() {
             </div>
           </div>
 
-          {/* Level Circle & Featured Badge */}
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", flexShrink: 0 }}>
+          {/* Level Circle & Featured Badge - Compact right column */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "8px", flexShrink: 0 }}>
+            {/* Level box */}
             <div
               style={{
-                border: "2px solid #57cbde",
-                borderRadius: "50%",
-                width: "42px",
-                height: "42px",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center",
-                fontSize: "18px",
-                color: "#ffffff",
-                fontWeight: "bold",
-                background: "rgba(0, 0, 0, 0.4)",
-                boxShadow: "0 0 10px rgba(87, 203, 222, 0.4)",
+                gap: "8px",
+                background: "rgba(0, 0, 0, 0.5)",
+                padding: "4px 10px",
+                borderRadius: "3px",
+                border: "1px solid rgba(255,255,255,0.08)",
               }}
             >
-              {PROFILE.level}
+              <span style={{ color: "#8f98a0", fontSize: "11px", textTransform: "uppercase", fontWeight: 600 }}>Level</span>
+              <div
+                style={{
+                  border: "2px solid #57cbde",
+                  borderRadius: "50%",
+                  width: "32px",
+                  height: "32px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "14px",
+                  color: "#ffffff",
+                  fontWeight: "bold",
+                  background: "rgba(0, 0, 0, 0.6)",
+                  boxShadow: "0 0 8px rgba(87, 203, 222, 0.4)",
+                }}
+              >
+                {PROFILE.level}
+              </div>
             </div>
+
+            {/* Badge box */}
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: "10px",
-                background: "rgba(0, 0, 0, 0.25)",
-                padding: "8px 12px",
-                borderRadius: "4px",
+                gap: "8px",
+                background: "rgba(0, 0, 0, 0.35)",
+                padding: "6px 10px",
+                borderRadius: "3px",
                 border: "1px solid rgba(255,255,255,0.06)",
               }}
             >
               <img
                 src={PROFILE.badgeIcon}
                 alt="Badge"
-                style={{ width: "42px", height: "42px" }}
+                style={{ width: "28px", height: "28px" }}
               />
-              <div>
-                <div style={{ color: "#ffffff", fontSize: "12px", fontWeight: "bold" }}>
+              <div style={{ textAlign: "right" }}>
+                <div style={{ color: "#ffffff", fontSize: "11px", fontWeight: "bold", lineHeight: 1.2 }}>
                   {PROFILE.badgeTitle}
                 </div>
-                <div style={{ color: "#8f98a0", fontSize: "11px" }}>{PROFILE.badgeXP}</div>
+                <div style={{ color: "#8f98a0", fontSize: "10px" }}>{PROFILE.badgeXP}</div>
               </div>
             </div>
           </div>
@@ -564,18 +600,20 @@ export default function SteamProfile() {
             marginBottom: "18px",
             borderBottom: "1px solid rgba(102, 192, 244, 0.25)",
             paddingBottom: "10px",
+            overflowX: "auto",
           }}
         >
           {[
             { id: "projects" as const, label: `FEATURED PROJECTS (${PROFILE.allProjects.length})` },
             { id: "experience" as const, label: `CAREER EXPERIENCE (${PROFILE.experiences.length})` },
+            { id: "badges" as const, label: `BADGES & CERTS (${PROFILE.badges.length})` },
             { id: "reviews" as const, label: `ENDORSEMENTS & REVIEWS (${PROFILE.reviews.length})` },
           ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               style={{
-                padding: "10px 20px",
+                padding: "10px 18px",
                 fontSize: "12px",
                 fontWeight: 700,
                 letterSpacing: "0.5px",
@@ -596,6 +634,7 @@ export default function SteamProfile() {
                   activeTab === tab.id
                     ? "0 4px 12px rgba(0, 0, 0, 0.4), 0 0 10px rgba(102, 192, 244, 0.25)"
                     : "none",
+                whiteSpace: "nowrap",
                 transition: "all 0.15s ease",
               }}
             >
@@ -614,144 +653,6 @@ export default function SteamProfile() {
         >
           {/* Left Column Content */}
           <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-            {/* Lead Showcase (Always Visible) */}
-            <section
-              style={{
-                background: "rgba(20, 27, 38, 0.96)",
-                borderRadius: "4px",
-                padding: "20px",
-                border: "1px solid rgba(102, 192, 244, 0.25)",
-                boxShadow: "0 6px 20px rgba(0, 0, 0, 0.55)",
-              }}
-            >
-              <div
-                style={{
-                  fontSize: "14px",
-                  color: "#8f98a0",
-                  textTransform: "uppercase",
-                  letterSpacing: "1px",
-                  marginBottom: "14px",
-                  paddingBottom: "6px",
-                  borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <span>Featured Game Showcase // Flagship Project</span>
-                <span
-                  style={{
-                    fontSize: "11px",
-                    color: "#90ba3c",
-                    border: "1px solid rgba(144, 186, 60, 0.3)",
-                    padding: "2px 6px",
-                    borderRadius: "2px",
-                  }}
-                >
-                  ● Active In Production
-                </span>
-              </div>
-
-              {/* Game Banner Header */}
-              <div
-                style={{
-                  background: "linear-gradient(90deg, rgba(20,30,48,0.7) 0%, rgba(36,59,85,0.7) 100%)",
-                  borderRadius: "4px",
-                  padding: "14px",
-                  marginBottom: "14px",
-                  border: "1px solid rgba(102, 192, 244, 0.2)",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  flexWrap: "wrap",
-                  gap: "12px",
-                }}
-              >
-                <div>
-                  <h3 style={{ fontSize: "18px", color: "#ffffff", fontWeight: "bold" }}>
-                    {PROFILE.leadShowcase.title}
-                  </h3>
-                  <div style={{ fontSize: "12px", color: "#66c0f4", marginTop: "2px" }}>
-                    {PROFILE.leadShowcase.genre}
-                  </div>
-                </div>
-                <div style={{ display: "flex", gap: "20px" }}>
-                  <div>
-                    <div style={{ fontSize: "20px", color: "#ffffff", fontWeight: "bold" }}>
-                      {PROFILE.leadShowcase.hoursPlayed}
-                    </div>
-                    <div style={{ fontSize: "11px", color: "#8f98a0", textTransform: "uppercase" }}>
-                      Hours Interned
-                    </div>
-                  </div>
-                  <div>
-                    <div style={{ fontSize: "20px", color: "#57cbde", fontWeight: "bold" }}>
-                      {PROFILE.leadShowcase.achievements}
-                    </div>
-                    <div style={{ fontSize: "11px", color: "#8f98a0", textTransform: "uppercase" }}>
-                      Milestones
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <p style={{ color: "#c6d4df", fontSize: "13px", lineHeight: "1.6", marginBottom: "12px" }}>
-                {PROFILE.leadShowcase.description}
-              </p>
-
-              <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginBottom: "14px" }}>
-                {PROFILE.leadShowcase.tags.map((t) => (
-                  <span
-                    key={t}
-                    style={{
-                      fontSize: "11px",
-                      background: "rgba(0,0,0,0.4)",
-                      color: "#8f98a0",
-                      padding: "2px 6px",
-                      borderRadius: "2px",
-                      border: "1px solid rgba(255,255,255,0.06)",
-                    }}
-                  >
-                    #{t}
-                  </span>
-                ))}
-              </div>
-
-              <div style={{ display: "flex", gap: "10px" }}>
-                <a
-                  href={PROFILE.leadShowcase.liveDemo}
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{
-                    backgroundColor: "var(--btn-bg)",
-                    color: "#ffffff",
-                    padding: "8px 16px",
-                    borderRadius: "2px",
-                    fontSize: "12px",
-                    fontWeight: 600,
-                    display: "inline-block",
-                  }}
-                >
-                  Play / Launch Streamlit Web App ↗
-                </a>
-                <a
-                  href={PROFILE.leadShowcase.githubRepo}
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{
-                    background: "rgba(255,255,255,0.08)",
-                    color: "#c6d4df",
-                    padding: "8px 16px",
-                    borderRadius: "2px",
-                    fontSize: "12px",
-                    display: "inline-block",
-                  }}
-                >
-                  View ML Source Code ↗
-                </a>
-              </div>
-            </section>
-
             {/* TAB 1: PROJECTS (Exact 4 Portfolio Projects) */}
             {activeTab === "projects" && (
               <section
@@ -980,6 +881,87 @@ export default function SteamProfile() {
               </section>
             )}
 
+            {/* TAB: BADGES & CERTIFICATIONS */}
+            {activeTab === "badges" && (
+              <section
+                style={{
+                  background: "rgba(20, 27, 38, 0.96)",
+                  borderRadius: "4px",
+                  padding: "20px",
+                  border: "1px solid rgba(102, 192, 244, 0.2)",
+                  boxShadow: "0 6px 20px rgba(0, 0, 0, 0.55)",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: "14px",
+                    color: "#66c0f4",
+                    textTransform: "uppercase",
+                    letterSpacing: "1px",
+                    fontWeight: 700,
+                    marginBottom: "16px",
+                    paddingBottom: "8px",
+                    borderBottom: "1px solid rgba(102, 192, 244, 0.2)",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <span>Badges & Industry Certifications ({PROFILE.badges.length})</span>
+                  <span style={{ fontSize: "11px", color: "var(--online-green)", fontWeight: "normal" }}>All Verified Badges</span>
+                </div>
+
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "14px" }}>
+                  {PROFILE.badges.map((b, i) => (
+                    <div
+                      key={i}
+                      style={{
+                        background: "rgba(10, 15, 23, 0.92)",
+                        borderRadius: "3px",
+                        padding: "16px",
+                        border: "1px solid rgba(66, 85, 106, 0.4)",
+                        display: "flex",
+                        gap: "14px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: "52px",
+                          height: "52px",
+                          background: "rgba(33, 75, 110, 0.35)",
+                          border: "1px solid rgba(102, 192, 244, 0.3)",
+                          borderRadius: "4px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: "26px",
+                          flexShrink: 0,
+                          boxShadow: "0 0 10px rgba(102, 192, 244, 0.15)",
+                        }}
+                      >
+                        {b.icon}
+                      </div>
+                      <div style={{ flexGrow: 1, minWidth: 0 }}>
+                        <div style={{ color: "#ffffff", fontSize: "13px", fontWeight: "bold", lineHeight: 1.3 }}>
+                          {b.name}
+                        </div>
+                        <div style={{ color: "#8f98a0", fontSize: "11px", marginTop: "2px" }}>
+                          Issuer: {b.org}
+                        </div>
+                        <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "6px" }}>
+                          <span style={{ color: "var(--text-gold)", fontSize: "11px", fontWeight: "bold", background: "rgba(229, 196, 59, 0.1)", padding: "1px 6px", borderRadius: "2px", border: "1px solid rgba(229, 196, 59, 0.25)" }}>
+                            ★ {b.xp}
+                          </span>
+                          <span style={{ color: "#57cbde", fontSize: "10px" }}>Verified Credential</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
             {/* TAB 3: REVIEWS & ENDORSEMENTS */}
             {activeTab === "reviews" && (
               <section
@@ -1086,7 +1068,7 @@ export default function SteamProfile() {
               </section>
             )}
 
-            {/* Steam Comments Section (Always visible at bottom of left col) */}
+            {/* Steam Comments Section (Interactive User Commenting) */}
             <section
               style={{
                 background: "rgba(20, 27, 38, 0.96)",
@@ -1108,34 +1090,98 @@ export default function SteamProfile() {
                   borderBottom: "1px solid rgba(102, 192, 244, 0.2)",
                   display: "flex",
                   justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
-                <span>Comments ({PROFILE.comments.length})</span>
-                <button
-                  onClick={copyEmail}
-                  style={{
-                    background: "none",
-                    border: "none",
-                    color: "#66c0f4",
-                    cursor: "pointer",
-                    fontSize: "11px",
-                    textDecoration: "underline",
-                    fontWeight: 600,
-                  }}
-                >
-                  Leave a +rep comment via email
-                </button>
+                <span>Comments ({comments.length})</span>
+                <span style={{ fontSize: "11px", color: "#8f98a0", fontWeight: "normal" }}>Public Steam Wall</span>
               </div>
 
+              {/* Comment Input Form */}
+              <form onSubmit={handlePostComment} style={{ marginBottom: "20px" }}>
+                <div
+                  style={{
+                    background: "rgba(10, 15, 23, 0.92)",
+                    padding: "16px",
+                    borderRadius: "3px",
+                    border: "1px solid rgba(66, 85, 106, 0.45)",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "12px",
+                  }}
+                >
+                  <input
+                    type="text"
+                    placeholder="Your Name / Steam Handle (e.g. John Doe)"
+                    value={authorName}
+                    onChange={(e) => setAuthorName(e.target.value)}
+                    style={{
+                      width: "100%",
+                      maxWidth: "320px",
+                      background: "rgba(0, 0, 0, 0.6)",
+                      border: "1px solid rgba(102, 192, 244, 0.25)",
+                      borderRadius: "2px",
+                      padding: "8px 12px",
+                      color: "#ffffff",
+                      fontSize: "12px",
+                      outline: "none",
+                    }}
+                  />
+                  <textarea
+                    placeholder="Write a comment (+rep, message, recommendation)..."
+                    value={commentText}
+                    onChange={(e) => setCommentText(e.target.value)}
+                    rows={3}
+                    required
+                    style={{
+                      width: "100%",
+                      background: "rgba(0, 0, 0, 0.6)",
+                      border: "1px solid rgba(102, 192, 244, 0.25)",
+                      borderRadius: "2px",
+                      padding: "10px 12px",
+                      color: "#ffffff",
+                      fontSize: "12px",
+                      resize: "vertical",
+                      outline: "none",
+                      fontFamily: "inherit",
+                    }}
+                  />
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "8px" }}>
+                    {postStatus ? (
+                      <span style={{ color: "#90ba3c", fontSize: "12px", fontWeight: 600 }}>{postStatus}</span>
+                    ) : (
+                      <span style={{ color: "#8f98a0", fontSize: "11px" }}>Comments appear instantly on profile wall</span>
+                    )}
+                    <button
+                      type="submit"
+                      style={{
+                        backgroundColor: "var(--btn-bg)",
+                        color: "#ffffff",
+                        padding: "8px 20px",
+                        borderRadius: "2px",
+                        border: "none",
+                        fontSize: "12px",
+                        fontWeight: 600,
+                        cursor: "pointer",
+                        boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
+                      }}
+                    >
+                      Post Comment ↵
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+              {/* Comments List */}
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                {PROFILE.comments.map((cm, idx) => (
+                {comments.map((cm, idx) => (
                   <div
                     key={idx}
                     style={{
                       display: "flex",
                       gap: "12px",
                       background: "rgba(10, 15, 23, 0.9)",
-                      padding: "10px 14px",
+                      padding: "12px 14px",
                       borderRadius: "2px",
                       border: "1px solid rgba(66, 85, 106, 0.3)",
                     }}
@@ -1158,14 +1204,14 @@ export default function SteamProfile() {
                     >
                       {cm.avatar}
                     </div>
-                    <div style={{ flexGrow: 1 }}>
+                    <div style={{ flexGrow: 1, minWidth: 0 }}>
                       <div style={{ display: "flex", justifyContent: "space-between" }}>
                         <span style={{ color: "#ffffff", fontWeight: "bold", fontSize: "12px" }}>
                           {cm.user}
                         </span>
                         <span style={{ color: "#8f98a0", fontSize: "10px" }}>{cm.date}</span>
                       </div>
-                      <p style={{ color: "#c6d4df", fontSize: "12px", marginTop: "4px", fontFamily: "monospace" }}>
+                      <p style={{ color: "#c6d4df", fontSize: "12px", marginTop: "4px", fontFamily: "monospace", wordBreak: "break-word" }}>
                         {cm.text}
                       </p>
                     </div>
