@@ -112,6 +112,7 @@ const PROFILE = {
     {
       id: "medeva",
       category: "Machine Learning",
+      featured: true,
       title: "Medeva — Clinical Risk Stratification",
       desc: "End-to-end ML pipeline for PROLANIS BPJS: Logistic Regression + TF-IDF NLP (Hypertension) & K-Means clustering (Diabetes Mellitus). Stateless inference with automated data-drift checks.",
       tags: ["Python", "Scikit-Learn", "Streamlit", "K-Means", "NLP"],
@@ -151,6 +152,7 @@ const PROFILE = {
     {
       id: "anime31",
       category: "Web App",
+      featured: true,
       title: "Anime31 — Media Streaming & Catalog Platform",
       desc: "Anime streaming and media catalog showcase featuring curated user watchlists, episode release tracking, category filtering, and responsive video player integration.",
       tags: ["React", "REST API", "Tailwind CSS", "Media Player"],
@@ -164,6 +166,7 @@ const PROFILE = {
     {
       id: "moviemate",
       category: "Web App",
+      featured: true,
       title: "Movie Mate — Social Cinema Watchlist",
       desc: "Social movie tracking web application enabling cinephiles to discover trending films, curate personal watchlists, log ratings, and exchange recommendations in real time.",
       tags: ["Next.js", "Firebase", "Tailwind CSS", "TMDB API"],
@@ -177,6 +180,7 @@ const PROFILE = {
     {
       id: "aqi-elm",
       category: "Machine Learning",
+      featured: true,
       title: "AQI Prediction — Extreme Learning Machine",
       desc: "Custom Extreme Learning Machine (ELM) classifier built from scratch to predict air quality categories from PM10, SO2, CO, O3, and NO2 pollutant levels in Yogyakarta. Single-pass learning with Moore-Penrose pseudoinverse.",
       tags: ["Python", "ELM", "NumPy", "Scikit-Learn", "Environmental ML"],
@@ -305,16 +309,28 @@ export default function SteamProfile() {
   const [authorName, setAuthorName] = useState("");
   const [commentText, setCommentText] = useState("");
   const [postStatus, setPostStatus] = useState<string | null>(null);
-  const [projectFilter, setProjectFilter] = useState<string>("All");
+  const [projectFilter, setProjectFilter] = useState<string>("Featured");
   const [visibleCount, setVisibleCount] = useState(6);
 
-  const projectCategories = ["All", ...Array.from(new Set(PROFILE.allProjects.map((p) => p.category)))];
+  const projectCategories = ["Featured", ...Array.from(new Set(PROFILE.allProjects.map((p) => p.category)))];
 
-  const filteredProjects = PROFILE.allProjects.filter(
-    (p) => projectFilter === "All" || p.category === projectFilter,
-  );
+  const filteredProjects = PROFILE.allProjects.filter((p) => {
+    if (projectFilter === "Featured") return p.featured === true;
+    return p.category === projectFilter;
+  });
 
   const visibleProjects = filteredProjects.slice(0, visibleCount);
+
+  const workExp = PROFILE.experiences.filter((e) =>
+    ["Machine Learning", "Data Analyst", "Frontend Developer", "Backend Developer"].some((t) =>
+      e.type.includes(t) || e.role.includes("Developer") || e.role.includes("Analyst"),
+    ),
+  );
+  const orgExp = PROFILE.experiences.filter((e) =>
+    !["Machine Learning", "Data Analyst", "Frontend Developer", "Backend Developer"].some((t) =>
+      e.type.includes(t) || e.role.includes("Developer") || e.role.includes("Analyst"),
+    ),
+  );
 
   const copyEmail = () => {
     navigator.clipboard.writeText(PROFILE.email);
@@ -675,8 +691,10 @@ export default function SteamProfile() {
                     gap: "8px",
                   }}
                 >
-                  <span>Software Portfolio Projects ({PROFILE.allProjects.length})</span>
-                  <span style={{ fontSize: "11px", color: "var(--online-green)", fontWeight: "normal" }}>All Shipped Works</span>
+                  <span>Software Portfolio Projects ({filteredProjects.length})</span>
+                  <span style={{ fontSize: "11px", color: "var(--online-green)", fontWeight: "normal" }}>
+                    {projectFilter === "Featured" ? "Featured / Recent Works" : `${projectFilter} Projects`}
+                  </span>
                 </div>
 
                 {/* Category Filter Bar */}
@@ -896,14 +914,99 @@ export default function SteamProfile() {
                     justifyContent: "space-between",
                   }}
                 >
-                  <span>Work & Leadership Experience ({PROFILE.experiences.length})</span>
-                  <span style={{ fontSize: "11px", color: "#8f98a0", fontWeight: "normal" }}>Internships & Key Initiatives</span>
+                  <span>💼 Work Experience ({workExp.length})</span>
+                  <span style={{ fontSize: "11px", color: "#8f98a0", fontWeight: "normal" }}>Professional & Internships</span>
                 </div>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                  {PROFILE.experiences.map((exp, idx) => (
+                  {workExp.map((exp, idx) => (
                     <div
                       key={idx}
+                      className="stagger-item card-lift"
+                      style={
+                        {
+                          "--i": idx,
+                          background: "rgba(10, 15, 23, 0.92)",
+                          borderRadius: "3px",
+                          padding: "16px",
+                          border: "1px solid rgba(66, 85, 106, 0.4)",
+                        } as React.CSSProperties
+                      }
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "flex-start",
+                          marginBottom: "6px",
+                        }}
+                      >
+                        <div>
+                          <span style={{ fontSize: "15px", color: "#ffffff", fontWeight: "bold" }}>
+                            {exp.role}
+                          </span>{" "}
+                          <span style={{ color: "#66c0f4", fontSize: "13px", fontWeight: 600 }}>@ {exp.company}</span>
+                        </div>
+                        <span style={{ fontSize: "12px", color: "#8f98a0", fontFamily: "monospace" }}>
+                          {exp.period}
+                        </span>
+                      </div>
+
+                      <div style={{ fontSize: "11px", color: "#90ba3c", marginBottom: "8px", fontWeight: 500, display: "flex", alignItems: "center", gap: "4px" }}>
+                        <MapPin size={11} />
+                        <span>{exp.location} &nbsp;•&nbsp; {exp.type}</span>
+                      </div>
+
+                      <p style={{ fontSize: "13px", color: "#c6d4df", lineHeight: "1.6", marginBottom: "10px" }}>
+                        {exp.desc}
+                      </p>
+
+                      <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+                        {exp.skills.map((s) => (
+                          <span
+                            key={s}
+                            style={{
+                              fontSize: "11px",
+                              background: "rgba(102, 192, 244, 0.12)",
+                              color: "#66c0f4",
+                              padding: "3px 8px",
+                              borderRadius: "2px",
+                              border: "1px solid rgba(102, 192, 244, 0.25)",
+                              fontWeight: 500,
+                            }}
+                          >
+                            {s}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Volunteer & Organization Experience */}
+                <div
+                  style={{
+                    marginTop: "20px",
+                    fontSize: "14px",
+                    color: "#66c0f4",
+                    textTransform: "uppercase",
+                    letterSpacing: "1px",
+                    fontWeight: 700,
+                    marginBottom: "16px",
+                    paddingBottom: "8px",
+                    borderBottom: "1px solid rgba(102, 192, 244, 0.2)",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <span>🤝 Volunteer & Organization ({orgExp.length})</span>
+                  <span style={{ fontSize: "11px", color: "#8f98a0", fontWeight: "normal" }}>Community & Leadership</span>
+                </div>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                  {orgExp.map((exp, idx) => (
+                    <div
+                      key={`${exp.company}-${exp.role}`}
                       className="stagger-item card-lift"
                       style={
                         {
