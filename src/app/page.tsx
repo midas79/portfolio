@@ -9,17 +9,16 @@ import {
   SKILL_GROUPS,
 } from "../data/portfolio";
 
-export default function PortfolioPage() {
+export default function HyperstudioPortfolio() {
   const [copied, setCopied] = useState(false);
-  const [selectedTag, setSelectedTag] = useState<string>("All");
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
-  // Derive unique categories automatically from project data
   const categories = ["All", ...Array.from(new Set(PROJECTS.map((p) => p.category)))];
 
   const filteredProjects =
-    selectedTag === "All"
+    selectedCategory === "All"
       ? PROJECTS
-      : PROJECTS.filter((p) => p.category === selectedTag);
+      : PROJECTS.filter((p) => p.category === selectedCategory);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(PROFILE.email);
@@ -28,135 +27,145 @@ export default function PortfolioPage() {
   };
 
   return (
-    <div className="relative min-h-screen text-[#d0d6e0]">
-      {/* Sticky Glass Navbar */}
-      <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#090a0f]/80 backdrop-blur-md">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <a
-            href="#"
-            className="flex items-center gap-2.5 font-bold text-sm tracking-tight text-white hover:opacity-80 transition-opacity"
-          >
-            <span className="w-2 h-2 rounded-full bg-[#10b981] shadow-[0_0_8px_#10b981]"></span>
-            <span>{PROFILE.name}</span>
-          </a>
+    <div className="bg-[#101010] text-[#f3f3f3] min-h-screen">
+      {/* Top Navigation Bar */}
+      <header className="border-b border-[#212121] bg-[#101010]/90 backdrop-blur sticky top-0 z-50">
+        <div className="max-w-[1200px] mx-auto px-6 h-20 flex items-center justify-between">
+          <div className="flex items-center gap-10">
+            <a href="#" className="text-[18px] tracking-tight text-[#f3f3f3] font-normal">
+              {PROFILE.name}
+            </a>
+            <nav className="hidden md:flex items-center gap-6 text-[14px] uppercase text-[#9c9c9c]">
+              <a href="#projects" className="hover:text-[#f3f3f3] transition-colors">
+                Projects
+              </a>
+              <a href="#experience" className="hover:text-[#f3f3f3] transition-colors">
+                Experience
+              </a>
+              <a href="#credentials" className="hover:text-[#f3f3f3] transition-colors">
+                Credentials
+              </a>
+              <a href="#skills" className="hover:text-[#f3f3f3] transition-colors">
+                Stack
+              </a>
+            </nav>
+          </div>
 
-          <nav className="hidden md:flex items-center gap-6 text-xs font-medium text-[#8a8f98]">
-            <a href="#projects" className="hover:text-white transition-colors">
-              Projects
-            </a>
-            <a href="#experience" className="hover:text-white transition-colors">
-              Experience
-            </a>
-            <a href="#credentials" className="hover:text-white transition-colors">
-              Credentials
-            </a>
-            <a href="#skills" className="hover:text-white transition-colors">
-              Skills
-            </a>
-          </nav>
-
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <a
               href={PROFILE.resumeUrl}
               target="_blank"
               rel="noreferrer"
-              className="linear-btn-secondary py-1.5 px-3 text-xs"
+              className="ghost-outline text-[13px] py-2 px-4"
             >
-              <span>Resume (PDF) ↗</span>
+              Resume ↗
             </a>
             <button
               onClick={handleCopyEmail}
-              className="linear-btn-primary py-1.5 px-3 text-xs"
+              className="pill-primary text-[13px] py-2.5 px-5"
             >
-              <span>{copied ? "Email Copied!" : "Contact"}</span>
+              {copied ? "COPIED" : "LET'S CHAT ↗"}
             </button>
           </div>
         </div>
       </header>
 
-      {/* Main Content Area */}
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 pt-16 pb-28 space-y-24">
-        {/* Profile Hero Section */}
-        <section className="space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-[#10b981]/10 text-[#10b981] border border-[#10b981]/30">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] animate-pulse"></span>
-            <span>{PROFILE.status}</span>
+      <main className="max-w-[1200px] mx-auto px-6">
+        {/* Hero Section */}
+        <section className="pt-28 pb-24">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="status-badge">
+              <span className="pulse-dot"></span>
+              <span>AVAILABLE FOR ROLES · MALANG / REMOTE</span>
+            </div>
           </div>
 
-          <div className="space-y-3">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#f7f8f8] leading-tight">
-              {PROFILE.title}
-            </h1>
-            <p className="text-sm sm:text-base text-[#8a8f98] max-w-2xl leading-relaxed">
-              {PROFILE.bio}
-            </p>
-          </div>
+          {/* Headline Display Block: Aeonik 63px weight 400 with -0.69px letter-spacing */}
+          <h1 className="text-[42px] sm:text-[54px] md:text-[63px] font-normal leading-[1.05] tracking-[-0.69px] text-[#f3f3f3] max-w-[900px] mb-8">
+            {PROFILE.title}.
+          </h1>
 
-          {/* Quick Academic & Geographic Badges */}
-          <div className="flex flex-wrap gap-2 pt-2 text-xs font-mono text-[#8a8f98]">
-            <span className="linear-tag">📍 {PROFILE.location}</span>
-            <span className="linear-tag">🎓 {PROFILE.university}</span>
-            <span className="linear-tag">⚡ GPA {PROFILE.gpa}</span>
-            <span className="linear-tag">📅 {PROFILE.graduation}</span>
-          </div>
+          <p className="text-[21px] font-normal leading-[1.3] text-[#9c9c9c] max-w-[760px] mb-12">
+            {PROFILE.bio}
+          </p>
 
-          {/* Quick Channels */}
-          <div className="flex flex-wrap items-center gap-4 pt-2 text-xs">
+          <div className="flex flex-wrap items-center gap-4 pt-2">
+            <a href="#projects" className="pill-primary">
+              EXPLORE DIRECTORY ↗
+            </a>
+            <a
+              href={PROFILE.resumeUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="ghost-outline"
+            >
+              READ CURRICULUM VITAE
+            </a>
             <a
               href={PROFILE.github}
               target="_blank"
               rel="noreferrer"
-              className="text-[#8a8f98] hover:text-white transition-colors flex items-center gap-1.5"
+              className="ghost-outline"
             >
-              <span>GitHub</span>
-              <span>↗</span>
+              GITHUB ↗
             </a>
-            <span className="text-white/20">/</span>
             <a
               href={PROFILE.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="text-[#8a8f98] hover:text-white transition-colors flex items-center gap-1.5"
+              className="ghost-outline"
             >
-              <span>LinkedIn</span>
-              <span>↗</span>
+              LINKEDIN ↗
             </a>
-            <span className="text-white/20">/</span>
-            <button
-              onClick={handleCopyEmail}
-              className="text-[#8a8f98] hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
-            >
-              <span>{PROFILE.email}</span>
-              <span>📋</span>
-            </button>
+          </div>
+
+          {/* Meta bar */}
+          <div className="mt-16 pt-8 border-t border-[#212121] grid grid-cols-2 sm:grid-cols-4 gap-6 meta-mono text-[13px]">
+            <div>
+              <span className="block text-[#9c9c9c] uppercase text-[11px] mb-1">INSTITUTION</span>
+              <span className="text-[#f3f3f3]">{PROFILE.university}</span>
+            </div>
+            <div>
+              <span className="block text-[#9c9c9c] uppercase text-[11px] mb-1">DEGREE</span>
+              <span className="text-[#f3f3f3]">CS ({PROFILE.graduation})</span>
+            </div>
+            <div>
+              <span className="block text-[#9c9c9c] uppercase text-[11px] mb-1">CUMULATIVE GPA</span>
+              <span className="text-[#f3f3f3]">{PROFILE.gpa}</span>
+            </div>
+            <div>
+              <span className="block text-[#9c9c9c] uppercase text-[11px] mb-1">COORDINATES</span>
+              <span className="text-[#f3f3f3]">7.97° S, 112.63° E</span>
+            </div>
           </div>
         </section>
 
-        {/* Scalable Projects Directory */}
-        <section id="projects" className="space-y-8 scroll-mt-20">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.08] pb-4">
+        {/* Section Divider Line */}
+        <hr className="hairline-divider" />
+
+        {/* Projects Section */}
+        <section id="projects" className="py-24">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div>
-              <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
-                <span>Projects Directory</span>
-                <span className="text-xs font-mono px-2 py-0.5 rounded bg-white/[0.06] text-[#8a8f98]">
-                  {PROJECTS.length}
-                </span>
+              <div className="text-[13px] uppercase tracking-[0.05em] text-[#6f6759] mb-2 flex items-center gap-2">
+                <span>✦</span>
+                <span>CATALOG // OPEN DIRECTORY</span>
+              </div>
+              <h2 className="text-[34px] font-normal leading-[1.03] text-[#f3f3f3]">
+                Engineering Projects [{PROJECTS.length}]
               </h2>
-              <p className="text-xs text-[#8a8f98] mt-1">
-                Open catalog of software applications, ML pipelines, and geospatial systems.
-              </p>
             </div>
 
-            {/* Dynamic Category Filter */}
-            <div className="flex flex-wrap gap-1.5">
+            {/* Category selector */}
+            <div className="flex flex-wrap gap-2">
               {categories.map((cat) => (
                 <button
                   key={cat}
-                  onClick={() => setSelectedTag(cat)}
-                  className={`text-xs px-2.5 py-1 rounded transition-colors ${
-                    selectedTag === cat
-                      ? "bg-[#5e6ad2] text-white font-medium shadow-[0_0_12px_rgba(94,106,210,0.4)]"
-                      : "bg-white/[0.04] text-[#8a8f98] hover:text-white hover:bg-white/[0.08]"
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`text-[13px] uppercase px-4 py-2 rounded-[4px] border transition-all ${
+                    selectedCategory === cat
+                      ? "bg-[#ffffff] text-[#101010] border-[#ffffff]"
+                      : "bg-transparent text-[#9c9c9c] border-[#212121] hover:border-[#474747]"
                   }`}
                 >
                   {cat}
@@ -165,52 +174,54 @@ export default function PortfolioPage() {
             </div>
           </div>
 
-          {/* Dynamic Grid: Adapts seamlessly to 4, 10, or 50 projects */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {filteredProjects.map((proj) => (
-              <div
+              <article
                 key={proj.id}
-                className="linear-card p-6 flex flex-col justify-between group"
+                className="hairline-card flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="text-xs font-medium px-2 py-0.5 rounded bg-[#5e6ad2]/15 text-[#7c88f5] border border-[#5e6ad2]/30">
+                  <div className="flex items-center justify-between gap-4 mb-4">
+                    <span className="meta-mono uppercase text-[11px] text-[#6f6759] border border-[#212121] px-2 py-1 rounded-[4px]">
                       {proj.category}
                     </span>
-                    <span className="text-xs font-mono text-[#5e6470]">{proj.year}</span>
+                    <span className="meta-mono text-[12px]">{proj.year}</span>
                   </div>
 
-                  <h3 className="text-base font-bold text-white group-hover:text-[#7c88f5] transition-colors mb-2">
+                  <h3 className="text-[21px] font-normal leading-[1.2] text-[#f3f3f3] mb-3">
                     {proj.title}
                   </h3>
 
-                  <p className="text-xs text-[#8a8f98] leading-relaxed mb-4">
+                  <p className="text-[14px] leading-[1.5] text-[#9c9c9c] mb-6">
                     {proj.description}
                   </p>
 
-                  <div className="text-[11px] font-mono text-[#5e6470] bg-black/40 px-2.5 py-1 rounded border border-white/[0.04] mb-4">
+                  <div className="meta-mono text-[12px] text-[#c1c1c1] bg-[#080808] p-3 rounded-[4px] border border-[#212121] mb-6">
                     {proj.architecture}
                   </div>
                 </div>
 
                 <div>
-                  <div className="flex flex-wrap gap-1.5 mb-4">
-                    {proj.tags.map((tag) => (
-                      <span key={tag} className="linear-tag">
-                        {tag}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {proj.tags.map((t) => (
+                      <span
+                        key={t}
+                        className="text-[12px] text-[#9c9c9c] bg-[#1a1a1a] px-2.5 py-1 rounded-[4px] border border-[#212121]"
+                      >
+                        {t}
                       </span>
                     ))}
                   </div>
 
-                  <div className="flex items-center gap-2 pt-2 border-t border-white/[0.04]">
+                  <div className="flex items-center gap-3 pt-4 border-t border-[#212121]">
                     {proj.links.live && (
                       <a
                         href={proj.links.live}
                         target="_blank"
                         rel="noreferrer"
-                        className="linear-btn-primary py-1 px-3 text-xs"
+                        className="pill-primary text-[12px] py-2 px-4"
                       >
-                        Live Demo ↗
+                        LAUNCH LIVE ↗
                       </a>
                     )}
                     {proj.links.github && (
@@ -218,136 +229,64 @@ export default function PortfolioPage() {
                         href={proj.links.github}
                         target="_blank"
                         rel="noreferrer"
-                        className="linear-btn-secondary py-1 px-3 text-xs"
+                        className="ghost-outline text-[12px] py-2 px-4"
                       >
-                        Repository ↗
+                        INSPECT CODE ↗
                       </a>
                     )}
                   </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </section>
 
-        {/* Career Experience Timeline */}
-        <section id="experience" className="space-y-8 scroll-mt-20">
-          <div className="border-b border-white/[0.08] pb-4">
-            <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
-              <span>Work & Leadership Experience</span>
-              <span className="text-xs font-mono px-2 py-0.5 rounded bg-white/[0.06] text-[#8a8f98]">
-                {EXPERIENCES.length}
-              </span>
+        {/* Section Divider Line */}
+        <hr className="hairline-divider" />
+
+        {/* Experience Section */}
+        <section id="experience" className="py-24">
+          <div className="mb-12">
+            <div className="text-[13px] uppercase tracking-[0.05em] text-[#6f6759] mb-2 flex items-center gap-2">
+              <span>✦</span>
+              <span>CHRONOLOGY // ROLES &amp; IMPACT</span>
+            </div>
+            <h2 className="text-[34px] font-normal leading-[1.03] text-[#f3f3f3]">
+              Work &amp; Leadership [{EXPERIENCES.length}]
             </h2>
-            <p className="text-xs text-[#8a8f98] mt-1">
-              Internships, engineering apprenticeships, and university organizations.
-            </p>
           </div>
 
-          <div className="relative border-l border-white/[0.1] pl-6 ml-2 space-y-10">
+          <div className="border border-[#212121] rounded-[8px] divide-y divide-[#212121]">
             {EXPERIENCES.map((exp) => (
-              <div key={exp.id} className="relative group">
-                {/* Timeline node dot */}
-                <div className="absolute -left-[31px] top-1.5 w-2.5 h-2.5 rounded-full bg-[#1c2030] border border-white/20 group-hover:border-[#5e6ad2] group-hover:bg-[#5e6ad2] transition-colors"></div>
-
-                <div className="linear-card p-5 space-y-3">
-                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                    <div>
-                      <h3 className="text-sm font-bold text-white">
-                        {exp.role}{" "}
-                        <span className="text-[#5e6ad2] font-semibold">
-                          @ {exp.company}
-                        </span>
-                      </h3>
-                      <div className="text-xs text-[#5e6470] mt-0.5">
-                        📍 {exp.location} · {exp.type}
-                      </div>
+              <div key={exp.id} className="p-8 hover:bg-[#080808] transition-colors">
+                <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-2 mb-3">
+                  <div>
+                    <h3 className="text-[18px] font-normal text-[#f3f3f3]">
+                      {exp.role}{" "}
+                      <span className="text-[#6f6759]">/ {exp.company}</span>
+                    </h3>
+                    <div className="meta-mono text-[12px] text-[#9c9c9c] mt-1">
+                      {exp.location} · {exp.type}
                     </div>
-                    <span className="text-xs font-mono text-[#8a8f98] whitespace-nowrap">
-                      {exp.period}
-                    </span>
                   </div>
-
-                  <ul className="space-y-1.5 text-xs text-[#8a8f98] list-disc list-inside leading-relaxed">
-                    {exp.description.map((item, idx) => (
-                      <li key={idx} className="marker:text-[#5e6ad2]">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="flex flex-wrap gap-1.5 pt-2">
-                    {exp.skills.map((sk) => (
-                      <span key={sk} className="linear-tag text-[10px]">
-                        {sk}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Verified Credentials & Certifications */}
-        <section id="credentials" className="space-y-8 scroll-mt-20">
-          <div className="border-b border-white/[0.08] pb-4">
-            <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
-              <span>Verified Certifications</span>
-              <span className="text-xs font-mono px-2 py-0.5 rounded bg-white/[0.06] text-[#8a8f98]">
-                {CERTIFICATIONS.length}
-              </span>
-            </h2>
-            <p className="text-xs text-[#8a8f98] mt-1">
-              Professional credentials in Frontend, Backend, Machine Learning, and Cloud Architecture.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-            {CERTIFICATIONS.map((cert) => (
-              <div
-                key={cert.id}
-                className="linear-card p-4 flex flex-col justify-between hover:border-white/20"
-              >
-                <div>
-                  <span className="text-[10px] font-mono text-[#5e6470] uppercase">
-                    {cert.category}
+                  <span className="meta-mono text-[13px] text-[#f3f3f3]">
+                    {exp.period}
                   </span>
-                  <h3 className="text-xs font-bold text-white mt-1 leading-snug">
-                    {cert.title}
-                  </h3>
                 </div>
 
-                <div className="flex items-center justify-between text-[11px] text-[#8a8f98] pt-3 mt-2 border-t border-white/[0.04]">
-                  <span>{cert.issuer}</span>
-                  {cert.year && <span className="font-mono text-[#5e6470]">{cert.year}</span>}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+                <ul className="space-y-2 text-[14px] text-[#9c9c9c] my-4 max-w-[840px] list-disc list-inside">
+                  {exp.description.map((desc, idx) => (
+                    <li key={idx}>{desc}</li>
+                  ))}
+                </ul>
 
-        {/* Technical Skills Directory */}
-        <section id="skills" className="space-y-8 scroll-mt-20">
-          <div className="border-b border-white/[0.08] pb-4">
-            <h2 className="text-xl font-bold text-white tracking-tight">
-              Technical Arsenal
-            </h2>
-            <p className="text-xs text-[#8a8f98] mt-1">
-              Core technologies, modeling frameworks, and toolsets utilized across projects.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            {SKILL_GROUPS.map((grp) => (
-              <div key={grp.group} className="linear-card p-5 space-y-3">
-                <h3 className="text-xs font-bold text-white uppercase tracking-wider text-[#5e6ad2]">
-                  {grp.group}
-                </h3>
-                <div className="flex flex-wrap gap-1.5">
-                  {grp.items.map((it) => (
-                    <span key={it} className="linear-tag">
-                      {it}
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {exp.skills.map((s) => (
+                    <span
+                      key={s}
+                      className="text-[11px] text-[#c1c1c1] border border-[#212121] px-2 py-0.5 rounded-[4px]"
+                    >
+                      {s}
                     </span>
                   ))}
                 </div>
@@ -355,26 +294,121 @@ export default function PortfolioPage() {
             ))}
           </div>
         </section>
+
+        {/* Section Divider Line */}
+        <hr className="hairline-divider" />
+
+        {/* Credentials Section */}
+        <section id="credentials" className="py-24">
+          <div className="mb-12">
+            <div className="text-[13px] uppercase tracking-[0.05em] text-[#6f6759] mb-2 flex items-center gap-2">
+              <span>✦</span>
+              <span>VERIFIED // LICENSES &amp; CERTIFICATIONS</span>
+            </div>
+            <h2 className="text-[34px] font-normal leading-[1.03] text-[#f3f3f3]">
+              Credentials [{CERTIFICATIONS.length}]
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {CERTIFICATIONS.map((cert) => (
+              <div
+                key={cert.id}
+                className="p-6 border border-[#212121] rounded-[8px] bg-transparent flex flex-col justify-between hover:border-[#474747] transition-colors"
+              >
+                <div>
+                  <span className="meta-mono text-[11px] text-[#6f6759] uppercase block mb-2">
+                    {cert.category}
+                  </span>
+                  <h3 className="text-[16px] font-normal leading-[1.3] text-[#f3f3f3]">
+                    {cert.title}
+                  </h3>
+                </div>
+
+                <div className="pt-4 mt-6 border-t border-[#212121] flex items-center justify-between text-[13px] text-[#9c9c9c]">
+                  <span>{cert.issuer}</span>
+                  {cert.year && <span className="meta-mono">{cert.year}</span>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Section Divider Line */}
+        <hr className="hairline-divider" />
+
+        {/* Skills Section */}
+        <section id="skills" className="py-24">
+          <div className="mb-12">
+            <div className="text-[13px] uppercase tracking-[0.05em] text-[#6f6759] mb-2 flex items-center gap-2">
+              <span>✦</span>
+              <span>TOOLSET // CAPABILITIES SPECIFICATION</span>
+            </div>
+            <h2 className="text-[34px] font-normal leading-[1.03] text-[#f3f3f3]">
+              Technical Arsenal
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            {SKILL_GROUPS.map((grp) => (
+              <div
+                key={grp.group}
+                className="p-6 border border-[#212121] rounded-[8px] space-y-4"
+              >
+                <h3 className="text-[14px] uppercase tracking-wider text-[#6f6759]">
+                  {grp.group}
+                </h3>
+                <ul className="space-y-2 text-[14px] text-[#9c9c9c]">
+                  {grp.items.map((it) => (
+                    <li key={it} className="flex items-center gap-2">
+                      <span className="w-1 h-1 bg-[#474747] rounded-full"></span>
+                      <span>{it}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Section Divider Line */}
+        <hr className="hairline-divider" />
+
+        {/* Manifesto / Contact Section */}
+        <section id="contact" className="py-28 text-center max-w-[600px] mx-auto">
+          <div className="text-[13px] uppercase tracking-[0.05em] text-[#6f6759] mb-3">
+            DIRECT DIRECTORY
+          </div>
+          <h2 className="text-[44px] font-normal leading-[1.07] tracking-[-0.31px] text-[#f3f3f3] mb-6">
+            Ready to collaborate.
+          </h2>
+          <p className="text-[16px] leading-[1.5] text-[#9c9c9c] mb-8">
+            Available for Software Engineering, Machine Learning internships, and full-time technical contributions. Reach out directly.
+          </p>
+          <div className="flex justify-center gap-4">
+            <button onClick={handleCopyEmail} className="pill-primary">
+              {copied ? "EMAIL COPIED" : "COPY EMAIL ↗"}
+            </button>
+            <a
+              href={`mailto:${PROFILE.email}`}
+              className="ghost-outline"
+            >
+              SEND DIRECT MAIL
+            </a>
+          </div>
+        </section>
       </main>
 
-      {/* Minimal Linear Footer */}
-      <footer className="border-t border-white/[0.08] bg-[#090a0f] py-8 text-xs text-[#5e6470]">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>© {new Date().getFullYear()} Dionisius Surya Jaya. All rights reserved.</p>
-          <div className="flex items-center gap-4">
-            <a
-              href={PROFILE.resumeUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-white transition-colors"
-            >
-              Resume PDF
-            </a>
+      {/* Footer */}
+      <footer className="border-t border-[#212121] py-8 text-[13px] text-[#9c9c9c]">
+        <div className="max-w-[1200px] mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p>© {new Date().getFullYear()} Dionisius Surya Jaya. Set in Obsidian &amp; Chalk.</p>
+          <div className="flex items-center gap-6">
             <a
               href={PROFILE.github}
               target="_blank"
               rel="noreferrer"
-              className="hover:text-white transition-colors"
+              className="hover:text-[#f3f3f3] transition-colors"
             >
               GitHub
             </a>
@@ -382,9 +416,17 @@ export default function PortfolioPage() {
               href={PROFILE.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="hover:text-white transition-colors"
+              className="hover:text-[#f3f3f3] transition-colors"
             >
               LinkedIn
+            </a>
+            <a
+              href={PROFILE.resumeUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-[#f3f3f3] transition-colors"
+            >
+              Resume (PDF)
             </a>
           </div>
         </div>
