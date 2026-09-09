@@ -192,80 +192,13 @@ const PROFILE = {
       details: "Strong academic grounding in mathematics, logical reasoning, and computing fundamentals.",
     },
   ],
-  reviews: [
-    {
-      author: "Dr. ML Research Lead",
-      relation: "Direct Supervisor at MEDEVA",
-      recommended: true,
-      playtime: "320 hrs on record",
-      date: "Posted: 14 April",
-      review:
-        "Dionisius demonstrates remarkable problem-solving initiative in machine learning. His end-to-end NLP data pipeline and K-Means segmentation for the BPJS dataset was implemented with rigorous mathematical clarity and clean code hygiene. Highly recommended for any ML engineering or full-stack software development role.",
-      helpful: 48,
-    },
-    {
-      author: "BPS Kota Malang Division Head",
-      relation: "Senior Data Officer",
-      recommended: true,
-      playtime: "182 hrs on record",
-      date: "Posted: 28 November",
-      review:
-        "Handled complex statistical datasets with precision. His frontend dashboards transformed raw municipal spreadsheets into readable, accessible visuals that executive leadership could immediately utilize. Fast turnaround, great communication, and strong attention to detail.",
-      helpful: 34,
-    },
-    {
-      author: "DBS Foundation Coding Camp Mentor",
-      relation: "Lead Technical Reviewer",
-      recommended: true,
-      playtime: "210 hrs on record",
-      date: "Posted: 22 June",
-      review:
-        "Outstanding performance throughout our Web Development curriculum. Dionisius mastered React component lifecycles, state management, and semantic styling with top scores. His code reviews are always constructive and his git commit history is textbook perfect.",
-      helpful: 29,
-    },
-    {
-      author: "Head of Ngasem Village Administration",
-      relation: "MMD FILKOM UB Stakeholder",
-      recommended: true,
-      playtime: "110 hrs on record",
-      date: "Posted: 18 August",
-      review:
-        "The digital WebGIS maps created by Dionisius for Ngasem village revolutionized our spatial boundaries and public service tracking. He is a humble, dedicated engineer who genuinely listens to user feedback and delivers tangible community value.",
-      helpful: 52,
-    },
-  ],
-  comments: [
-    {
-      user: "medeva_lead",
-      date: "3 days ago",
-      text: "+rep top-tier Machine Learning engineer! Fast deliverables and production-grade ML code.",
-      avatar: "M",
-    },
-    {
-      user: "bps_analyst_26",
-      date: "2 weeks ago",
-      text: "+rep very clean frontend code and solid statistical insights. Would love to collaborate again!",
-      avatar: "B",
-    },
-    {
-      user: "filkom_peer_ub",
-      date: "1 month ago",
-      text: "+rep dependable teammate on campus and during MMD Ngasem. Solid leadership in logistics and backend!",
-      avatar: "F",
-    },
-    {
-      user: "dbs_code_reviewer",
-      date: "2 months ago",
-      text: "+rep clean commit history, zero lint errors, verified React professional.",
-      avatar: "D",
-    },
-  ],
+  comments: [] as { user: string; date: string; text: string; avatar: string }[],
 };
 
 export default function SteamProfile() {
   const [copied, setCopied] = useState(false);
-  const [activeTab, setActiveTab] = useState<"projects" | "experience" | "badges" | "reviews">("projects");
-  const [comments, setComments] = useState(PROFILE.comments);
+  const [activeTab, setActiveTab] = useState<"projects" | "experience" | "badges">("projects");
+  const [comments, setComments] = useState<{ user: string; date: string; text: string; avatar: string }[]>([]);
   const [authorName, setAuthorName] = useState("");
   const [commentText, setCommentText] = useState("");
   const [postStatus, setPostStatus] = useState<string | null>(null);
@@ -551,7 +484,6 @@ export default function SteamProfile() {
             { id: "projects" as const, label: `FEATURED PROJECTS (${PROFILE.allProjects.length})` },
             { id: "experience" as const, label: `CAREER EXPERIENCE (${PROFILE.experiences.length})` },
             { id: "badges" as const, label: `BADGES & CERTS (${PROFILE.badges.length})` },
-            { id: "reviews" as const, label: `ENDORSEMENTS & REVIEWS (${PROFILE.reviews.length})` },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -906,112 +838,6 @@ export default function SteamProfile() {
               </section>
             )}
 
-            {/* TAB 3: REVIEWS & ENDORSEMENTS */}
-            {activeTab === "reviews" && (
-              <section
-                style={{
-                  background: "rgba(20, 27, 38, 0.96)",
-                  borderRadius: "4px",
-                  padding: "20px",
-                  border: "1px solid rgba(102, 192, 244, 0.2)",
-                  boxShadow: "0 6px 20px rgba(0, 0, 0, 0.55)",
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: "14px",
-                    color: "#66c0f4",
-                    textTransform: "uppercase",
-                    letterSpacing: "1px",
-                    fontWeight: 700,
-                    marginBottom: "16px",
-                    paddingBottom: "8px",
-                    borderBottom: "1px solid rgba(102, 192, 244, 0.2)",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <span>Customer Reviews / Professional Endorsements ({PROFILE.reviews.length})</span>
-                  <span style={{ fontSize: "11px", color: "#66c0f4", fontWeight: "normal" }}>Overwhelmingly Positive (100%)</span>
-                </div>
-
-                <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-                  {PROFILE.reviews.map((rev, idx) => (
-                    <div
-                      key={idx}
-                      style={{
-                        background: "rgba(10, 15, 23, 0.92)",
-                        borderRadius: "3px",
-                        padding: "16px",
-                        border: "1px solid rgba(66, 85, 106, 0.4)",
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "12px",
-                          marginBottom: "12px",
-                          borderBottom: "1px solid rgba(255,255,255,0.08)",
-                          paddingBottom: "10px",
-                        }}
-                      >
-                        <div
-                          style={{
-                            background: "#214b6e",
-                            color: "#66c0f4",
-                            width: "38px",
-                            height: "38px",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            fontSize: "18px",
-                            borderRadius: "2px",
-                            border: "1px solid rgba(102, 192, 244, 0.3)",
-                          }}
-                        >
-                          👍
-                        </div>
-                        <div>
-                          <div style={{ fontSize: "15px", color: "#ffffff", fontWeight: "bold" }}>
-                            Recommended
-                          </div>
-                          <div style={{ fontSize: "11px", color: "#8f98a0" }}>
-                            {rev.playtime} &nbsp;|&nbsp; {rev.relation}
-                          </div>
-                        </div>
-                        <div style={{ marginLeft: "auto", fontSize: "11px", color: "#8f98a0" }}>
-                          {rev.date}
-                        </div>
-                      </div>
-
-                      <p style={{ color: "#d2dce6", fontSize: "13px", lineHeight: "1.65", marginBottom: "12px" }}>
-                        &ldquo;{rev.review}&rdquo;
-                      </p>
-
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          fontSize: "11px",
-                          color: "#8f98a0",
-                          borderTop: "1px solid rgba(255,255,255,0.06)",
-                          paddingTop: "8px",
-                        }}
-                      >
-                        <div>
-                          Review by <strong style={{ color: "#ffffff" }}>{rev.author}</strong>
-                        </div>
-                        <div>{rev.helpful} people found this review helpful</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
-
             {/* Steam Comments Section (Interactive User Commenting) */}
             <section
               style={{
@@ -1042,7 +868,7 @@ export default function SteamProfile() {
               </div>
 
               {/* Comment Input Form */}
-              <form onSubmit={handlePostComment} style={{ marginBottom: "20px" }}>
+              <form onSubmit={handlePostComment} style={{ marginBottom: comments.length > 0 ? "20px" : "0" }}>
                 <div
                   style={{
                     background: "rgba(10, 15, 23, 0.92)",
@@ -1116,52 +942,66 @@ export default function SteamProfile() {
                 </div>
               </form>
 
-              {/* Comments List */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                {comments.map((cm, idx) => (
-                  <div
-                    key={idx}
-                    style={{
-                      display: "flex",
-                      gap: "12px",
-                      background: "rgba(10, 15, 23, 0.9)",
-                      padding: "12px 14px",
-                      borderRadius: "2px",
-                      border: "1px solid rgba(66, 85, 106, 0.3)",
-                    }}
-                  >
+              {/* Empty state or comments list */}
+              {comments.length === 0 ? (
+                <div
+                  style={{
+                    padding: "24px",
+                    textAlign: "center",
+                    color: "#8f98a0",
+                    fontSize: "13px",
+                    fontStyle: "italic",
+                  }}
+                >
+                  No comments yet. Be the first to leave a message or recommendation above!
+                </div>
+              ) : (
+                <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "16px" }}>
+                  {comments.map((cm, idx) => (
                     <div
+                      key={idx}
                       style={{
-                        width: "34px",
-                        height: "34px",
-                        background: "#2a475e",
-                        borderRadius: "2px",
                         display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        color: "#ffffff",
-                        fontWeight: "bold",
-                        fontSize: "13px",
-                        flexShrink: 0,
-                        border: "1px solid rgba(102, 192, 244, 0.3)",
+                        gap: "12px",
+                        background: "rgba(10, 15, 23, 0.9)",
+                        padding: "12px 14px",
+                        borderRadius: "2px",
+                        border: "1px solid rgba(66, 85, 106, 0.3)",
                       }}
                     >
-                      {cm.avatar}
-                    </div>
-                    <div style={{ flexGrow: 1, minWidth: 0 }}>
-                      <div style={{ display: "flex", justifyContent: "space-between" }}>
-                        <span style={{ color: "#ffffff", fontWeight: "bold", fontSize: "12px" }}>
-                          {cm.user}
-                        </span>
-                        <span style={{ color: "#8f98a0", fontSize: "10px" }}>{cm.date}</span>
+                      <div
+                        style={{
+                          width: "34px",
+                          height: "34px",
+                          background: "#2a475e",
+                          borderRadius: "2px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: "#ffffff",
+                          fontWeight: "bold",
+                          fontSize: "13px",
+                          flexShrink: 0,
+                          border: "1px solid rgba(102, 192, 244, 0.3)",
+                        }}
+                      >
+                        {cm.avatar}
                       </div>
-                      <p style={{ color: "#c6d4df", fontSize: "12px", marginTop: "4px", fontFamily: "monospace", wordBreak: "break-word" }}>
-                        {cm.text}
-                      </p>
+                      <div style={{ flexGrow: 1, minWidth: 0 }}>
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                          <span style={{ color: "#ffffff", fontWeight: "bold", fontSize: "12px" }}>
+                            {cm.user}
+                          </span>
+                          <span style={{ color: "#8f98a0", fontSize: "10px" }}>{cm.date}</span>
+                        </div>
+                        <p style={{ color: "#c6d4df", fontSize: "12px", marginTop: "4px", fontFamily: "monospace", wordBreak: "break-word" }}>
+                          {cm.text}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </section>
           </div>
 
