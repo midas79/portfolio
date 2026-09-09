@@ -98,7 +98,7 @@ const PROFILE = {
       "End-to-end Machine Learning pipeline tailored for BPJS patient clinical data. Features automated data cleaning, exploratory data analysis, Natural Language Processing (Logistic Regression) for Hypertension symptom stratification, and unsupervised K-Means clustering for Diabetes Mellitus risk groups.",
     tags: ["Python", "Scikit-Learn", "Streamlit", "Pandas", "NLP", "K-Means", "BPJS HealthTech"],
   },
-  // Exact 4 Projects
+  // Portfolio Projects
   allProjects: [
     {
       id: "medeva",
@@ -123,6 +123,18 @@ const PROFILE = {
       link: "https://midas79.github.io/Map-Digital-Desa-Ngasem/",
       cta: "Explore Interactive Map",
       accent: "#57cbde",
+    },
+    {
+      id: "edenerde",
+      category: "Full-Stack",
+      title: "EdenErde — Sustainable Furniture E-Commerce",
+      desc: "High-performance e-commerce platform for home furniture. Features real-time content management via Sanity v6, secure Stripe payment processing, and a persistent shopping cart system. Built with Next.js 15 and React 19.",
+      tags: ["Next.js 15", "React 19", "Sanity CMS", "Stripe", "Tailwind CSS"],
+      metric: "Next.js 15 & React 19",
+      impact: "E-Commerce & Sanity CMS",
+      link: "https://eden-erde.vercel.app/",
+      cta: "Launch E-Commerce",
+      accent: "#bd93f9",
     },
     {
       id: "anime31",
