@@ -47,6 +47,15 @@ const BADGE_ICONS: Record<string, React.ReactNode> = {
   finance: <Coins size={22} className="text-[#eab308]" />,
 };
 
+const PROJECT_ICONS: Record<string, React.ReactNode> = {
+  ml: <BarChart2 size={40} />,
+  web: <Globe size={40} />,
+  frontend: <Layout size={40} />,
+  react: <Cpu size={40} />,
+  backend: <Server size={40} />,
+  git: <GitBranch size={40} />,
+};
+
 const PROFILE = {
   name: "Dionisius Surya Jaya",
   alias: "dionisiussj",
@@ -111,6 +120,7 @@ const PROFILE = {
       link: "https://medeva-demo-jbnnczbvk6ucappppedszeab.streamlit.app/",
       cta: "Launch Live Demo",
       accent: "#90ba3c",
+      icon: "ml",
     },
     {
       id: "webgis",
@@ -123,6 +133,7 @@ const PROFILE = {
       link: "https://midas79.github.io/Map-Digital-Desa-Ngasem/",
       cta: "Explore Interactive Map",
       accent: "#57cbde",
+      icon: "web",
     },
     {
       id: "edenerde",
@@ -135,6 +146,7 @@ const PROFILE = {
       link: "https://eden-erde.vercel.app/",
       cta: "Launch E-Commerce",
       accent: "#bd93f9",
+      icon: "frontend",
     },
     {
       id: "anime31",
@@ -147,6 +159,7 @@ const PROFILE = {
       link: "https://anime31.vercel.app/",
       cta: "Launch Web App",
       accent: "#ff79c6",
+      icon: "react",
     },
     {
       id: "moviemate",
@@ -159,6 +172,7 @@ const PROFILE = {
       link: "https://movie-mate-tan.vercel.app/",
       cta: "Launch Web App",
       accent: "#ff5555",
+      icon: "web",
     },
   ],
   // Work & Leadership Experiences from CV
@@ -252,6 +266,16 @@ export default function SteamProfile() {
   const [authorName, setAuthorName] = useState("");
   const [commentText, setCommentText] = useState("");
   const [postStatus, setPostStatus] = useState<string | null>(null);
+  const [projectFilter, setProjectFilter] = useState<string>("All");
+  const [visibleCount, setVisibleCount] = useState(6);
+
+  const projectCategories = ["All", ...Array.from(new Set(PROFILE.allProjects.map((p) => p.category)))];
+
+  const filteredProjects = PROFILE.allProjects.filter(
+    (p) => projectFilter === "All" || p.category === projectFilter,
+  );
+
+  const visibleProjects = filteredProjects.slice(0, visibleCount);
 
   const copyEmail = () => {
     navigator.clipboard.writeText(PROFILE.email);
@@ -608,14 +632,65 @@ export default function SteamProfile() {
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
+                    flexWrap: "wrap",
+                    gap: "8px",
                   }}
                 >
                   <span>Software Portfolio Projects ({PROFILE.allProjects.length})</span>
                   <span style={{ fontSize: "11px", color: "var(--online-green)", fontWeight: "normal" }}>All Shipped Works</span>
                 </div>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-                  {PROFILE.allProjects.map((proj, idx) => (
+                {/* Category Filter Bar */}
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "6px",
+                    flexWrap: "wrap",
+                    marginBottom: "16px",
+                    paddingBottom: "12px",
+                    borderBottom: "1px solid rgba(255,255,255,0.06)",
+                  }}
+                >
+                  {projectCategories.map((cat) => (
+                    <button
+                      key={cat}
+                      onClick={() => {
+                        setProjectFilter(cat);
+                        setVisibleCount(6);
+                      }}
+                      style={{
+                        padding: "6px 14px",
+                        fontSize: "11px",
+                        fontWeight: 600,
+                        letterSpacing: "0.3px",
+                        borderRadius: "2px",
+                        cursor: "pointer",
+                        border: projectFilter === cat
+                          ? "1px solid #66c0f4"
+                          : "1px solid rgba(255,255,255,0.08)",
+                        background: projectFilter === cat
+                          ? "linear-gradient(180deg, #2a475e 0%, #192837 100%)"
+                          : "rgba(18, 26, 36, 0.95)",
+                        color: projectFilter === cat ? "#ffffff" : "#8f98a0",
+                        boxShadow: projectFilter === cat
+                          ? "0 0 8px rgba(102, 192, 244, 0.25)"
+                          : "none",
+                        transition: "all 0.15s ease",
+                      }}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+                    gap: "14px",
+                  }}
+                >
+                  {visibleProjects.map((proj, idx) => (
                     <div
                       key={proj.id}
                       className="stagger-item card-lift"
@@ -624,66 +699,63 @@ export default function SteamProfile() {
                           "--i": idx,
                           background: "rgba(10, 15, 23, 0.92)",
                           borderRadius: "3px",
-                          padding: "16px",
+                          padding: "0",
                           border: "1px solid rgba(66, 85, 106, 0.45)",
                           display: "flex",
                           flexDirection: "column",
-                          gap: "10px",
+                          overflow: "hidden",
                         } as React.CSSProperties
                       }
                     >
+                      {/* Thumbnail / UI Preview */}
                       <div
                         style={{
+                          height: "160px",
+                          background: `linear-gradient(135deg, ${proj.accent}30 0%, ${proj.accent}0a 60%, rgba(10,15,23,0.9) 100%)`,
                           display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "flex-start",
-                          flexWrap: "wrap",
-                          gap: "6px",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: proj.accent,
+                          borderBottom: `1px solid ${proj.accent}30`,
+                          position: "relative",
                         }}
                       >
-                        <div>
-                          <div style={{ fontSize: "15px", color: "#ffffff", fontWeight: "bold" }}>
-                            {proj.title}
-                          </div>
-                          <span
-                            style={{
-                              fontSize: "10px",
-                              color: proj.accent,
-                              border: `1px solid ${proj.accent}60`,
-                              background: `${proj.accent}15`,
-                              padding: "2px 6px",
-                              borderRadius: "2px",
-                              marginTop: "4px",
-                              display: "inline-block",
-                              fontWeight: 600,
-                            }}
-                          >
-                            {proj.category}
-                          </span>
+                        {PROJECT_ICONS[proj.icon] || <Sparkles size={40} />}
+                        <span
+                          style={{
+                            position: "absolute",
+                            top: "10px",
+                            left: "10px",
+                            fontSize: "10px",
+                            color: proj.accent,
+                            border: `1px solid ${proj.accent}60`,
+                            background: `${proj.accent}20`,
+                            padding: "2px 8px",
+                            borderRadius: "2px",
+                            fontWeight: 700,
+                            textTransform: "uppercase",
+                            letterSpacing: "0.5px",
+                          }}
+                        >
+                          {proj.category}
+                        </span>
+                      </div>
+
+                      {/* Body */}
+                      <div style={{ padding: "16px", display: "flex", flexDirection: "column", gap: "10px", flexGrow: 1 }}>
+                        <div style={{ fontSize: "15px", color: "#ffffff", fontWeight: "bold", lineHeight: 1.35 }}>
+                          {proj.title}
                         </div>
 
-                        <div style={{ textAlign: "right" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "6px" }}>
                           <div style={{ fontSize: "12px", color: "#90ba3c", fontFamily: "monospace", fontWeight: "bold" }}>
                             {proj.metric}
                           </div>
                           <div style={{ fontSize: "11px", color: "#8f98a0" }}>{proj.impact}</div>
                         </div>
-                      </div>
 
-                      <p style={{ fontSize: "13px", color: "#c6d4df", lineHeight: "1.6" }}>{proj.desc}</p>
+                        <p style={{ fontSize: "13px", color: "#c6d4df", lineHeight: "1.6" }}>{proj.desc}</p>
 
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          flexWrap: "wrap",
-                          gap: "8px",
-                          marginTop: "4px",
-                          paddingTop: "8px",
-                          borderTop: "1px solid rgba(255,255,255,0.06)",
-                        }}
-                      >
                         <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
                           {proj.tags.map((t) => (
                             <span
@@ -707,16 +779,21 @@ export default function SteamProfile() {
                           target="_blank"
                           rel="noreferrer"
                           style={{
+                            marginTop: "auto",
+                            paddingTop: "10px",
+                            borderTop: "1px solid rgba(255,255,255,0.06)",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            gap: "6px",
                             fontSize: "12px",
                             color: "#ffffff",
                             backgroundColor: "var(--btn-bg)",
-                            padding: "6px 14px",
+                            padding: "8px 14px",
                             borderRadius: "2px",
                             fontWeight: 600,
                             boxShadow: "0 2px 6px rgba(0,0,0,0.4)",
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: "6px",
+                            textDecoration: "none",
                           }}
                         >
                           <span>{proj.cta}</span>
@@ -726,6 +803,31 @@ export default function SteamProfile() {
                     </div>
                   ))}
                 </div>
+
+                {/* Load More Button */}
+                {visibleCount < filteredProjects.length && (
+                  <div style={{ display: "flex", justifyContent: "center", marginTop: "18px" }}>
+                    <button
+                      onClick={() => setVisibleCount((c) => c + 6)}
+                      style={{
+                        padding: "10px 24px",
+                        fontSize: "12px",
+                        fontWeight: 700,
+                        letterSpacing: "0.5px",
+                        textTransform: "uppercase",
+                        cursor: "pointer",
+                        borderRadius: "2px",
+                        border: "1px solid #66c0f4",
+                        background: "linear-gradient(180deg, #2a475e 0%, #192837 100%)",
+                        color: "#ffffff",
+                        boxShadow: "0 0 10px rgba(102, 192, 244, 0.25)",
+                        transition: "all 0.15s ease",
+                      }}
+                    >
+                      Load More ({filteredProjects.length - visibleCount} remaining)
+                    </button>
+                  </div>
+                )}
               </section>
             )}
 
