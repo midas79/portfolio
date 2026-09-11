@@ -55,6 +55,19 @@ export const PROFILE = {
 
 export const PROJECTS: ProjectItem[] = [
   {
+    id: "plate-detection",
+    title: "Plate Detection — License Plate Recognition",
+    category: "Machine Learning",
+    year: "2026",
+    description:
+      "YOLOv11-based license plate detector with real-time image and video processing. Implements bilateral filtering and CLAHE enhancement for improved plate legibility. Trained on custom Indonesian vehicle plate dataset with 95% mAP performance. Run locally with Streamlit.",
+    architecture: "Python · YOLOv11 · OpenCV · Streamlit · Computer Vision",
+    tags: ["Machine Learning", "Computer Vision", "Python", "YOLOv11", "OpenCV", "Streamlit"],
+    links: {
+      github: "https://github.com/midas79/plate-detection-streamlit",
+    },
+  },
+  {
     id: "medeva",
     title: "Medeva — Clinical Risk Stratification Engine",
     category: "Machine Learning",
