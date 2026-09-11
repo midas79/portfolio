@@ -60,9 +60,9 @@ export const PROJECTS: ProjectItem[] = [
     category: "Machine Learning",
     year: "2026",
     description:
-      "YOLOv11-based license plate detector with real-time image and video processing. Implements bilateral filtering and CLAHE enhancement for improved plate legibility. Trained on custom Indonesian vehicle plate dataset with 95% mAP performance. Run locally with Streamlit.",
-    architecture: "Python · YOLOv11 · OpenCV · Streamlit · Computer Vision",
-    tags: ["Machine Learning", "Computer Vision", "Python", "YOLOv11", "OpenCV", "Streamlit"],
+      "YOLOv11-based license plate detector with real-time image and video processing. Implements bilateral filtering and CLAHE enhancement for improved plate legibility. Trained on custom Indonesian vehicle plate dataset with 95% mAP performance.",
+    architecture: "Python · YOLOv11 · OpenCV · Computer Vision",
+    tags: ["Machine Learning", "Computer Vision", "Python", "YOLOv11", "OpenCV"],
     links: {
       github: "https://github.com/midas79/plate-detection-streamlit",
     },
