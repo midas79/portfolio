@@ -124,6 +124,19 @@ export const PROJECTS: ProjectItem[] = [
     },
   },
   {
+    id: "github-star-notes",
+    title: "GitHub Star Notes — Personal Star Tracker",
+    category: "Full-Stack",
+    year: "2026",
+    description:
+      "Self-hosted GitHub star tracker with Chrome extension. Add notes, tags, and search starred repos with zero cloud dependency. Features GitHub OAuth authentication, instant search, and a Chrome Manifest v3 extension for capturing stars directly from any repo page.",
+    architecture: "Next.js 15 · React 19 · Prisma · SQLite · NextAuth.js · Chrome Extension",
+    tags: ["Next.js", "React 19", "Prisma", "SQLite", "TypeScript", "Tailwind CSS", "Chrome Extension"],
+    links: {
+      github: "https://github.com/midas79/github-star-notes",
+    },
+  },
+  {
     id: "edenerde",
     title: "EdenErde — Sustainable Furniture E-Commerce",
     category: "Full-Stack",
