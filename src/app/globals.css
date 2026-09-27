@@ -80,9 +80,9 @@
   --shadow-color: rgba(0, 0, 0, 0.5);
 }
 
-/* System preference auto-detection */
+/* System preference auto-detection when user selects system mode */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
+  [data-theme="system"] {
     --fg: #fffae6;
     --fg-2: #d6d0c0;
     --fg-muted: #a8a095;

@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 type Theme = 'light' | 'dark' | 'system';
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>('system');
+  const [theme, setTheme] = useState<Theme>('light');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -17,14 +17,17 @@ export function ThemeToggle() {
       setTheme(stored);
       applyTheme(stored);
     } else {
-      applyTheme('system');
+      setTheme('light');
+      applyTheme('light');
     }
   }, []);
 
   const applyTheme = (t: Theme) => {
     const root = document.documentElement;
-    if (t === 'system') {
+    if (t === 'light') {
       root.removeAttribute('data-theme');
+    } else if (t === 'system') {
+      root.setAttribute('data-theme', 'system');
     } else {
       root.setAttribute('data-theme', t);
     }
@@ -43,7 +46,7 @@ export function ThemeToggle() {
         className="w-10 h-10 rounded-md border-2 border-black bg-[var(--surface-warm)] flex items-center justify-center shadow-[2px_2px_0px_0px_#2a1810]"
         aria-label="Toggle theme"
       >
-        <Monitor size={16} className="text-black" />
+        <Sun size={16} className="text-black" />
       </button>
     );
   }
