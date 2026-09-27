@@ -26,11 +26,14 @@ import {
   Briefcase,
   Award,
 } from 'lucide-react';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-interface Badge {
+interface BadgeType {
   name: string;
   org: string;
-  xp: string;
   iconType: string;
 }
 
@@ -60,10 +63,7 @@ const PROJECT_ICONS: Record<string, React.ReactNode> = {
 const PROFILE = {
   name: 'Dionisius Surya Jaya',
   alias: 'dionisiussj',
-  level: 42,
-  badgeTitle: 'Community Leader & ML Engineer',
-  badgeXP: '1,337 XP',
-  avatarUrl: '/assets/images/avatar_full.jpg',
+  title: 'Software Engineer & ML Developer',
   location: 'Malang Regency, East Java, Indonesia',
   latLong: '7.98° S / 112.63° E',
   headline: 'Software Engineer & Machine Learning Developer',
@@ -82,24 +82,23 @@ const PROFILE = {
     'Geospatial WebGIS',
   ],
   badges: [
-    { name: 'Belajar Dasar Git dengan GitHub', org: 'Dicoding Indonesia', xp: '100 XP', iconType: 'git' },
-    { name: 'Belajar Back-End Pemula dengan JavaScript', org: 'Dicoding Indonesia', xp: '250 XP', iconType: 'backend' },
-    { name: 'Belajar Fundamental Front-End Web Dev', org: 'Dicoding Indonesia', xp: '250 XP', iconType: 'frontend' },
-    { name: 'Belajar Dasar Pemrograman Web', org: 'Dicoding Indonesia', xp: '100 XP', iconType: 'web' },
-    { name: 'Belajar Dasar Pemrograman JavaScript', org: 'Dicoding Indonesia', xp: '150 XP', iconType: 'js' },
-    { name: 'Belajar Membuat Front-End Web untuk Pemula', org: 'Dicoding Indonesia', xp: '150 XP', iconType: 'fe_beginner' },
-    { name: 'Belajar Membuat Aplikasi Web dengan React', org: 'Dicoding Indonesia', xp: '250 XP', iconType: 'react' },
-    { name: 'Cloud Practitioner Essentials (AWS Cloud)', org: 'Dicoding / AWS', xp: '150 XP', iconType: 'cloud' },
-    { name: 'Belajar Prinsip Pemrograman SOLID', org: 'Dicoding Indonesia', xp: '150 XP', iconType: 'solid' },
-    { name: 'Belajar Data Analysis / Machine Learning', org: 'Dicoding Indonesia', xp: '200 XP', iconType: 'ml' },
-    { name: 'Financial Literacy 101', org: 'Financial Education', xp: '150 XP', iconType: 'finance' },
-  ] as Badge[],
+    { name: 'Belajar Dasar Git dengan GitHub', org: 'Dicoding Indonesia', iconType: 'git' },
+    { name: 'Belajar Back-End Pemula dengan JavaScript', org: 'Dicoding Indonesia', iconType: 'backend' },
+    { name: 'Belajar Fundamental Front-End Web Dev', org: 'Dicoding Indonesia', iconType: 'frontend' },
+    { name: 'Belajar Dasar Pemrograman Web', org: 'Dicoding Indonesia', iconType: 'web' },
+    { name: 'Belajar Dasar Pemrograman JavaScript', org: 'Dicoding Indonesia', iconType: 'js' },
+    { name: 'Belajar Membuat Front-End Web untuk Pemula', org: 'Dicoding Indonesia', iconType: 'fe_beginner' },
+    { name: 'Belajar Membuat Aplikasi Web dengan React', org: 'Dicoding Indonesia', iconType: 'react' },
+    { name: 'Cloud Practitioner Essentials (AWS Cloud)', org: 'Dicoding / AWS', iconType: 'cloud' },
+    { name: 'Belajar Prinsip Pemrograman SOLID', org: 'Dicoding Indonesia', iconType: 'solid' },
+    { name: 'Belajar Data Analysis / Machine Learning', org: 'Dicoding Indonesia', iconType: 'ml' },
+    { name: 'Financial Literacy 101', org: 'Financial Education', iconType: 'finance' },
+  ] as BadgeType[],
   leadShowcase: {
     title: 'MEDEVA: Clinical Risk Stratification System',
     genre: 'Machine Learning / Clinical Predictive Diagnostics',
     status: 'Active Research & Production Pipeline',
-    hoursPlayed: '320 hrs logged',
-    achievements: '18 / 18 Unlocked (100%)',
+    category: 'Featured Project',
     liveDemo: 'https://medeva-demo-jbnnczbvk6ucappppedszeab.streamlit.app/',
     githubRepo: 'https://github.com/midas79',
     description:
@@ -364,16 +363,16 @@ function TiltCard({ children, className = '', style = {} }: { children: React.Re
   const rotateX = useMotionValue(0);
   const rotateY = useMotionValue(0);
   
-  const springRotateX = useSpring(rotateX, { stiffness: 300, damping: 20 });
-  const springRotateY = useSpring(rotateY, { stiffness: 300, damping: 20 });
+  const springRotateX = useSpring(rotateX, { stiffness: 200, damping: 25, mass: 0.5 });
+  const springRotateY = useSpring(rotateY, { stiffness: 200, damping: 25, mass: 0.5 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
-    rotateX.set(-y * 0.04);
-    rotateY.set(x * 0.04);
+    rotateX.set(Math.max(-8, Math.min(8, -y * 0.03)));
+    rotateY.set(Math.max(-8, Math.min(8, x * 0.03)));
   };
 
   const handleMouseLeave = () => {
@@ -391,6 +390,7 @@ function TiltCard({ children, className = '', style = {} }: { children: React.Re
         rotateY: springRotateY,
         transformPerspective: 1000,
         transformStyle: 'preserve-3d',
+        willChange: 'transform',
         ...style 
       }}
       className={className}
@@ -412,23 +412,30 @@ export default function Portfolio() {
   const [stamped, setStamped] = useState<Record<string, boolean>>({ profile: true });
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const scrollThreshold = window.scrollY + window.innerHeight * 0.45;
-      setStamped((prev) => {
-        const next = { ...prev };
-        let updated = false;
-        SECTIONS.forEach((s) => {
-          const el = document.getElementById(s.id);
-          if (el) {
-            const top = el.getBoundingClientRect().top + window.scrollY;
-            if (top <= scrollThreshold && !next[s.id]) {
-              next[s.id] = true;
-              updated = true;
-            }
-          }
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollThreshold = window.scrollY + window.innerHeight * 0.45;
+          setStamped((prev) => {
+            const next = { ...prev };
+            let updated = false;
+            SECTIONS.forEach((s) => {
+              const el = document.getElementById(s.id);
+              if (el) {
+                const top = el.getBoundingClientRect().top + window.scrollY;
+                if (top <= scrollThreshold && !next[s.id]) {
+                  next[s.id] = true;
+                  updated = true;
+                }
+              }
+            });
+            return updated ? next : prev;
+          });
+          ticking = false;
         });
-        return updated ? next : prev;
-      });
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -472,26 +479,60 @@ export default function Portfolio() {
       badges: 'badges',
     };
 
-    // If clicking a tab-dependent section, switch tab first
-    if (idToTab[id]) {
-      setActiveTab(idToTab[id]);
-      // Wait for DOM update, then scroll
-      setTimeout(() => {
-        const el = document.getElementById(id);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 60);
-    } else {
+    const targetTab = idToTab[id];
+    if (targetTab && activeTab !== targetTab) {
+      setActiveTab(targetTab);
+    }
+
+    // Custom smooth scroll with easing animation
+    const scrollTarget = () => {
       const el = document.getElementById(id);
       if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const headerOffset = 80;
+        const targetPosition = el.getBoundingClientRect().top + window.scrollY - headerOffset;
+        const startPosition = window.scrollY;
+        const distance = targetPosition - startPosition;
+        const duration = 800; // 800ms smooth animation
+        let startTime: number | null = null;
+
+        // Cubic easing function for smooth acceleration/deceleration
+        const easeInOutCubic = (t: number): number => {
+          return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        };
+
+        const animation = (currentTime: number) => {
+          if (startTime === null) startTime = currentTime;
+          const timeElapsed = currentTime - startTime;
+          const progress = Math.min(timeElapsed / duration, 1);
+          const ease = easeInOutCubic(progress);
+          
+          window.scrollTo(0, startPosition + distance * ease);
+
+          if (progress < 1) {
+            requestAnimationFrame(animation);
+          }
+        };
+
+        requestAnimationFrame(animation);
+        return true;
       }
+      return false;
+    };
+
+    // Retry logic for dynamic content
+    if (!scrollTarget()) {
+      let attempts = 0;
+      const interval = setInterval(() => {
+        attempts++;
+        if (scrollTarget() || attempts > 15) {
+          clearInterval(interval);
+        }
+      }, 30);
     }
   };
 
   return (
-    <div className='min-h-screen' style={{ background: 'linear-gradient(135deg, #fff4cf 0%, #ffdca8 58%, #fffaf0 100%)' }}>
+    <div className='min-h-screen' style={{ background: 'var(--bg)' }}>
       {/* Scroll-Craft Top Progress Bar */}
       <motion.div
         style={{
@@ -530,13 +571,15 @@ export default function Portfolio() {
                 {PROFILE.name}
               </span>
               <span className='eyebrow' style={{ fontSize: '10px' }}>
-                Level {PROFILE.level} · /{PROFILE.alias}
+                {PROFILE.title}
               </span>
             </div>
           </a>
           <div className='flex items-center gap-3'>
+            <ThemeToggle />
             <motion.a
               whileHover={{ scale: 1.03 }}
+              transition={{ duration: 0.12 }}
               whileTap={{ scale: 0.97 }}
               href={PROFILE.resumeUrl}
               target='_blank'
@@ -549,6 +592,7 @@ export default function Portfolio() {
             </motion.a>
             <motion.button
               whileHover={{ scale: 1.03 }}
+              transition={{ duration: 0.12 }}
               whileTap={{ scale: 0.97 }}
               onClick={copyEmail}
               className='btn btn-primary'
@@ -573,46 +617,9 @@ export default function Portfolio() {
             className='panel'
             style={{ padding: 'var(--space-6)', marginBottom: 'var(--space-6)' }}
           >
-            <div className='grid grid-cols-1 md:grid-cols-12 gap-6 items-start'>
-              {/* Avatar Box */}
-              <div className='md:col-span-3 flex flex-col items-center md:items-start gap-3'>
-                <motion.div
-                  whileHover={{ scale: 1.04, rotate: 1 }}
-                  className='w-40 h-40 bg-surface-warm flex items-center justify-center font-black relative overflow-hidden'
-                  style={{
-                    border: '3px solid var(--fg)',
-                    borderRadius: 'var(--radius-md)',
-                    boxShadow: '4px 4px 0 var(--fg)',
-                  }}
-                >
-                  <img
-                    src={PROFILE.avatarUrl}
-                    alt={PROFILE.name}
-                    className='w-full h-full object-cover'
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                    }}
-                  />
-                  <div className='absolute inset-0 flex items-center justify-center text-4xl text-fg font-black pointer-events-none' style={{ fontFamily: 'var(--font-display)' }}>
-                    DSJ
-                  </div>
-                </motion.div>
-                <motion.div
-                  initial={{ scale: 0.9, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                  className='tile tile-warm flex items-center gap-2 px-3 py-1.5'
-                  style={{ borderRadius: 'var(--radius-sm)', border: '2px solid var(--fg)', width: '100%', maxWidth: '160px' }}
-                >
-                  <span className='w-2.5 h-2.5 rounded-full bg-success animate-pulse' style={{ border: '1px solid var(--fg)' }} />
-                  <span className='font-bold text-fg' style={{ fontSize: 'var(--text-xs)', fontFamily: 'var(--font-mono)' }}>
-                    LVL {PROFILE.level} · {PROFILE.badgeXP}
-                  </span>
-                </motion.div>
-              </div>
-
+            <div className='flex flex-col gap-3'>
               {/* Bio & Information */}
-              <div className='md:col-span-9 flex flex-col gap-3'>
+              <div className='flex flex-col gap-3'>
                 <div className='flex flex-wrap items-center justify-between gap-2'>
                   <div>
                     <h1 style={{ fontSize: 'clamp(var(--text-2xl), 4vw, var(--text-3xl))', fontWeight: 760, color: 'var(--fg)', lineHeight: 1.1 }}>
@@ -622,9 +629,6 @@ export default function Portfolio() {
                       {PROFILE.headline}
                     </p>
                   </div>
-                  <span className='tile tile-warm px-3 py-1 font-bold' style={{ fontSize: 'var(--text-xs)', fontFamily: 'var(--font-mono)' }}>
-                    {PROFILE.badgeTitle}
-                  </span>
                 </div>
 
                 <div className='flex flex-wrap items-center gap-4 text-xs font-semibold' style={{ color: 'var(--fg-2)' }}>
@@ -660,8 +664,8 @@ export default function Portfolio() {
                       key={skill}
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.1 + idx * 0.05 }}
-                      whileHover={{ scale: 1.06, y: -2 }}
+                      transition={{ delay: 0.05 + idx * 0.03, duration: 0.15 }}
+                      whileHover={{ scale: 1.05, y: -2 }}
                       className='tile'
                       style={{
                         padding: '4px 10px',
@@ -692,11 +696,11 @@ export default function Portfolio() {
           >
             <div className='flex items-center justify-between gap-3 mb-3 pb-3 border-b-2 border-fg'>
               <div className='flex items-center gap-2'>
-                <span className='w-3 h-3 rounded-full bg-accent animate-ping' style={{ border: '1px solid var(--fg)' }} />
-                <span className='eyebrow'>Special Lead Showcase</span>
+                <span className='w-3 h-3 rounded-full bg-accent' style={{ border: '1px solid var(--fg)' }} />
+                <span className='eyebrow'>Lead Showcase Project</span>
               </div>
               <span className='font-bold text-xs' style={{ fontFamily: 'var(--font-mono)', color: 'var(--fg-2)' }}>
-                {PROFILE.leadShowcase.hoursPlayed}
+                {PROFILE.leadShowcase.category}
               </span>
             </div>
 
@@ -731,8 +735,9 @@ export default function Portfolio() {
 
             <div className='flex flex-wrap gap-3'>
               <motion.a
-                whileHover={{ scale: 1.03, x: 2 }}
-                whileTap={{ scale: 0.96 }}
+                whileHover={{ scale: 1.04, x: 2 }}
+                transition={{ duration: 0.12 }}
+                whileTap={{ scale: 0.97 }}
                 href={PROFILE.leadShowcase.liveDemo}
                 target='_blank'
                 rel='noreferrer'
@@ -743,8 +748,9 @@ export default function Portfolio() {
                 <ExternalLink size={14} />
               </motion.a>
               <motion.a
-                whileHover={{ scale: 1.03, x: 2 }}
-                whileTap={{ scale: 0.96 }}
+                whileHover={{ scale: 1.04, x: 2 }}
+                transition={{ duration: 0.12 }}
+                whileTap={{ scale: 0.97 }}
                 href={PROFILE.leadShowcase.githubRepo}
                 target='_blank'
                 rel='noreferrer'
@@ -762,15 +768,16 @@ export default function Portfolio() {
             {[
               { id: 'projects' as const, label: `Projects (${PROFILE.allProjects.length})`, icon: <Sparkles size={14} /> },
               { id: 'experience' as const, label: `Experience (${PROFILE.experiences.length})`, icon: <Briefcase size={14} /> },
-              { id: 'badges' as const, label: `Badges & Certs (${PROFILE.badges.length})`, icon: <Award size={14} /> },
+              { id: 'badges' as const, label: `Certifications (${PROFILE.badges.length})`, icon: <Award size={14} /> },
             ].map((tab) => {
               const active = activeTab === tab.id;
               return (
                 <motion.button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  whileHover={{ scale: 1.04, y: -2 }}
-                  whileTap={{ scale: 0.96 }}
+                  whileHover={{ scale: 1.03, y: -1 }}
+                  transition={{ duration: 0.12 }}
+                  whileTap={{ scale: 0.97 }}
                   className='btn'
                   style={{
                     background: active ? 'var(--accent)' : 'var(--surface)',
@@ -795,15 +802,15 @@ export default function Portfolio() {
           <div className='grid grid-cols-1 lg:grid-cols-12 gap-6 items-start'>
             {/* Left Content Area */}
             <div className='lg:col-span-8 flex flex-col gap-6'>
-              <AnimatePresence mode='wait'>
+              <AnimatePresence mode='popLayout'>
                 {/* TAB 1: FEATURED PROJECTS */}
                 {activeTab === 'projects' && (
                   <motion.div
                     key='projects'
-                    initial={{ opacity: 0, y: 15 }}
+                    initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -15 }}
-                    transition={{ duration: 0.3 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.18, ease: 'easeOut' }}
                     id='archive'
                     className='space-y-6'
                   >
@@ -821,8 +828,9 @@ export default function Portfolio() {
                           return (
                             <motion.button
                               key={cat}
-                              whileHover={{ scale: 1.05 }}
-                              whileTap={{ scale: 0.95 }}
+                              whileHover={{ scale: 1.04 }}
+                              transition={{ duration: 0.12 }}
+                              whileTap={{ scale: 0.97 }}
                               onClick={() => {
                                 setProjectFilter(cat);
                                 setVisibleCount(6);
@@ -851,7 +859,7 @@ export default function Portfolio() {
                       {visibleProjects.map((proj, idx) => (
                         <TiltCard
                           key={proj.id}
-                          className='tile flex flex-col'
+                          className='tilt-card flex flex-col'
                           style={{ padding: 'var(--space-5)', background: 'var(--surface)', minHeight: '320px' }}
                         >
                           <div className='flex items-start justify-between gap-2 mb-3 pb-2 border-b-2 border-fg'>
@@ -909,11 +917,12 @@ export default function Portfolio() {
 
                           <motion.a
                             whileHover={{ x: 3 }}
+                            transition={{ duration: 0.12 }}
                             href={proj.link}
                             target='_blank'
                             rel='noreferrer'
                             className='btn btn-primary w-full'
-                            style={{ height: '38px', fontSize: 'var(--text-xs)' }}
+                            style={{ height: '38px', fontSize: 'var(--text-xs)', transform: 'translateZ(20px)', position: 'relative', zIndex: 10 }}
                           >
                             <span>{proj.cta}</span>
                             <ExternalLink size={12} />
@@ -926,8 +935,9 @@ export default function Portfolio() {
                     {visibleCount < filteredProjects.length && (
                       <div className='flex justify-center pt-2'>
                         <motion.button
-                          whileHover={{ scale: 1.04 }}
-                          whileTap={{ scale: 0.96 }}
+                          whileHover={{ scale: 1.03 }}
+                          transition={{ duration: 0.12 }}
+                          whileTap={{ scale: 0.97 }}
                           onClick={() => setVisibleCount((c) => c + 6)}
                           className='btn btn-secondary'
                           style={{ height: '44px', padding: '0 var(--space-6)' }}
@@ -944,10 +954,10 @@ export default function Portfolio() {
                 {activeTab === 'experience' && (
                   <motion.div
                     key='experience'
-                    initial={{ opacity: 0, y: 15 }}
+                    initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -15 }}
-                    transition={{ duration: 0.3 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.18, ease: 'easeOut' }}
                     id='experience'
                     className='space-y-6'
                   >
@@ -1078,17 +1088,17 @@ export default function Portfolio() {
                 {activeTab === 'badges' && (
                   <motion.div
                     key='badges'
-                    initial={{ opacity: 0, y: 15 }}
+                    initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -15 }}
-                    transition={{ duration: 0.3 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.18, ease: 'easeOut' }}
                     id='badges'
                     className='panel'
                     style={{ padding: 'var(--space-6)' }}
                   >
                     <div className='flex items-center justify-between pb-3 mb-4 border-b-2 border-fg'>
                       <h2 style={{ fontSize: 'var(--text-lg)', fontWeight: 760, color: 'var(--fg)' }}>
-                        Badges & Industry Certifications ({PROFILE.badges.length})
+                        Certifications & Credentials ({PROFILE.badges.length})
                       </h2>
                       <span className='eyebrow'>Verified Credentials</span>
                     </div>
@@ -1101,9 +1111,9 @@ export default function Portfolio() {
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true, amount: 0.2 }}
                           transition={{ duration: 0.2 }}
-                          whileHover={{ scale: 1.03, y: -2 }}
+                          whileHover={{ scale: 1.02, y: -2 }}
                           className='tile tile-warm flex items-center gap-3'
-                          style={{ padding: 'var(--space-4)' }}
+                          style={{ padding: 'var(--space-4)', transition: 'transform 0.12s ease, box-shadow 0.12s ease' }}
                         >
                           <div
                             className='w-12 h-12 flex items-center justify-center shrink-0'
@@ -1124,24 +1134,6 @@ export default function Portfolio() {
                               Issuer: {b.org}
                             </span>
                             <div className='flex items-center gap-2 mt-1.5'>
-                              <span
-                                className='tile'
-                                style={{
-                                  fontSize: '10px',
-                                  fontWeight: 700,
-                                  padding: '1px 6px',
-                                  background: 'var(--surface)',
-                                  color: 'var(--accent)',
-                                  fontFamily: 'var(--font-mono)',
-                                  display: 'inline-flex',
-                                  alignItems: 'center',
-                                  gap: '3px',
-                                  boxShadow: '1px 1px 0 var(--fg)',
-                                }}
-                              >
-                                <Star size={10} fill='currentColor' />
-                                <span>{b.xp}</span>
-                              </span>
                               <span className='text-xs font-semibold' style={{ color: 'var(--success)' }}>
                                 Verified
                               </span>
@@ -1183,7 +1175,7 @@ export default function Portfolio() {
                 </div>
               </motion.div>
 
-              {/* Badges Summary Showcase */}
+              {/* Certifications Showcase */}
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -1193,9 +1185,9 @@ export default function Portfolio() {
                 style={{ padding: 'var(--space-5)' }}
               >
                 <div className='flex items-center justify-between pb-2 mb-3 border-b-2 border-fg'>
-                  <span className='eyebrow'>Badge Shelf</span>
+                  <span className='eyebrow'>Certifications</span>
                   <span className='font-bold text-xs' style={{ fontFamily: 'var(--font-mono)' }}>
-                    {PROFILE.badges.length} Items
+                    {PROFILE.badges.length} Total
                   </span>
                 </div>
                 <div className='space-y-2'>
@@ -1211,15 +1203,15 @@ export default function Portfolio() {
                         </div>
                         <span className='font-bold truncate text-fg'>{b.name}</span>
                       </div>
-                      <span className='font-bold text-accent shrink-0' style={{ fontFamily: 'var(--font-mono)', fontSize: '10px' }}>
-                        {b.xp}
+                      <span className='font-semibold text-muted shrink-0 text-right' style={{ fontFamily: 'var(--font-mono)', fontSize: '10px' }}>
+                        {b.org.replace(' Indonesia', '')}
                       </span>
                     </div>
                   ))}
                 </div>
               </motion.div>
 
-              {/* Tech Inventory Widget */}
+              {/* Tech Stack Widget */}
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -1229,16 +1221,17 @@ export default function Portfolio() {
                 style={{ padding: 'var(--space-5)' }}
               >
                 <div className='flex items-center justify-between pb-2 mb-3 border-b-2 border-fg'>
-                  <span className='eyebrow'>Tech Inventory</span>
+                  <span className='eyebrow'>Technical Stack</span>
                   <span className='font-bold text-xs' style={{ fontFamily: 'var(--font-mono)' }}>
-                    {PROFILE.techInventory.length} Items
+                    {PROFILE.techInventory.length} Techs
                   </span>
                 </div>
                 <div className='flex flex-wrap gap-1.5'>
                   {PROFILE.techInventory.map((tech) => (
                     <motion.span
                       key={tech}
-                      whileHover={{ scale: 1.08 }}
+                      whileHover={{ scale: 1.05, y: -1 }}
+                      transition={{ duration: 0.12 }}
                       className='tile'
                       style={{
                         fontSize: '11px',
@@ -1255,7 +1248,7 @@ export default function Portfolio() {
                 </div>
               </motion.div>
 
-              {/* Education Lore */}
+              {/* Education Background */}
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -1265,7 +1258,7 @@ export default function Portfolio() {
                 style={{ padding: 'var(--space-5)' }}
               >
                 <div className='pb-2 mb-3 border-b-2 border-fg'>
-                  <span className='eyebrow'>Education Lore</span>
+                  <span className='eyebrow'>Academic Background</span>
                 </div>
                 <div className='space-y-3'>
                   {PROFILE.education.map((edu, idx) => (
@@ -1302,6 +1295,7 @@ export default function Portfolio() {
                 <div className='space-y-2 text-xs font-bold'>
                   <motion.a
                     whileHover={{ x: 3 }}
+                    transition={{ duration: 0.12 }}
                     href={PROFILE.resumeUrl}
                     target='_blank'
                     rel='noreferrer'
@@ -1317,6 +1311,7 @@ export default function Portfolio() {
 
                   <motion.a
                     whileHover={{ x: 3 }}
+                    transition={{ duration: 0.12 }}
                     href={PROFILE.linkedin}
                     target='_blank'
                     rel='noreferrer'
@@ -1329,6 +1324,7 @@ export default function Portfolio() {
 
                   <motion.a
                     whileHover={{ x: 3 }}
+                    transition={{ duration: 0.12 }}
                     href={PROFILE.github}
                     target='_blank'
                     rel='noreferrer'
@@ -1346,7 +1342,7 @@ export default function Portfolio() {
       </main>
 
       {/* Footer */}
-      <footer className='bg-fg' style={{ borderTop: '3px solid var(--fg)', paddingBlock: 'var(--space-8)', marginBottom: '38px' }}>
+      <footer className='bg-fg' style={{ borderTop: '3px solid var(--fg)', paddingBlock: 'var(--space-8)', paddingBottom: 'calc(var(--space-8) + 38px)' }}>
         <div className='neo-container flex flex-col md:flex-row items-center justify-between gap-4'>
           <div className='flex items-center gap-3'>
             <span
@@ -1373,17 +1369,18 @@ export default function Portfolio() {
         </div>
       </footer>
 
-      {/* XP Stamp Rail: Signature Move */}
-      <nav className='xp-rail' aria-label='Milestone section progress'>
+      {/* Section Quick Navigation */}
+      <nav className='quick-nav' aria-label='Section navigation'>
         {SECTIONS.map((s) => (
           <motion.button
             key={s.id}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className='xp-rail__mark'
-            data-stamped={stamped[s.id] ? 'true' : 'false'}
+            whileHover={{ scale: 1.03 }}
+            transition={{ duration: 0.12 }}
+            whileTap={{ scale: 0.97 }}
+            className='quick-nav__item'
+            data-active={stamped[s.id] ? 'true' : 'false'}
             onClick={() => scrollToSection(s.id)}
-            title={`Scroll to ${s.label}`}
+            title={`Go to ${s.label}`}
           >
             {s.label}
           </motion.button>
