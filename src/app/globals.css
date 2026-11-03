@@ -58,6 +58,7 @@
   --container-gutter-desktop: 36px;
   --container-gutter-tablet: 24px;
   --container-gutter-phone: 16px;
+  --grid-line: rgba(42, 24, 16, 0.08);
 }
 
 /* Dark mode theme - Soft Dark Pastel */
@@ -79,6 +80,7 @@
   --danger: #bf616a;
   --meta: #88c0d0;
   --shadow-color: rgba(15, 17, 23, 0.45);
+  --grid-line: rgba(255, 255, 255, 0.06);
 }
 
 /* System preference auto-detection when user selects system mode */
@@ -101,6 +103,7 @@
     --danger: #bf616a;
     --meta: #88c0d0;
     --shadow-color: rgba(15, 17, 23, 0.45);
+    --grid-line: rgba(255, 255, 255, 0.06);
   }
 }
 
@@ -146,8 +149,8 @@ html {
 body {
   background-color: var(--bg);
   background-image: 
-    linear-gradient(to right, color-mix(in srgb, var(--border) 25%, transparent) 1px, transparent 1px),
-    linear-gradient(to bottom, color-mix(in srgb, var(--border) 25%, transparent) 1px, transparent 1px);
+    linear-gradient(to right, var(--grid-line, rgba(0, 0, 0, 0.06)) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line, rgba(0, 0, 0, 0.06)) 1px, transparent 1px);
   background-size: 24px 24px;
   background-attachment: fixed;
   color: var(--fg);
