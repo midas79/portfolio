@@ -50,7 +50,7 @@ export const PROFILE = {
   linkedin: "https://www.linkedin.com/in/dionisiussj",
   github: "https://github.com/midas79",
   resumeUrl: "/Dionisius_Surya_Jaya_CV.pdf",
-  bio: "Undergraduate Computer Science student at Universitas Brawijaya with a focus on building clean, high-performance web products, data processing pipelines, and applied machine learning models. Experienced in leading full-stack implementations, geospatial mapping, and clinical predictive modeling.",
+  bio: "Graduated Computer Science student at Universitas Brawijaya (GPA: 3.58/4.00) specializing in Machine Learning, Computer Vision, and Data Analytics pipelines.",
 };
 
 export const PROJECTS: ProjectItem[] = [

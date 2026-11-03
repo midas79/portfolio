@@ -68,7 +68,7 @@ const PROFILE = {
   latLong: '7.98° S / 112.63° E',
   headline: 'Software Engineer & Machine Learning Developer',
   summary:
-    'Undergraduate Computer Science student at Universitas Brawijaya (Informatics 2022 to 2026) with a passion for software development and applied machine learning. Building clean architectures, data processing pipelines, and clinical predictive models.',
+    'Graduated Computer Science student at Universitas Brawijaya (GPA: 3.58/4.00) specializing in Machine Learning, Computer Vision, and Data Analytics pipelines.',
   email: 'dionisius.suryajaya@gmail.com',
   linkedin: 'https://www.linkedin.com/in/dionisiussj',
   github: 'https://github.com/midas79',
