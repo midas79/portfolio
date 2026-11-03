@@ -74,12 +74,12 @@ const PROFILE = {
   github: 'https://github.com/midas79',
   resumeUrl: '/Dionisius_Surya_Jaya_CV.pdf',
   topSkills: [
-    'WebDev',
-    'Front-End Development',
-    'Machine Learning & NLP',
-    'Backend & APIs',
-    'Financial Planning',
+    'Machine Learning & Computer Vision',
+    'Data Analytics & Visualization',
+    'NLP & Predictive Modeling',
+    'Full-Stack Development',
     'Geospatial WebGIS',
+    'Cloud-Deployed Web Applications',
   ],
   badges: [
     { name: 'Belajar Back-End Pemula dengan JavaScript', org: 'Dicoding Indonesia', iconType: 'backend' },
