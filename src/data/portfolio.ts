@@ -50,7 +50,7 @@ export const PROFILE = {
   linkedin: "https://www.linkedin.com/in/dionisiussj",
   github: "https://github.com/midas79",
   resumeUrl: "/Dionisius_Surya_Jaya_CV.pdf",
-  bio: "Graduated Computer Science student at Universitas Brawijaya (GPA: 3.58/4.00) specializing in Machine Learning, Computer Vision, and Data Analytics pipelines.",
+  bio: "Graduated Computer Science student at Universitas Brawijaya (GPA: 3.58/4.00) specializing in Machine Learning, Computer Vision, and Data Analytics pipelines. Experienced in building end-to-end predictive models, NLP classification systems, and statistical dashboards for healthcare and public sector domains. Complemented by strong full-stack development capabilities in Next.js, React, and cloud-deployed web applications.",
 };
 
 export const PROJECTS: ProjectItem[] = [
